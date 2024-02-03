@@ -5,7 +5,6 @@
 console.info('Loaded Server Script')
 
 ServerEvents.tags('item', event => {
-
   event.add('create:upright_on_belt', 'kubejs:baked_cake')
   event.add('create:upright_on_belt', 'kubejs:raw_cake')
   event.add('create:upright_on_belt', 'kubejs:frosted_cake')
@@ -13,23 +12,39 @@ ServerEvents.tags('item', event => {
 })
 
 ServerEvents.recipes(e => {
+  let wood_types = ['minecraft:oak', 'minecraft:spruce', 'minecraft:birch', 'minecraft:jungle', 'minecraft:acacia', 'minecraft:dark_oak', 'minecraft:mangrove', 'minecraft:cherry', 'minecraft:crimson', 'minecraft:bamboo', 'minecraft:bamboo_mosaic', 'minecraft:warped']
+
+  // Adds a recipe to smoking & cooking like ordinary minecraft food
+  function createCookingRecipes(output, input) {
+    e.recipes.smoking(output, input)
+    e.recipes.campfireCooking(output, input)
+  }
 
   // Remove Simple Hats Hat Stand
-  e.remove({ output: 'simplehats:hatsdisplay'})
+  e.remove({ output: 'simplehats:hatdisplay'})
 
-  // Remove Create's instance of dough
-  e.remove([{ output: 'create:dough' }, { input: 'create:dough' }])
+  // Slab Sawing  
+  wood_types.forEach(wood => {
+    e.recipes.createCutting('2x ' + wood + '_slab', wood + '_planks')
+  })
+
+  // Bowl Crafting
+  e.recipes.createCutting('minecraft:bowl', '#minecraft:wooden_slabs')
 
   // Custom dough manufacture
+  e.remove({ id: 'minecraft:bread' })
+  e.recipes.campfireCooking('minecraft:bread', 'farmersdelight:wheat_dough')
   e.remove({ output: 'farmersdelight:wheat_dough' })
   e.recipes.createMixing('farmersdelight:wheat_dough', [
     Fluid.of('water', 500),
+    'minecraft:egg',
     'create:wheat_flour'
   ])
 
   // Advanced Cake Manufacture
   e.remove([
     { id: 'minecraft:cake' },
+    { id: 'create:cake' },
     { id: 'farmersdelight:cake_from_milk_bottle' }
   ])
 
@@ -44,8 +59,42 @@ ServerEvents.recipes(e => {
     e.recipes.createDeploying(cake_inter, [cake_inter, 'minecraft:sweet_berries']),
   ]).transitionalItem(cake_inter).loops(1)
 
+  // Advanced Cookie Manufacture
+  e.remove([
+    { id: 'minecraft:cookie' },
+    { id: 'farmersdelight:honey_cookie' },
+    { id: 'farmersdelight:sweet_berry_cookie' }
+  ])
 
-  // Mechanical Slicing
+  e.recipes.createMixing('8x kubejs:cookie_dough', [
+    'create:bar_of_chocolate',
+    'farmersdelight:wheat_dough'
+  ])
+  e.recipes.createMixing('8x kubejs:honey_cookie_dough', [
+    Fluid.of('create:honey', 250),
+    'farmersdelight:wheat_dough'
+  ])
+  e.recipes.createMixing('8x kubejs:sweet_berry_cookie_dough', [
+    'minecraft:sweet_berries',
+    'farmersdelight:wheat_dough'
+  ])
+
+  createCookingRecipes('minecraft:cookie', 'kubejs:cookie_dough');
+  createCookingRecipes('farmersdelight:honey_cookie', 'kubejs:honey_cookie_dough');
+  createCookingRecipes('farmersdelight:sweet_berry_cookie', 'kubejs:sweet_berry_cookie_dough');
+
+  // Dough Sheets (Pancakes, Dumplings, Pasta)
+  e.recipes.create.pressing('kubejs:dough_sheet', 'farmersdelight:wheat_dough')
+  e.recipes.createDeploying('2x farmersdelight:raw_pasta', ['kubejs:dough_sheet', '#forge:tools/knives'])
+  createCookingRecipes('supplementaries:pancake', 'kubejs:dough_sheet')
+
+  e.replaceInput({ id: 'farmersdelight:cooking/dumplings' }, '#forge:dough', 'kubejs:dough_sheet') 
+
+  // Remove Create's instance of dough
+  e.remove([{ output: 'create:dough' }, { input: 'create:dough' }])
+  e.shapeless('minecraft:slime_ball', ['minecraft:lime_dye', 'farmersdelight:wheat_dough'])
+
+  // Mechanical Slicing: code snippet adapted from enigmaquip on Discord
   let sliceable = [
     'cake', 
     'sweet_berry_cheesecake', 
@@ -57,7 +106,6 @@ ServerEvents.recipes(e => {
     'red_mushroom_colony'
   ].map( e => 'farmersdelight:cutting/' + e)
   
-  // Code snippet adapted from enigmaquip on Discord
   sliceable.forEach(recipeId => {
     e.forEachRecipe({ id: recipeId }, recipe => {
       let recipeJson = recipe.json
