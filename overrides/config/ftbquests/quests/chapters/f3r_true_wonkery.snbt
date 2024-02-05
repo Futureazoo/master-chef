@@ -1,0 +1,13 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "f3r_true_wonkery"
+	group: "194F7D7BB1ECC8F5"
+	icon: "supplementaries:candy"
+	id: "5E8C7F80CA89A994"
+	order_index: 2
+	quest_links: [ ]
+	quests: [ ]
+	subtitle: ["No Oompa Loompas"]
+	title: "&f3&r True Wonkery"
+}

@@ -1,0 +1,12 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tools"
+	group: "37617A14DA413102"
+	icon: "minecraft:spyglass"
+	id: "284119261B2672EB"
+	order_index: 0
+	quest_links: [ ]
+	quests: [ ]
+	title: "Tools"
+}

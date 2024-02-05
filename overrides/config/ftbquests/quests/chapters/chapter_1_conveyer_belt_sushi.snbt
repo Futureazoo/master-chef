@@ -1,0 +1,203 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "chapter_1_conveyer_belt_sushi"
+	group: "194F7D7BB1ECC8F5"
+	icon: "farmersdelight:salmon_roll"
+	id: "59AAE97DD6B762A0"
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			id: "0EB25EDE19DC9BF3"
+			shape: "rsquare"
+			tasks: [{
+				id: "0FE521F53996EDA1"
+				item: "minecraft:kelp"
+				type: "item"
+			}]
+			x: -4.0d
+			y: -2.5d
+		}
+		{
+			dependencies: ["0EB25EDE19DC9BF3"]
+			id: "0704793A9BE1BE63"
+			tasks: [{
+				id: "349D283F83B7FFB1"
+				item: "minecraft:dried_kelp"
+				type: "item"
+			}]
+			x: -4.0d
+			y: -1.0d
+		}
+		{
+			id: "5CA2FF0DEFDF851E"
+			tasks: [{
+				id: "04A5EFAFA50263D4"
+				item: "farmersdelight:rice_panicle"
+				type: "item"
+			}]
+			x: 0.0d
+			y: -2.5d
+		}
+		{
+			dependencies: ["5CA2FF0DEFDF851E"]
+			id: "3ED3C925A16641B3"
+			tasks: [{
+				id: "6741F8466524F0ED"
+				item: "farmersdelight:cooked_rice"
+				type: "item"
+			}]
+			x: 0.0d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"11410B1FDF913E64"
+				"1FABFBFD443F5649"
+				"3BFF7245E5928BBA"
+			]
+			id: "09AB9CFF5ADC16AC"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "55C91A8D04E8598A"
+				item: "farmersdelight:rice_roll_medley_block"
+				type: "item"
+			}]
+			x: 0.0d
+			y: 5.0d
+		}
+		{
+			id: "3E3F2B003C778528"
+			tasks: [{
+				id: "392651685A152DC5"
+				item: "minecraft:carrot"
+				type: "item"
+			}]
+			x: -2.0d
+			y: -2.5d
+		}
+		{
+			dependencies: [
+				"0704793A9BE1BE63"
+				"3ED3C925A16641B3"
+				"3E3F2B003C778528"
+			]
+			id: "314918D866460822"
+			tasks: [{
+				id: "58EB0025841FB3CA"
+				item: "farmersdelight:kelp_roll"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["314918D866460822"]
+			dependency_requirement: "one_completed"
+			id: "3BFF7245E5928BBA"
+			tasks: [{
+				id: "0741A5FDB4585533"
+				item: "farmersdelight:kelp_roll_slice"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 2.0d
+		}
+		{
+			id: "45C4A9CB117D64B2"
+			tasks: [{
+				id: "476BB1486B302B0E"
+				item: "minecraft:salmon"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -2.5d
+		}
+		{
+			id: "36D592EE109466A3"
+			tasks: [{
+				id: "2A664280566FA495"
+				item: "minecraft:cod"
+				type: "item"
+			}]
+			x: 4.0d
+			y: -2.5d
+		}
+		{
+			dependencies: ["36D592EE109466A3"]
+			id: "2D1F2100F4F78A02"
+			tasks: [{
+				id: "5B4E92607950E7DA"
+				item: "farmersdelight:cod_slice"
+				type: "item"
+			}]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["45C4A9CB117D64B2"]
+			id: "574375D347A96298"
+			tasks: [{
+				id: "44050B3F95AAC321"
+				item: "farmersdelight:salmon_slice"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["574375D347A96298"]
+			id: "1FABFBFD443F5649"
+			tasks: [{
+				id: "4CD70B1A5301739B"
+				item: "farmersdelight:salmon_roll"
+				type: "item"
+			}]
+			x: 0.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["2D1F2100F4F78A02"]
+			id: "11410B1FDF913E64"
+			tasks: [{
+				id: "6A91CDE4E0FF1247"
+				item: "farmersdelight:cod_roll"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 2.0d
+		}
+		{
+			id: "5E0BFBBB7BC678AB"
+			shape: "circle"
+			tasks: [{
+				id: "40D24CD1FC8BFD6B"
+				item: "create:mechanical_harvester"
+				type: "item"
+			}]
+			x: -2.0d
+			y: -4.5d
+		}
+		{
+			id: "71EDF40CB10AB91D"
+			shape: "circle"
+			tasks: [{
+				id: "7DE42FE09F403592"
+				item: {
+					Count: 1b
+					id: "minecraft:fishing_rod"
+					tag: {
+						Damage: 0
+					}
+				}
+				type: "item"
+			}]
+			x: 3.0d
+			y: -4.5d
+		}
+	]
+	subtitle: ["Something's Fishy"]
+	title: "&f1&r Sushi Conveyer"
+}
