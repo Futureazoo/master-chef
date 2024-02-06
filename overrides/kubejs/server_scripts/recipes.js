@@ -12,16 +12,90 @@ ServerEvents.tags('item', event => {
 })
 
 ServerEvents.recipes(e => {
-  let wood_types = ['minecraft:oak', 'minecraft:spruce', 'minecraft:birch', 'minecraft:jungle', 'minecraft:acacia', 'minecraft:dark_oak', 'minecraft:mangrove', 'minecraft:cherry', 'minecraft:crimson', 'minecraft:bamboo', 'minecraft:bamboo_mosaic', 'minecraft:warped']
+  let wood_types = ['minecraft:oak', 'minecraft:spruce', 'minecraft:birch', 'minecraft:jungle', 'minecraft:acacia', 'minecraft:dark_oak', 'minecraft:mangrove', 'minecraft:cherry', 'minecraft:crimson', 'minecraft:bamboo', 'minecraft:warped']
+
+  function recipeDelete(item, replacement) {
+    if (replacement != undefined) {
+      e.replaceInput({ input: item }, item, replacement)
+      e.replaceInput({ output: item }, item, replacement)
+    } else {
+      e.remove([{ output: item }, { input: item }])
+    }
+  }
+
+  // Item Removals
+  e.remove({ output: 'simplehats:hatdisplay' })
+  // Redundant Thermal Item Removals
+
+  // Sub Farmer's Delight Rice
+  recipeDelete('thermal:rice_block')
+  recipeDelete('thermal:rice', 'farmersdelight:rice')
+  recipeDelete('thermal:rice_seeds')
+
+  // Sub Farmer's Delight Tomato
+  recipeDelete('thermal:tomato_block')
+  recipeDelete('thermal:tomato', 'farmersdelight:tomato')
+  recipeDelete('thermal:tomato_seeds')
+
+  // Sub Farmer's Delight Onion
+  recipeDelete('thermal:onion_block')
+  recipeDelete('thermal:onion', 'farmersdelight:onion')
+  recipeDelete('thermal:onion_seeds')
+  
+  // Sub Supplementaries Flax
+  recipeDelete('thermal:flax_block')
+  recipeDelete('thermal:flax', 'supplementaries:flax')
+  recipeDelete('thermal:flax_seeds')
+
+  recipeDelete('thermal:hops_block')
+  recipeDelete('thermal:hops')
+  recipeDelete('thermal:hops_seeds')
+
+  // Sub Wheat
+  recipeDelete('thermal:barley_block')
+  recipeDelete('thermal:barley', 'minecraft:wheat')
+  recipeDelete('thermal:barley_seeds')
+
+  // Sub Beetroot
+  recipeDelete('thermal:radish_block')
+  recipeDelete('thermal:radish', 'minecraft:beetroot')
+  recipeDelete('thermal:radish_seeds')
+
+  recipeDelete('thermal:sadiroot_block')
+  recipeDelete('thermal:sadiroot')
+  recipeDelete('thermal:sadiroot_seeds')
+
+  recipeDelete('thermal:carrot_block')
+  recipeDelete('thermal:potato_block')
+  recipeDelete('thermal:beetroot_block')
+  recipeDelete('thermal:bamboo_block')
+
+  recipeDelete('thermal:sushi_maki')
+
+  // Sub Create Honey
+  e.replaceOutput({ id: 'thermal:machines/centrifuge/centrifuge_honey_bottle' }, Fluid.of('cofh_core:honey', 250), Fluid.of('create:honey', 250))
+  e.replaceOutput({ id: 'thermal:machines/centrifuge/centrifuge_honeycomb' }, Fluid.of('cofh_core:honey', 100), Fluid.of('create:honey', 100))
+  e.replaceOutput({ id: 'thermal:machines/crucible/crucible_honey_block_to_honey' }, Fluid.of('cofh_core:honey', 1000), Fluid.of('create:honey', 1000))
+  e.replaceInput({ id: 'thermal:machines/chiller/chiller_honey_to_honey_block' }, Fluid.of('cofh_core:honey', 1000), Fluid.of('create:honey', 1000))
+  e.remove('thermal:devices/hive_extractor')
+  e.custom({
+    "type": "thermal:hive_extractor",
+    "hive": "minecraft:beehive",
+    "item": "minecraft:honeycomb",
+    "fluid": "create:honey"
+  });
+  e.custom({
+    "type": "thermal:hive_extractor",
+    "hive": "minecraft:bee_nest",
+    "item": "minecraft:honeycomb",
+    "fluid": "create:honey"
+  });
 
   // Adds a recipe to smoking & cooking like ordinary minecraft food
   function createCookingRecipes(output, input) {
     e.recipes.smoking(output, input)
     e.recipes.campfireCooking(output, input)
   }
-
-  // Remove Simple Hats Hat Stand
-  e.remove({ output: 'simplehats:hatdisplay'})
 
   // Slab Sawing  
   wood_types.forEach(wood => {
