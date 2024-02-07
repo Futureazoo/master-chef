@@ -10,6 +10,7 @@ StartupEvents.registry('item', e => {
   e.create('baked_cake').displayName('Naked Cake').tooltip('§8Not Placeable')
   e.create('raw_cake').displayName('Formed Cake Batter').tooltip('§8Not Placeable')
   e.create('frosted_cake').displayName('Frosted Cake').tooltip('§8Not Placeable')
+  e.create('chocolate_frosted_cake').displayName('Chocolate Frosted Cake').tooltip('§8Not Placeable')
 
   e.create('dough_sheet').displayName('Dough Sheet')
 

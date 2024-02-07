@@ -4,11 +4,12 @@
 
 console.info('Loaded Server Script')
 
-ServerEvents.tags('item', event => {
-  event.add('create:upright_on_belt', 'kubejs:baked_cake')
-  event.add('create:upright_on_belt', 'kubejs:raw_cake')
-  event.add('create:upright_on_belt', 'kubejs:frosted_cake')
-
+ServerEvents.tags('item', e => {
+  e.add('create:upright_on_belt', 'kubejs:baked_cake')
+  e.add('create:upright_on_belt', 'kubejs:raw_cake')
+  e.add('create:upright_on_belt', 'kubejs:frosted_cake')
+  e.add('create:upright_on_belt', 'kubejs:chocolate_frosted_cake')
+  e.add('create:upright_on_belt', 'thermal:chocolate_cake')
 })
 
 ServerEvents.recipes(e => {
@@ -119,6 +120,7 @@ ServerEvents.recipes(e => {
   e.remove([
     { id: 'minecraft:cake' },
     { id: 'create:cake' },
+    { id: 'thermal:chocolate_cake' },
     { id: 'farmersdelight:cake_from_milk_bottle' }
   ])
 
@@ -132,6 +134,14 @@ ServerEvents.recipes(e => {
     e.recipes.createFilling(cake_inter, [cake_inter, Fluid.of('milk', 250)]),
     e.recipes.createDeploying(cake_inter, [cake_inter, 'minecraft:sweet_berries']),
   ]).transitionalItem(cake_inter).loops(1)
+
+  let choco_cake_inter = 'kubejs:chocolate_frosted_cake'
+  e.recipes.create.sequenced_assembly([
+    Item.of('thermal:chocolate_cake'),
+  ], 'kubejs:baked_cake', [
+    e.recipes.createFilling(choco_cake_inter, [choco_cake_inter, Fluid.of('create:chocolate', 250)]),
+    e.recipes.createDeploying(choco_cake_inter, [choco_cake_inter, 'thermal:strawberry']),
+  ]).transitionalItem(choco_cake_inter).loops(1)
 
   // Advanced Cookie Manufacture
   e.remove([
