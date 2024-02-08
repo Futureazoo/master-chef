@@ -7,6 +7,253 @@
 	id: "284119261B2672EB"
 	order_index: 0
 	quest_links: [ ]
-	quests: [ ]
+	quests: [
+		{
+			id: "0B62610348D3DBF1"
+			rewards: [{
+				id: "5661F93E251B43CC"
+				item: "minecraft:campfire"
+				type: "item"
+			}]
+			subtitle: "Take a leap!"
+			tasks: [{
+				id: "552BF1E8E93D400F"
+				item: {
+					Count: 1b
+					id: "paraglider:paraglider"
+					tag: {
+						Damage: 0
+					}
+				}
+				type: "item"
+			}]
+			x: -0.5d
+			y: -1.0d
+		}
+		{
+			id: "471E7682CB8262BE"
+			subtitle: "You'll poke your eye out!"
+			tasks: [{
+				id: "36E9E4E98C4D5204"
+				item: {
+					Count: 1b
+					id: "create:extendo_grip"
+					tag: {
+						Damage: 0
+					}
+				}
+				type: "item"
+			}]
+			x: -0.5d
+			y: 1.5d
+		}
+		{
+			id: "2C3ABBC988249EAB"
+			subtitle: "For ghost busting"
+			tasks: [{
+				id: "2D782415A5CAE5DE"
+				item: "create:haunted_bell"
+				type: "item"
+			}]
+			x: 1.0d
+			y: 1.5d
+		}
+		{
+			id: "7CD2802D607A08D3"
+			subtitle: "Wub wub wub"
+			tasks: [{
+				id: "1C9477553E0D560F"
+				item: {
+					Count: 1b
+					id: "thermal:flux_magnet"
+					tag: { }
+				}
+				type: "item"
+			}]
+			x: -0.5d
+			y: 4.0d
+		}
+		{
+			id: "5D1BDD2857C0B386"
+			subtitle: "I spy..."
+			tasks: [{
+				id: "783EC87E429E5D25"
+				item: "minecraft:spyglass"
+				type: "item"
+			}]
+			x: 1.0d
+			y: -1.0d
+		}
+		{
+			id: "296F6767D33EF667"
+			subtitle: "Because I can't count"
+			tasks: [{
+				id: "0EEC5755352789A1"
+				item: "measurements:tape_measure"
+				type: "item"
+			}]
+			x: 2.5d
+			y: -1.0d
+		}
+		{
+			id: "347BBA4A34A79187"
+			rewards: [
+				{
+					id: "74A12A69058A9483"
+					item: {
+						Count: 1b
+						id: "chalk:chalk_box"
+						tag: {
+							Items: [
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+								{
+									Count: 0b
+									id: "minecraft:air"
+								}
+							]
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "75B7728B915BA7BA"
+					item: {
+						Count: 1b
+						id: "chalk:red_chalk"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "404636D2E2AA6D7C"
+					item: {
+						Count: 1b
+						id: "chalk:yellow_chalk"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7D4C073A8087398C"
+					item: {
+						Count: 1b
+						id: "chalk:lime_chalk"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "1DCF7738B2DA9B50"
+					item: {
+						Count: 1b
+						id: "chalk:blue_chalk"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "Classy vandalism"
+			tasks: [{
+				id: "2275A4A407494003"
+				item: {
+					Count: 1b
+					id: "chalk:white_chalk"
+					tag: {
+						Damage: 0
+					}
+				}
+				type: "item"
+			}]
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			icon: {
+				Count: 1b
+				id: "create:copper_diving_helmet"
+				tag: {
+					Damage: 0
+				}
+			}
+			id: "527CFC8DB2466DAE"
+			subtitle: "For swimming (sinking)"
+			tasks: [
+				{
+					id: "42A7733290BCFEFA"
+					item: {
+						Count: 1b
+						id: "create:copper_backtank"
+						tag: {
+							Air: 900
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "791A4C9C8D71776F"
+					item: {
+						Count: 1b
+						id: "create:copper_diving_helmet"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "05245ED397339B1A"
+					item: {
+						Count: 1b
+						id: "create:copper_diving_boots"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			x: 2.5d
+			y: 1.5d
+		}
+	]
 	title: "Tools"
 }

@@ -5,7 +5,7 @@
 	group: "194F7D7BB1ECC8F5"
 	icon: "farmersdelight:salmon_roll"
 	id: "59AAE97DD6B762A0"
-	order_index: 0
+	order_index: 2
 	quest_links: [ ]
 	quests: [
 		{
@@ -199,5 +199,5 @@
 		}
 	]
 	subtitle: ["Something's Fishy"]
-	title: "&f1&r Sushi Conveyer"
+	title: "&f3&r Sushi Conveyer"
 }

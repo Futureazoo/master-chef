@@ -1,0 +1,92 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "f1r_making_bread"
+	group: "194F7D7BB1ECC8F5"
+	icon: "farmersdelight:wheat_dough"
+	id: "42837C222B22926B"
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			id: "77E969270335F8C7"
+			tasks: [{
+				id: "5ED00941F8F05995"
+				item: "salt:raw_rock_salt"
+				type: "item"
+			}]
+			x: -2.5d
+			y: -2.5d
+		}
+		{
+			dependencies: ["77E969270335F8C7"]
+			id: "7810AF3A7E4D1DEF"
+			tasks: [{
+				id: "6AC61DADFA3EC676"
+				item: "salt:salt"
+				type: "item"
+			}]
+			x: -2.5d
+			y: -1.0d
+		}
+		{
+			id: "3A80B630C93724AF"
+			tasks: [{
+				id: "72BF3D239ECFEDE4"
+				item: "minecraft:wheat"
+				type: "item"
+			}]
+			x: -0.5d
+			y: -2.5d
+		}
+		{
+			dependencies: ["3A80B630C93724AF"]
+			id: "60DA5E48FB669F2B"
+			tasks: [{
+				id: "0B6DDAED5B85E807"
+				item: "create:wheat_flour"
+				type: "item"
+			}]
+			x: -0.5d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"60DA5E48FB669F2B"
+				"7810AF3A7E4D1DEF"
+			]
+			id: "299DBC92BF8F1525"
+			tasks: [{
+				id: "7EB92B1302BF3357"
+				item: "kubejs:dry_mix"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["299DBC92BF8F1525"]
+			id: "6AA6C53FFE70065D"
+			tasks: [{
+				id: "49C8AC5A5824953A"
+				item: "farmersdelight:wheat_dough"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 2.0d
+		}
+		{
+			dependencies: ["6AA6C53FFE70065D"]
+			id: "7AC5104380C1458D"
+			tasks: [{
+				id: "66A18CDAF5AC68DA"
+				item: "minecraft:bread"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 3.5d
+		}
+	]
+	subtitle: ["Master Baking"]
+	title: "&f1&r Making Dough"
+}

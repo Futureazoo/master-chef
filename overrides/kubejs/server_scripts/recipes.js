@@ -12,6 +12,10 @@ ServerEvents.tags('item', e => {
   e.add('create:upright_on_belt', 'thermal:chocolate_cake')
 })
 
+ServerEvents.tags('block', event => {
+  event.add('minecraft:signs', 'salt:salt_cluster')
+})
+
 ServerEvents.recipes(e => {
   let wood_types = ['minecraft:oak', 'minecraft:spruce', 'minecraft:birch', 'minecraft:jungle', 'minecraft:acacia', 'minecraft:dark_oak', 'minecraft:mangrove', 'minecraft:cherry', 'minecraft:crimson', 'minecraft:bamboo', 'minecraft:warped']
 
@@ -110,11 +114,17 @@ ServerEvents.recipes(e => {
   e.remove({ id: 'minecraft:bread' })
   e.recipes.campfireCooking('minecraft:bread', 'farmersdelight:wheat_dough')
   e.remove({ output: 'farmersdelight:wheat_dough' })
-  e.recipes.createMixing('farmersdelight:wheat_dough', [
-    Fluid.of('water', 500),
-    'minecraft:egg',
-    'create:wheat_flour'
-  ])
+
+  e.recipes.create.milling(['salt:salt', Item.of('salt:salt').withChance(0.5)], 'salt:raw_rock_salt')
+  e.recipes.create.crushing(['2x salt:salt', Item.of('salt:salt').withChance(0.5)], 'salt:raw_rock_salt')
+  e.recipes.shapeless('2x kubejs:dry_mix', ['salt:salt', 'create:wheat_flour'])
+  e.recipes.createSplashing('farmersdelight:wheat_dough', 'kubejs:dry_mix')
+
+  // e.recipes.createMixing('farmersdelight:wheat_dough', [
+  //   Fluid.of('water', 500),
+  //   'minecraft:egg',
+  //   'create:wheat_flour'
+  // ])
 
   // Advanced Cake Manufacture
   e.remove([
@@ -142,6 +152,14 @@ ServerEvents.recipes(e => {
     e.recipes.createFilling(choco_cake_inter, [choco_cake_inter, Fluid.of('create:chocolate', 250)]),
     e.recipes.createDeploying(choco_cake_inter, [choco_cake_inter, 'thermal:strawberry']),
   ]).transitionalItem(choco_cake_inter).loops(1)
+
+  e.recipes.farmersdelight.cutting(
+    "thermal:chocolate_cake",
+    "#forge:tools/knives", // tool
+    [ 
+      '7x kubejs:chocolate_cake_slice'
+    ],
+  );
 
   // Advanced Cookie Manufacture
   e.remove([
@@ -178,7 +196,7 @@ ServerEvents.recipes(e => {
   e.remove([{ output: 'create:dough' }, { input: 'create:dough' }])
   e.shapeless('minecraft:slime_ball', ['minecraft:lime_dye', 'farmersdelight:wheat_dough'])
 
-  // Mechanical Slicing: code snippet adapted from enigmaquip on Discord
+  // Vanilla Farmer's Delight Mechanical Slicing: code snippet adapted from enigmaquip on Discord
   let sliceable = [
     'cake', 
     'sweet_berry_cheesecake', 
@@ -206,7 +224,9 @@ ServerEvents.recipes(e => {
       })
     })
   })
-  
+
+  // Other Mechanical Slicing
+  e.recipes.createDeploying('7x kubejs:chocolate_cake_slice', ['thermal:chocolate_cake', '#forge:tools/knives'])
 
   // Mechanical Slicing with Bonus
   e.recipes.createDeploying('4x farmersdelight:cod_slice', ['minecraft:cod', '#forge:tools/knives'])
@@ -224,6 +244,6 @@ ServerEvents.recipes(e => {
   e.remove({ id: 'farmersdelight:integration/create/mixing/cabbage_slice_from_mixing' })
   e.recipes.createMixing('4x farmersdelight:cabbage_leaf', 'farmersdelight:cabbage')
 
-  e.recipes.create.milling(['2x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.5)], 'minecraft:beef')
+  e.recipes.create.milling(['2x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
   e.recipes.create.crushing(['4x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
 })

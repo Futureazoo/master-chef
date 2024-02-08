@@ -1,0 +1,12 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "f2r_honey_please"
+	group: "194F7D7BB1ECC8F5"
+	icon: "minecraft:honeycomb"
+	id: "75982592B252133A"
+	order_index: 1
+	quest_links: [ ]
+	quests: [ ]
+	title: "&f2&r Honey, Please"
+}
