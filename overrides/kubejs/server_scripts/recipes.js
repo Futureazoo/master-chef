@@ -22,7 +22,6 @@ ServerEvents.recipes(e => {
   function recipeDelete(item, replacement) {
     if (replacement != undefined) {
       e.replaceInput({ input: item }, item, replacement)
-      e.replaceInput({ output: item }, item, replacement)
     } else {
       e.remove([{ output: item }, { input: item }])
     }
@@ -120,11 +119,8 @@ ServerEvents.recipes(e => {
   e.recipes.shapeless('2x kubejs:dry_mix', ['salt:salt', 'create:wheat_flour'])
   e.recipes.createSplashing('farmersdelight:wheat_dough', 'kubejs:dry_mix')
 
-  // e.recipes.createMixing('farmersdelight:wheat_dough', [
-  //   Fluid.of('water', 500),
-  //   'minecraft:egg',
-  //   'create:wheat_flour'
-  // ])
+  e.remove({ id: 'architects_palette:bread_block' })
+  e.recipes.shapeless('architects_palette:bread_block', '9x minecraft:bread')
 
   // Advanced Cake Manufacture
   e.remove([
@@ -246,4 +242,37 @@ ServerEvents.recipes(e => {
 
   e.recipes.create.milling(['2x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
   e.recipes.create.crushing(['4x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
+
+  // Thermal Removals
+  e.remove({ input: '#forge:coins' })
+  e.remove({ id: /thermal:lightning_charge\/.*/ })
+  e.remove({ id: /thermal:earth_charge\/.*/ })
+  e.remove({ id: /thermal:ice_charge\/.*/ })
+  e.remove({ type: 'thermal:press' })
+  e.remove({ id: /thermal:press*/ })
+  recipeDelete('thermal:ruby_gear')
+  recipeDelete('thermal:sapphire_gear')
+  recipeDelete('thermal:steel_gear')
+  recipeDelete('thermal:emerald_gear')
+  recipeDelete('thermal:diamond_gear')
+  recipeDelete('thermal:netherite_gear')
+  recipeDelete('thermal:quartz_gear')
+  recipeDelete('thermal:rose_gold_gear')
+  recipeDelete('thermal:enderium_gear')
+
+  e.remove({ id: 'thermal:storage/copper_ingot_from_nuggets'})
+  recipeDelete('thermal:copper_nugget', 'create:copper_nugget')
+  recipeDelete('thermal:iron_plate', 'create:iron_sheet')
+  recipeDelete('thermal:gold_plate', 'create:golden_sheet')
+  recipeDelete('thermal:copper_plate', 'create:copper_sheet')
+
+  // Paraglider Removals
+  recipeDelete('paraglider:goddess_statue')
+
+  // Immersive Aircraft recipe changes
+  recipeDelete('immersive_aircraft:propeller', 'create:propeller')
+  e.replaceInput({ id: 'immersive_aircraft:sail' }, 'minecraft:white_carpet', 'create:white_sail')
+  e.replaceInput({ id: 'immersive_aircraft:enhanced_propeller' }, 'minecraft:copper_ingot', 'create:brass_ingot')
+  e.replaceInput({ id: 'immersive_aircraft:gyroscope' }, 'minecraft:comparator', 'create:electron_tube')
+  e.replaceInput({ id: 'immersive_aircraft:improved_landing_gear' }, 'minecraft:coal', 'thermal:cured_rubber')
 })

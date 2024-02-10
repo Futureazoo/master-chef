@@ -1,3 +1,13 @@
 {
-  "schema_version": "2"
+  "schema_version": "2",
+  "default_packs": [
+    "file/MushroomsPlus_1.20.1_v1.2.1.zip",
+    "file/EnderEyes_1.20.1_v3.zip",
+    "file/Detail-Brush-1.6-1.20.zip",
+    "file/Create Immersive Aircrafts Resource Pack 1.19.2 - 1.2.zip",
+    "create:legacy_copper"
+  ],
+  "default_overrides": {
+    "force_compatible": true
+  }
 }
