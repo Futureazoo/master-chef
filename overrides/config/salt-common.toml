@@ -50,7 +50,7 @@
 	SaltClusterGrowingEnabled = true
 	#Chance of cluster growing by one stage on random tick. 1.0 = first random tick. 0.0 = never.
 	#Range: 0.0 ~ 1.0
-	SaltClusterGrowingChance = 0.1
+	SaltClusterGrowingChance = 0.4
 
 #Rock Salt Deposits will generate in biomes defined in tag 'salt/tags/worldgen/biome/has_rock_salt_deposits'
 #Since 1.19 - parts of the Rock Salt generation is defined in jsons.

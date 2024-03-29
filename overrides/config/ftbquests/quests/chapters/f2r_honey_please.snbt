@@ -3,10 +3,217 @@
 	default_quest_shape: ""
 	filename: "f2r_honey_please"
 	group: "194F7D7BB1ECC8F5"
-	icon: "minecraft:honeycomb"
+	icon: "minecraft:cake"
 	id: "75982592B252133A"
 	order_index: 1
 	quest_links: [ ]
-	quests: [ ]
-	title: "&f2&r Honey, Please"
+	quests: [
+		{
+			can_repeat: true
+			disable_toast: true
+			icon: {
+				Count: 1b
+				id: "wares:delivery_agreement"
+				tag: {
+					buyerName: "{\"text\":\"Sincerely, Gordon Bleu\"}"
+					message: "{\"text\":\"Out here, Andesite Alloy gets expensive. Especially with the limited machinery you have access to now. But, I have a grand trade offer! For every loaf you send us, we will send you one Andesite Alloy (in orders of 16). Box it up, and youll be rolling in Alloy in no time.\"}"
+					ordered: 0
+					paymentItems: [{
+						Count: 16
+						id: "create:andesite_alloy"
+					}]
+					requestedItems: [{
+						Count: 16
+						id: "minecraft:bread"
+					}]
+					title: "{\"text\":\"§4Chapter 1: Making Dough\"}"
+				}
+			}
+			id: "21C80BD1E513A26B"
+			rewards: [{
+				id: "3C39BC1815281C43"
+				item: {
+					Count: 1b
+					id: "wares:delivery_agreement"
+					tag: {
+						buyerName: "{\"text\":\"Sincerely, Gordon Bleu\"}"
+						message: "{\"text\":\"Out here, Andesite Alloy gets expensive. Especially with the limited machinery you have access to now. But, I have a grand trade offer! For every loaf you send us, we will send you one Andesite Alloy (in orders of 16). Box it up, and youll be rolling in Alloy in no time.\"}"
+						ordered: 0
+						paymentItems: [{
+							Count: 16
+							id: "create:andesite_alloy"
+						}]
+						requestedItems: [{
+							Count: 16
+							id: "minecraft:bread"
+						}]
+						title: "{\"text\":\"Chapter 1: Making Dough\"}"
+					}
+				}
+				type: "item"
+			}]
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "3EA83B61C84929E8"
+				title: "Chapter 1: Making Dough"
+				type: "checkmark"
+			}]
+			title: "Chapter 2: Master Baking"
+			x: -0.5d
+			y: -4.0d
+		}
+		{
+			id: "15F4621A89CB26BC"
+			tasks: [{
+				id: "2D1A6273CB0B39D3"
+				item: "minecraft:milk_bucket"
+				type: "item"
+			}]
+			x: -0.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["249B2A368BE6C919"]
+			id: "60CC1912755945B5"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "57C9EFF53E16452C"
+				item: "createaddition:chocolate_cake"
+				type: "item"
+			}]
+			x: -0.4988095238095127d
+			y: 6.5238095238095255d
+		}
+		{
+			dependencies: ["5DA4034219D7C19E"]
+			id: "249B2A368BE6C919"
+			tasks: [{
+				id: "4729F459D5EE0F4D"
+				item: "createaddition:cake_base_baked"
+				type: "item"
+			}]
+			x: -0.5d
+			y: 4.5d
+		}
+		{
+			dependencies: ["249B2A368BE6C919"]
+			id: "3DB7D6F49556FA8D"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "7358876E87B1D13C"
+				item: "minecraft:cake"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 5.5d
+		}
+		{
+			dependencies: ["249B2A368BE6C919"]
+			id: "2DBB9AEF3B2D9C0E"
+			shape: "pentagon"
+			size: 2.0d
+			tasks: [{
+				id: "6D61F2A2E35D5895"
+				item: "createaddition:honey_cake"
+				type: "item"
+			}]
+			x: -3.0d
+			y: 5.5d
+		}
+		{
+			id: "5DA4034219D7C19E"
+			tasks: [{
+				id: "16F09493A586F517"
+				item: "createaddition:cake_base"
+				type: "item"
+			}]
+			x: -0.5d
+			y: 2.5d
+		}
+		{
+			id: "307BFE269769BF38"
+			tasks: [{
+				id: "51AC80A7CCC49D7E"
+				item: "minecraft:cocoa_beans"
+				type: "item"
+			}]
+			x: -3.0d
+			y: -1.0d
+		}
+		{
+			id: "521824701DA2FA72"
+			tasks: [{
+				id: "3ED17ECC60B982FE"
+				item: "minecraft:sugar_cane"
+				type: "item"
+			}]
+			x: -6.0d
+			y: -1.0d
+		}
+		{
+			id: "593731527A235FAE"
+			tasks: [{
+				id: "191BBF3A80BF381D"
+				item: "create:bar_of_chocolate"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 2.0d
+		}
+		{
+			id: "4285C882CBE32B4C"
+			tasks: [{
+				id: "3259900C5D3ADBEE"
+				item: "minecraft:sweet_berries"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -1.0d
+		}
+		{
+			id: "3DA15686ACE29E3A"
+			tasks: [{
+				id: "70013E68D1F60DA5"
+				item: "minecraft:egg"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			id: "6A742724E51EEA3C"
+			tasks: [{
+				id: "63A20DE6F8109D5C"
+				item: "farmersdelight:wheat_dough"
+				type: "item"
+			}]
+			x: -0.5d
+			y: -2.5d
+		}
+		{
+			id: "24A6E167894A8972"
+			tasks: [{
+				id: "0689D1A64B52474C"
+				item: "minecraft:honey_bottle"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["3DA15686ACE29E3A"]
+			id: "56DBAD9265FE3BBA"
+			tasks: [{
+				id: "47E5A48BC07710D4"
+				item: "kubejs:liquid_egg_bucket"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 0.5d
+		}
+	]
+	title: "&f2&r Master Baking"
 }

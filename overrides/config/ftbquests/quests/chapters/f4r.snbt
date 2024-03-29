@@ -3,17 +3,10 @@
 	default_quest_shape: ""
 	filename: "f4r"
 	group: "194F7D7BB1ECC8F5"
-	icon: {
-		Count: 1b
-		id: "minecraft:potion"
-		tag: {
-			Potion: "minecraft:luck"
-		}
-	}
+	icon: "farmersdelight:minced_beef"
 	id: "5D58783A535F0422"
 	order_index: 4
 	quest_links: [ ]
 	quests: [ ]
-	subtitle: ["Jessie... we need to Cook"]
-	title: "&f4&r Molecular Gastronomy"
+	title: "&f4&r Vats of Meat"
 }

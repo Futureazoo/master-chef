@@ -8,15 +8,13 @@ console.info('Loaded Startup Script')
 StartupEvents.registry('item', e => {
   // Bread
   e.create('dry_mix').displayName('Dry Mix')
+
+  // Cardboard
+  e.create('cardboard').displayName('Cardboard')
   
   // Cake
-  e.create('baked_cake').displayName('Naked Cake').tooltip('§8Not Placeable')
-  e.create('raw_cake').displayName('Formed Cake Batter').tooltip('§8Not Placeable')
   e.create('frosted_cake').displayName('Frosted Cake').tooltip('§8Not Placeable')
   e.create('chocolate_frosted_cake').displayName('Chocolate Frosted Cake').tooltip('§8Not Placeable')
-  e.create('chocolate_cake_slice').displayName('Chocolate Cake Slice').food(food => {
-    food.hunger(2).saturation(0.1).effect('farmersdelight:comfort', 400, 0, 1)
-  })
 
   e.create('dough_sheet').displayName('Dough Sheet')
 
@@ -30,10 +28,39 @@ StartupEvents.registry('item', e => {
   e.create('sweet_berry_cookie_dough').displayName('Sweet Berry Cookie Dough').food(food => {
     food.hunger(2).saturation(0.1).effect('hunger', 200, 0, 1).fastToEat()
   })
+
+  // Meat Cubes
+  e.create('cube_of_beef').displayName('Cube of Beef').food(food => {
+    food.hunger(8).saturation(0.1).effect('nausea', 200, 0, 1)
+  })
+
+  e.create('cube_of_chicken').displayName('Cube of Chicken').food(food => {
+    food.hunger(8).saturation(0.1).effect('nausea', 200, 0, 1)
+  })
+
+  e.create('cube_of_mutton').displayName('Cube of Mutton').food(food => {
+    food.hunger(8).saturation(0.1).effect('nausea', 200, 0, 1)
+  })
+
+  e.create('cube_of_pork').displayName('Cube of Pork').food(food => {
+    food.hunger(8).saturation(0.1).effect('nausea', 200, 0, 1)
+  })
+})
+
+StartupEvents.registry('fluid', e => {
+  // Liquid Eggs
+  e.create('liquid_egg') // ('') contains the fluid id
+    .stillTexture('kubejs:block/eggs_still')
+    .flowingTexture('kubejs:block/eggs_flow')
+    .bucketColor(0xf8f1e9)
+    .displayName('Liquid Egg')
 })
 
 ItemEvents.modification(e => {
   e.modify('minecraft:cake', item => {
+    item.maxStackSize = 64
+  })
+  e.modify('craftsadditions:chocolate_cake', item => {
     item.maxStackSize = 64
   })
 })

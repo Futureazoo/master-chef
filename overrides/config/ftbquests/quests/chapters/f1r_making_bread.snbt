@@ -9,17 +9,30 @@
 	quest_links: [ ]
 	quests: [
 		{
+			description: [
+				"Deep underground, collect plenty of &bRaw Rock Salt&r. &bBlocks of Raw Rock Salt&r serve as an excellent surface for growing &bSalt Clusters&r."
+				""
+				"When &bPointed Dripstone&r stalagtites with water above them drip down onto &bBlocks of Raw Rock Salt&r, &bSalt Clusters&r are formed."
+			]
 			id: "77E969270335F8C7"
+			subtitle: "Salt Harvesting"
 			tasks: [{
 				id: "5ED00941F8F05995"
-				item: "salt:raw_rock_salt"
+				item: "salt:salt_cluster"
 				type: "item"
 			}]
-			x: -2.5d
+			x: -4.0d
 			y: -2.5d
 		}
 		{
-			dependencies: ["77E969270335F8C7"]
+			dependencies: ["6EC8601743295245"]
+			description: [
+				"Unfortunately, big chunks of salt aren't great for cooking. To break them down into something more palatable, grind &bRaw Rock Salt&r through a &6Millstone.&r"
+				""
+				"While rare, it is inevitable that &bPointed Dripstone&r will grow down in place of a &bSalt Cluster&r. Be sure to filter these out, as they cannot be milled and will clog up your system. "
+				""
+				"Use the same filtering process you used for picking &bSeeds&r out of your &bWheat&r farm."
+			]
 			id: "7810AF3A7E4D1DEF"
 			tasks: [{
 				id: "6AC61DADFA3EC676"
@@ -30,24 +43,33 @@
 			y: -1.0d
 		}
 		{
+			description: [""]
 			id: "3A80B630C93724AF"
+			subtitle: "Vast Golden Fields"
 			tasks: [{
 				id: "72BF3D239ECFEDE4"
 				item: "minecraft:wheat"
 				type: "item"
 			}]
-			x: -0.5d
+			x: 1.0d
 			y: -2.5d
 		}
 		{
 			dependencies: ["3A80B630C93724AF"]
+			description: [
+				"Sadly, you can't just craft &bWheat&r into bread, that would be absurd! Grind &bWheat&r through a &6Millstone&r to get &bFlour.&r"
+				""
+				"As you harvest, you will get &bWheat Seeds&r alongside your fine golden grain. Be sure to filter these out, as they cannot be milled and will clog up your system. Keep them handy though, for later production of &bSeed Oil&r."
+				""
+				"Use the same filtering process you used for picking &bPointed Dripstone&r out of your &bRaw Rock Salt&r farm."
+			]
 			id: "60DA5E48FB669F2B"
 			tasks: [{
 				id: "0B6DDAED5B85E807"
 				item: "create:wheat_flour"
 				type: "item"
 			}]
-			x: -0.5d
+			x: 0.0d
 			y: -1.0d
 		}
 		{
@@ -55,7 +77,9 @@
 				"60DA5E48FB669F2B"
 				"7810AF3A7E4D1DEF"
 			]
+			description: ["Time to bring it together. Use a &6Mixer&r and combine &bWheat Flour&r and &bSalt&r to create &bDry Mix&r."]
 			id: "299DBC92BF8F1525"
+			subtitle: "Fine Grain"
 			tasks: [{
 				id: "7EB92B1302BF3357"
 				item: "kubejs:dry_mix"
@@ -66,7 +90,13 @@
 		}
 		{
 			dependencies: ["299DBC92BF8F1525"]
+			description: [
+				"Using a &6Fan&r and some water, you can &6Bulk Wash&r dry mix to make &bWheat Dough&r."
+				""
+				"&bWheat Dough&r is the basis for some advanced baking like &bCookies&r and &bCakes,&r so be sure to keep some on hand."
+			]
 			id: "6AA6C53FFE70065D"
+			subtitle: "Doughy"
 			tasks: [{
 				id: "49C8AC5A5824953A"
 				item: "farmersdelight:wheat_dough"
@@ -77,16 +107,97 @@
 		}
 		{
 			dependencies: ["6AA6C53FFE70065D"]
+			description: [
+				"Finally, bake your &bWheat Dough&r into beautiful &bBread.&r"
+				""
+				"At long last, the tasty result of your complex contraptions."
+				""
+				"&bBread&r is a highly desirable trading item, as well as a key ingredient for &bSandwiches.&r Make sure you keep this line productive!"
+			]
 			id: "7AC5104380C1458D"
+			shape: "hexagon"
+			size: 2.0d
+			subtitle: "Getting Baked"
 			tasks: [{
 				id: "66A18CDAF5AC68DA"
 				item: "minecraft:bread"
 				type: "item"
 			}]
 			x: -1.5d
-			y: 3.5d
+			y: 4.0d
+		}
+		{
+			dependencies: ["77E969270335F8C7"]
+			description: [
+				"&bRaw Rock Salt&r can be mined from &bSalt Clusters&r automatically using &6Drills.&r "
+				""
+				"Something to keep in mind: &osalt grows slowly&r. Only fully grown (stage 4) &bSalt Clusters&r drop &bRaw Rock Salt&r. "
+				""
+				"If you plan on mining with a rotating contraption, even &6Water Wheels&r may go too fast for salt harvesting. Use &6Cog&r ratios to slow down the rotational speed. "
+			]
+			id: "6EC8601743295245"
+			tasks: [{
+				id: "3C9C41C098244999"
+				item: "salt:raw_rock_salt"
+				type: "item"
+			}]
+			x: -3.5d
+			y: -1.5d
+		}
+		{
+			can_repeat: true
+			disable_toast: true
+			icon: {
+				Count: 1b
+				id: "wares:delivery_agreement"
+				tag: {
+					buyerName: "{\"text\":\"Sincerely, Gordon Bleu\"}"
+					message: "{\"text\":\"Out here, Andesite Alloy gets expensive. Especially with the limited machinery you have access to now. But, I have a grand trade offer! For every loaf you send us, we will send you one Andesite Alloy (in orders of 16). Box it up, and youll be rolling in Alloy in no time.\"}"
+					ordered: 0
+					paymentItems: [{
+						Count: 16
+						id: "create:andesite_alloy"
+					}]
+					requestedItems: [{
+						Count: 16
+						id: "minecraft:bread"
+					}]
+					title: "{\"text\":\"§4Chapter 1: Making Dough\"}"
+				}
+			}
+			id: "61D6075B371EDF90"
+			rewards: [{
+				id: "6028EC8A47C4D5DF"
+				item: {
+					Count: 1b
+					id: "wares:delivery_agreement"
+					tag: {
+						buyerName: "{\"text\":\"Sincerely, Gordon Bleu\"}"
+						message: "{\"text\":\"Out here, Andesite Alloy gets expensive. Especially with the limited machinery you have access to now. But, I have a grand trade offer! For every loaf you send us, we will send you one Andesite Alloy (in orders of 16). Box it up, and youll be rolling in Alloy in no time.\"}"
+						ordered: 0
+						paymentItems: [{
+							Count: 16
+							id: "create:andesite_alloy"
+						}]
+						requestedItems: [{
+							Count: 16
+							id: "minecraft:bread"
+						}]
+						title: "{\"text\":\"Chapter 1: Making Dough\"}"
+					}
+				}
+				type: "item"
+			}]
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "08D41AB5A12A3208"
+				title: "Chapter 1: Making Dough"
+				type: "checkmark"
+			}]
+			x: -1.5d
+			y: -5.0d
 		}
 	]
-	subtitle: ["Master Baking"]
 	title: "&f1&r Making Dough"
 }

@@ -2,18 +2,15 @@
 
 // Visit the wiki for more info - https://kubejs.com/
 
-console.info('Loaded Server Script')
+console.info('Loaded Server Script - Recipes')
 
 ServerEvents.tags('item', e => {
   e.add('create:upright_on_belt', 'kubejs:baked_cake')
   e.add('create:upright_on_belt', 'kubejs:raw_cake')
   e.add('create:upright_on_belt', 'kubejs:frosted_cake')
   e.add('create:upright_on_belt', 'kubejs:chocolate_frosted_cake')
-  e.add('create:upright_on_belt', 'thermal:chocolate_cake')
-})
 
-ServerEvents.tags('block', event => {
-  event.add('minecraft:signs', 'salt:salt_cluster')
+  e.add('create:blaze_burner_fuel/special', 'farmersdelight:rice_roll_medley_block')
 })
 
 ServerEvents.recipes(e => {
@@ -112,7 +109,10 @@ ServerEvents.recipes(e => {
   // Custom dough manufacture
   e.remove({ id: 'minecraft:bread' })
   e.recipes.campfireCooking('minecraft:bread', 'farmersdelight:wheat_dough')
-  e.remove({ output: 'farmersdelight:wheat_dough' })
+
+  e.remove({ id: 'create:milling/wheat' })
+  e.recipes.createMilling(['create:wheat_flour', Item.of('create:wheat_flour').withChance(0.5)], 'minecraft:wheat')
+  e.recipes.createCrushing(['2x create:wheat_flour', Item.of('create:wheat_flour').withChance(0.5)], 'minecraft:wheat')
 
   e.recipes.create.milling(['salt:salt', Item.of('salt:salt').withChance(0.5)], 'salt:raw_rock_salt')
   e.recipes.create.crushing(['2x salt:salt', Item.of('salt:salt').withChance(0.5)], 'salt:raw_rock_salt')
@@ -122,31 +122,46 @@ ServerEvents.recipes(e => {
   e.remove({ id: 'architects_palette:bread_block' })
   e.recipes.shapeless('architects_palette:bread_block', '9x minecraft:bread')
 
+  // Cardboard Box Manufacture
+  e.recipes.createCompacting(
+    ['2x kubejs:cardboard'], 
+    [Fluid.water(100), 'thermal:sawdust']
+  )
+  e.remove({ id: 'wares:cardboard_box' })
+  e.recipes.shapeless('wares:cardboard_box', '4x kubejs:cardboard')
+
+  // Liquid Eggs
+  e.recipes.create.emptying(
+    [Fluid.of('kubejs:liquid_egg', 250), 'minecraft:bone_meal'],
+    'minecraft:egg'
+  )
+
+
   // Advanced Cake Manufacture
   e.remove([
     { id: 'minecraft:cake' },
     { id: 'create:cake' },
     { id: 'thermal:chocolate_cake' },
-    { id: 'farmersdelight:cake_from_milk_bottle' }
+    { id: 'farmersdelight:cake_from_milk_bottle' },
+    { id: 'createaddition:filling/cake' },
+    { id: 'createaddition:filling/chocolate_cake' },
   ])
-
-  e.recipes.createCompacting('kubejs:raw_cake', 'farmersdelight:wheat_dough')
-  e.recipes.smoking('kubejs:baked_cake', 'kubejs:raw_cake')
 
   let cake_inter = 'kubejs:frosted_cake' 
   e.recipes.create.sequenced_assembly([
     Item.of('cake'), 
-  ], 'kubejs:baked_cake', [ 
+  ], 'createaddition:cake_base_baked', [ 
     e.recipes.createFilling(cake_inter, [cake_inter, Fluid.of('milk', 250)]),
     e.recipes.createDeploying(cake_inter, [cake_inter, 'minecraft:sweet_berries']),
   ]).transitionalItem(cake_inter).loops(1)
 
+
   let choco_cake_inter = 'kubejs:chocolate_frosted_cake'
   e.recipes.create.sequenced_assembly([
-    Item.of('thermal:chocolate_cake'),
-  ], 'kubejs:baked_cake', [
+    Item.of('createaddition:chocolate_cake'),
+  ], 'createaddition:cake_base_baked', [
     e.recipes.createFilling(choco_cake_inter, [choco_cake_inter, Fluid.of('create:chocolate', 250)]),
-    e.recipes.createDeploying(choco_cake_inter, [choco_cake_inter, 'thermal:strawberry']),
+    e.recipes.createDeploying(choco_cake_inter, [choco_cake_inter, 'minecraft:sweet_berries']),
   ]).transitionalItem(choco_cake_inter).loops(1)
 
   e.recipes.farmersdelight.cutting(
@@ -184,6 +199,13 @@ ServerEvents.recipes(e => {
   // Dough Sheets (Pancakes, Dumplings, Pasta)
   e.recipes.create.pressing('kubejs:dough_sheet', 'farmersdelight:wheat_dough')
   e.recipes.createDeploying('2x farmersdelight:raw_pasta', ['kubejs:dough_sheet', '#forge:tools/knives'])
+  e.recipes.farmersdelight.cutting(
+    "kubejs:dough_sheet",
+    "#forge:tools/knives", // tool
+    [
+      '2x farmersdelight:raw_pasta'
+    ],
+  );
   createCookingRecipes('supplementaries:pancake', 'kubejs:dough_sheet')
 
   e.replaceInput({ id: 'farmersdelight:cooking/dumplings' }, '#forge:dough', 'kubejs:dough_sheet') 
@@ -192,64 +214,19 @@ ServerEvents.recipes(e => {
   e.remove([{ output: 'create:dough' }, { input: 'create:dough' }])
   e.shapeless('minecraft:slime_ball', ['minecraft:lime_dye', 'farmersdelight:wheat_dough'])
 
-  // Vanilla Farmer's Delight Mechanical Slicing: code snippet adapted from enigmaquip on Discord
-  let sliceable = [
-    'cake', 
-    'sweet_berry_cheesecake', 
-    'chocolate_pie', 
-    'apple_pie', 
-    'pumpkin', 
-    'melon', 
-    'brown_mushroom_colony', 
-    'red_mushroom_colony'
-  ].map( e => 'farmersdelight:cutting/' + e)
-  
-  sliceable.forEach(recipeId => {
-    e.forEachRecipe({ id: recipeId }, recipe => {
-      let recipeJson = recipe.json
-      let recipeIngredients = recipeJson.getAsJsonArray('ingredients')
-      if (recipeIngredients.size() > 1) { return; }
-      let item = Ingredient.of(recipeIngredients.get(0))
-      let tool = Ingredient.of(recipeJson.get('tool'))
-      let reciperesults = recipeJson.get('result')
-      if (reciperesults.size() > 4) { return; }
-      e.custom({
-        type: 'create:deploying',
-        ingredients: [item.toJson(), tool.toJson()],
-        results: reciperesults
-      })
-    })
-  })
-
-  // Other Mechanical Slicing
-  e.recipes.createDeploying('7x kubejs:chocolate_cake_slice', ['thermal:chocolate_cake', '#forge:tools/knives'])
-
-  // Mechanical Slicing with Bonus
-  e.recipes.createDeploying('4x farmersdelight:cod_slice', ['minecraft:cod', '#forge:tools/knives'])
-  e.recipes.createDeploying('6x farmersdelight:salmon_slice', ['minecraft:salmon', '#forge:tools/knives'])
-  e.recipes.createDeploying('6x farmersdelight:kelp_roll_slice', ['farmersdelight:kelp_roll', '#forge:tools/knives'])
-  e.recipes.createDeploying('4x farmersdelight:bacon', ['minecraft:porkchop', '#forge:tools/knives'])
-  e.recipes.createDeploying('4x farmersdelight:mutton_chops', ['minecraft:mutton', '#forge:tools/knives'])
-  e.recipes.createDeploying('4x farmersdelight:cooked_mutton_chops', ['minecraft:cooked_mutton', '#forge:tools/knives'])
-  e.recipes.createDeploying('4x farmersdelight:chicken_cuts', ['minecraft:chicken', '#forge:tools/knives'])
-  e.recipes.createDeploying('4x farmersdelight:cooked_chicken_cuts', ['minecraft:cooked_chicken', '#forge:tools/knives'])
-  e.recipes.createDeploying(['2x farmersdelight:bacon', '4x minecraft:porkchop', '1x minecraft:bone'], ['farmersdelight:ham', '#forge:tools/knives'])
-  e.recipes.createDeploying(['2x farmersdelight:cooked_bacon', '4x minecraft:cooked_porkchop', '1x minecraft:bone'], ['farmersdelight:smoked_ham', '#forge:tools/knives'])
-
-  e.remove({ id: 'farmersdelight:cabbage_from_leaves' })
-  e.remove({ id: 'farmersdelight:integration/create/mixing/cabbage_slice_from_mixing' })
-  e.recipes.createMixing('4x farmersdelight:cabbage_leaf', 'farmersdelight:cabbage')
-
   e.recipes.create.milling(['2x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
   e.recipes.create.crushing(['4x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
 
   // Thermal Removals
-  e.remove({ input: '#forge:coins' })
+
   e.remove({ id: /thermal:lightning_charge\/.*/ })
   e.remove({ id: /thermal:earth_charge\/.*/ })
   e.remove({ id: /thermal:ice_charge\/.*/ })
+  
+  e.remove({ id: 'thermal:machine_press' })
   e.remove({ type: 'thermal:press' })
   e.remove({ id: /thermal:press*/ })
+
   recipeDelete('thermal:ruby_gear')
   recipeDelete('thermal:sapphire_gear')
   recipeDelete('thermal:steel_gear')
@@ -259,6 +236,8 @@ ServerEvents.recipes(e => {
   recipeDelete('thermal:quartz_gear')
   recipeDelete('thermal:rose_gold_gear')
   recipeDelete('thermal:enderium_gear')
+
+  e.remove({ id: 'thermal:tools/satchel' })
 
   e.remove({ id: 'thermal:storage/copper_ingot_from_nuggets'})
   recipeDelete('thermal:copper_nugget', 'create:copper_nugget')
