@@ -4,74 +4,52 @@
 
 console.info('Loaded Server Script - Recipes')
 
-ServerEvents.tags('item', e => {
-  e.add('create:upright_on_belt', 'kubejs:baked_cake')
-  e.add('create:upright_on_belt', 'kubejs:raw_cake')
-  e.add('create:upright_on_belt', 'kubejs:frosted_cake')
-  e.add('create:upright_on_belt', 'kubejs:chocolate_frosted_cake')
-
-  e.add('create:blaze_burner_fuel/special', 'farmersdelight:rice_roll_medley_block')
-})
-
 ServerEvents.recipes(e => {
   let wood_types = ['minecraft:oak', 'minecraft:spruce', 'minecraft:birch', 'minecraft:jungle', 'minecraft:acacia', 'minecraft:dark_oak', 'minecraft:mangrove', 'minecraft:cherry', 'minecraft:crimson', 'minecraft:bamboo', 'minecraft:warped']
 
-  function recipeDelete(item, replacement) {
-    if (replacement != undefined) {
-      e.replaceInput({ input: item }, item, replacement)
-    } else {
-      e.remove([{ output: item }, { input: item }])
+  e.custom({
+    type: "lychee:block_interacting",
+    item_in: {
+      item: "minecraft:netherite_ingot"
+    },
+    block_in: "create:depot",
+    post: [
+      {
+        type: "drop_item",
+        item: "minecraft:cobblestone"
+      },
+      {
+        type: "prevent_default"
+      },
+      {
+        type: "custom",
+        id: "consume_item_on_depot"
+      }
+    ],
+    "contextual": {
+      type: "custom",
+      id: "has_item_on_depot",
+      ingredient: {
+        "item": "minecraft:stone"
+      }
     }
-  }
+  });
 
-  // Item Removals
-  e.remove({ output: 'simplehats:hatdisplay' })
-  // Redundant Thermal Item Removals
+  // WIP, doesn't really work as expected
+  e.custom({
+    type: "lychee:lightning_channeling",
+    post: [
+      {
+        type: 'execute',
+        command: 'fill ~-3 ~-3 ~-3 ~3 ~3 ~3 create:industrial_iron_block replace create:basin[facing=down]{DisabledSpoutput:[],Filter:{Count:0b,id:"minecraft:air"},FilterAmount:64,FluidOverflow:[],ForgeCaps:{},InputItems:{Items:[{Count:1b,Slot:0,id:"minecraft:beetroot"}],Size:9},InputTanks:[{Level:{Speed:0.25f,Target:1.0f,Value:1.0f},TankContent:{Amount:1000,FluidName:"minecraft:water"}},{Level:{Speed:0.25f,Target:0.0f,Value:0.0f},TankContent:{Amount:0,FluidName:"minecraft:empty"}}],OutputItems:{Items:[],Size:9},OutputTanks:[{Level:{Speed:0.25f,Target:0.0f,Value:0.0f},TankContent:{Amount:0,FluidName:"minecraft:empty"}},{Level:{Speed:0.25f,Target:0.0f,Value:0.0f},TankContent:{Amount:0,FluidName:"minecraft:empty"}}],Overflow:[],UpTo:1b}'
+      },
+      {
+        type: 'execute',
+        command: 'fill ~-3 ~-3 ~-3 ~3 ~3 ~3 create:basin[facing=down]{DisabledSpoutput:[],Filter:{Count:0b,id:"minecraft:air"},FilterAmount:64,FluidOverflow:[],ForgeCaps:{},InputItems:{Items:[],Size:9},InputTanks:[{Level:{Speed:0.25f,Target:1.0f,Value:1.0f},TankContent:{Amount:0,FluidName:"minecraft:empty"}},{Level:{Speed:0.25f,Target:0.0f,Value:0.0f},TankContent:{Amount:0,FluidName:"minecraft:empty"}}],OutputItems:{Items:[],Size:9},OutputTanks:[{Level:{Speed:0.25f,Target:0.0f,Value:0.0f},TankContent:{Amount:1000,FluidName:"kubejs:liquid_pork"}},{Level:{Speed:0.25f,Target:0.0f,Value:0.0f},TankContent:{Amount:0,FluidName:"minecraft:empty"}}],Overflow:[],UpTo:1b} replace create:industrial_iron_block'
+      }
+    ],
+  });
 
-  // Sub Farmer's Delight Rice
-  recipeDelete('thermal:rice_block')
-  recipeDelete('thermal:rice', 'farmersdelight:rice')
-  recipeDelete('thermal:rice_seeds')
-
-  // Sub Farmer's Delight Tomato
-  recipeDelete('thermal:tomato_block')
-  recipeDelete('thermal:tomato', 'farmersdelight:tomato')
-  recipeDelete('thermal:tomato_seeds')
-
-  // Sub Farmer's Delight Onion
-  recipeDelete('thermal:onion_block')
-  recipeDelete('thermal:onion', 'farmersdelight:onion')
-  recipeDelete('thermal:onion_seeds')
-  
-  // Sub Supplementaries Flax
-  recipeDelete('thermal:flax_block')
-  recipeDelete('thermal:flax', 'supplementaries:flax')
-  recipeDelete('thermal:flax_seeds')
-
-  recipeDelete('thermal:hops_block')
-  recipeDelete('thermal:hops')
-  recipeDelete('thermal:hops_seeds')
-
-  // Sub Wheat
-  recipeDelete('thermal:barley_block')
-  recipeDelete('thermal:barley', 'minecraft:wheat')
-  recipeDelete('thermal:barley_seeds')
-
-  // Sub Beetroot
-  recipeDelete('thermal:radish_block')
-  recipeDelete('thermal:radish', 'minecraft:beetroot')
-  recipeDelete('thermal:radish_seeds')
-
-  recipeDelete('thermal:sadiroot_block')
-  recipeDelete('thermal:sadiroot')
-  recipeDelete('thermal:sadiroot_seeds')
-
-  recipeDelete('thermal:carrot_block')
-  recipeDelete('thermal:potato_block')
-  recipeDelete('thermal:beetroot_block')
-  recipeDelete('thermal:bamboo_block')
-
-  recipeDelete('thermal:sushi_maki')
 
   // Sub Create Honey
   e.replaceOutput({ id: 'thermal:machines/centrifuge/centrifuge_honey_bottle' }, Fluid.of('cofh_core:honey', 250), Fluid.of('create:honey', 250))
@@ -79,6 +57,7 @@ ServerEvents.recipes(e => {
   e.replaceOutput({ id: 'thermal:machines/crucible/crucible_honey_block_to_honey' }, Fluid.of('cofh_core:honey', 1000), Fluid.of('create:honey', 1000))
   e.replaceInput({ id: 'thermal:machines/chiller/chiller_honey_to_honey_block' }, Fluid.of('cofh_core:honey', 1000), Fluid.of('create:honey', 1000))
   e.remove('thermal:devices/hive_extractor')
+
   e.custom({
     "type": "thermal:hive_extractor",
     "hive": "minecraft:beehive",
@@ -91,6 +70,33 @@ ServerEvents.recipes(e => {
     "item": "minecraft:honeycomb",
     "fluid": "create:honey"
   });
+
+  e.custom(addFermenting(
+    ["kubejs:cube_of_beef"],
+    ["1000mb kubejs:liquid_beef", "1x minecraft:slime_ball"]
+  ));
+
+  e.custom(addFermenting(
+    ["kubejs:cube_of_chicken"],
+    ["1000mb kubejs:liquid_chicken", "1x minecraft:slime_ball"]
+  ));
+
+  e.custom(addFermenting(
+    ["kubejs:cube_of_mutton"],
+    ["1000mb kubejs:liquid_mutton", "1x minecraft:slime_ball"]
+  ));
+
+  e.custom(addFermenting(
+    ["kubejs:cube_of_pork"],
+    ["1000mb kubejs:liquid_pork", "1x minecraft:slime_ball"]
+  ));
+
+  e.custom(addDistillation(
+    ['100mb thermal:redstone', '100mb thermal:glowstone'],
+    ['1000mb minecraft:lava'],
+    400,
+    'superheated'
+  ))
 
   // Adds a recipe to smoking & cooking like ordinary minecraft food
   function createCookingRecipes(output, input) {
@@ -131,10 +137,41 @@ ServerEvents.recipes(e => {
   e.recipes.shapeless('wares:cardboard_box', '4x kubejs:cardboard')
 
   // Liquid Eggs
-  e.recipes.create.emptying(
-    [Fluid.of('kubejs:liquid_egg', 250), 'minecraft:bone_meal'],
-    'minecraft:egg'
-  )
+  e.shapeless('kubejs:liquid_egg_bucket', [
+    'minecraft:bucket',
+    '4x minecraft:egg'
+  ])
+  e.shapeless('kubejs:liquid_egg_bucket', [
+    'minecraft:bucket',
+    '2x minecraft:turtle_egg'
+  ])
+  e.shapeless('kubejs:liquid_egg_bucket', [
+    'minecraft:bucket',
+    'minecraft:sniffer_egg'
+  ])
+
+  const eggFluidQuantities = {
+    'minecraft:egg': 250,
+    'minecraft:turtle_egg': 500,
+    'minecraft:sniffer_egg': 1000,
+    'quark:egg_parrot_red_blue': 100,
+    'quark:egg_parrot_blue': 100,
+    'quark:egg_parrot_green': 100,
+    'quark:egg_parrot_yellow_blue': 100,
+    'quark:egg_parrot_grey': 100
+  };
+
+  for (const [eggType, fluidQuantity] of Object.entries(eggFluidQuantities)) {
+    e.recipes.create.emptying(
+      [Fluid.of('kubejs:liquid_egg', fluidQuantity), 'minecraft:bone_meal'],
+      eggType
+    );
+  }
+
+  // Honey to Sugar
+  e.shapeless('12x minecraft:sugar', [
+    'create:honey_bucket'
+  ])
 
 
   // Advanced Cake Manufacture
@@ -145,6 +182,17 @@ ServerEvents.recipes(e => {
     { id: 'farmersdelight:cake_from_milk_bottle' },
     { id: 'createaddition:filling/cake' },
     { id: 'createaddition:filling/chocolate_cake' },
+    { id: 'createaddition:filling/honey_cake' }
+  ])
+
+  e.recipes.createMixing('createaddition:cake_base', [
+    Fluid.of('kubejs:liquid_egg', 100),
+    'farmersdelight:wheat_dough'
+  ])
+
+  e.recipes.createFilling('createaddition:honey_cake', [
+    Fluid.of('create:honey', 250),
+    'createaddition:cake_base_baked'
   ])
 
   let cake_inter = 'kubejs:frosted_cake' 
@@ -175,6 +223,7 @@ ServerEvents.recipes(e => {
   // Advanced Cookie Manufacture
   e.remove([
     { id: 'minecraft:cookie' },
+    { id: 'quark:tweaks/crafting/utility/bent/cookie' },
     { id: 'farmersdelight:honey_cookie' },
     { id: 'farmersdelight:sweet_berry_cookie' }
   ])
@@ -214,44 +263,65 @@ ServerEvents.recipes(e => {
   e.remove([{ output: 'create:dough' }, { input: 'create:dough' }])
   e.shapeless('minecraft:slime_ball', ['minecraft:lime_dye', 'farmersdelight:wheat_dough'])
 
+  // Sponge Cloning
+  e.recipes.createCutting('2x minecraft:sponge', 'minecraft:wet_sponge')
+
+  // Kelp Roll Recipe
+  e.remove({ id: 'farmersdelight:kelp_roll' })
+  e.shaped('farmersdelight:kelp_roll', [// arg 1: output
+    'SSS',
+    'KKK'
+  ], {
+    S: 'minecraft:sponge',
+    K: 'minecraft:dried_kelp'
+  }
+  )
+
+  // Modified Rice Roll Medley
+  e.replaceInput({ id: 'farmersdelight:rice_roll_medley_block' }, 'minecraft:bowl', 'farmersdelight:cod_roll') 
+
+  // Meat Milling
   e.recipes.create.milling(['2x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
   e.recipes.create.crushing(['4x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.25)], 'minecraft:beef')
 
-  // Thermal Removals
+  // Meat Cube Recipes
+  e.recipes.create.milling(['6x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.50)], 'kubejs:cube_of_beef')
+  e.recipes.create.crushing(['8x farmersdelight:minced_beef', Item.of('farmersdelight:minced_beef').withChance(0.50)], 'kubejs:cube_of_beef')
+  e.recipes.farmersdelight.cutting(
+    "kubejs:cube_of_beef",
+    "#forge:tools/knives",
+    [
+      '6x farmersdelight:minced_beef'
+    ],
+  );
+  e.recipes.farmersdelight.cutting(
+    "kubejs:cube_of_chicken",
+    "#forge:tools/knives",
+    [
+      '6x farmersdelight:chicken_cuts'
+    ],
+  );
+  e.recipes.farmersdelight.cutting(
+    "kubejs:cube_of_mutton",
+    "#forge:tools/knives",
+    [
+      '6x farmersdelight:mutton_chops'
+    ],
+  );
+  e.recipes.farmersdelight.cutting(
+    "kubejs:cube_of_pork",
+    "#forge:tools/knives",
+    [
+      '6x farmersdelight:bacon'
+    ],
+  );
 
-  e.remove({ id: /thermal:lightning_charge\/.*/ })
-  e.remove({ id: /thermal:earth_charge\/.*/ })
-  e.remove({ id: /thermal:ice_charge\/.*/ })
-  
-  e.remove({ id: 'thermal:machine_press' })
-  e.remove({ type: 'thermal:press' })
-  e.remove({ id: /thermal:press*/ })
-
-  recipeDelete('thermal:ruby_gear')
-  recipeDelete('thermal:sapphire_gear')
-  recipeDelete('thermal:steel_gear')
-  recipeDelete('thermal:emerald_gear')
-  recipeDelete('thermal:diamond_gear')
-  recipeDelete('thermal:netherite_gear')
-  recipeDelete('thermal:quartz_gear')
-  recipeDelete('thermal:rose_gold_gear')
-  recipeDelete('thermal:enderium_gear')
-
-  e.remove({ id: 'thermal:tools/satchel' })
-
-  e.remove({ id: 'thermal:storage/copper_ingot_from_nuggets'})
-  recipeDelete('thermal:copper_nugget', 'create:copper_nugget')
-  recipeDelete('thermal:iron_plate', 'create:iron_sheet')
-  recipeDelete('thermal:gold_plate', 'create:golden_sheet')
-  recipeDelete('thermal:copper_plate', 'create:copper_sheet')
-
-  // Paraglider Removals
-  recipeDelete('paraglider:goddess_statue')
-
-  // Immersive Aircraft recipe changes
-  recipeDelete('immersive_aircraft:propeller', 'create:propeller')
   e.replaceInput({ id: 'immersive_aircraft:sail' }, 'minecraft:white_carpet', 'create:white_sail')
   e.replaceInput({ id: 'immersive_aircraft:enhanced_propeller' }, 'minecraft:copper_ingot', 'create:brass_ingot')
   e.replaceInput({ id: 'immersive_aircraft:gyroscope' }, 'minecraft:comparator', 'create:electron_tube')
   e.replaceInput({ id: 'immersive_aircraft:improved_landing_gear' }, 'minecraft:coal', 'thermal:cured_rubber')
 })
+
+LootJS.modifiers((e) => {
+  e.addBlockLootModifier("farmersdelight:rice_roll_medley_block").replaceLoot("minecraft:bowl", "farmersdelight:cod_roll");
+});

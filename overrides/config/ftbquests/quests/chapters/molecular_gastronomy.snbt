@@ -1,0 +1,12 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "molecular_gastronomy"
+	group: "194F7D7BB1ECC8F5"
+	icon: "minecraft:amethyst_shard"
+	id: "0958332C00B6F81D"
+	order_index: 4
+	quest_links: [ ]
+	quests: [ ]
+	title: "&f5&r Molecular Gastronomy"
+}

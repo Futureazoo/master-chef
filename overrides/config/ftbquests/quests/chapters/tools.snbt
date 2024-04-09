@@ -85,17 +85,6 @@
 			y: -1.0d
 		}
 		{
-			id: "296F6767D33EF667"
-			subtitle: "Because I can't count"
-			tasks: [{
-				id: "0EEC5755352789A1"
-				item: "measurements:tape_measure"
-				type: "item"
-			}]
-			x: 2.5d
-			y: -1.0d
-		}
-		{
 			id: "347BBA4A34A79187"
 			rewards: [
 				{
@@ -252,6 +241,46 @@
 				}
 			]
 			x: 2.5d
+			y: 1.5d
+		}
+		{
+			id: "49573D2812207735"
+			tasks: [{
+				id: "2EF48C81CAA80A39"
+				item: "quark:abacus"
+				type: "item"
+			}]
+			x: 2.5d
+			y: -1.0d
+		}
+		{
+			id: "2C92AFEB8874FD7B"
+			tasks: [{
+				id: "7ED474A7F0C76357"
+				item: "quark:trowel"
+				type: "item"
+			}]
+			x: 5.5d
+			y: -1.0d
+		}
+		{
+			id: "57AAC381BCBBD6D0"
+			tasks: [{
+				id: "56911EF6EEB45381"
+				item: "quark:bottled_cloud"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -1.0d
+		}
+		{
+			id: "7558874E34FF3065"
+			tasks: [{
+				id: "428E2F232D22F513"
+				item: "supplementaries:altimeter"
+				type: "item"
+			}]
+			x: 4.0d
 			y: 1.5d
 		}
 	]

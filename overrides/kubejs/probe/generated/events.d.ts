@@ -32,44 +32,45 @@ command(handler: (event: Internal.CommandEventJS) => void):void,
      * @at *server*
     */
 blockLootTables(handler: (event: Internal.BlockLootEventJS) => void):void,
-tags(type: "enchantment", handler: (event: TagEvent.Enchantment) => void): void
-tags(type: "minecraft:enchantment", handler: (event: TagEvent.Enchantment) => void): void
-tags(type: "fluid", handler: (event: TagEvent.Fluid) => void): void
-tags(type: "minecraft:fluid", handler: (event: TagEvent.Fluid) => void): void
-tags(type: "worldgen/flat_level_generator_preset", handler: (event: TagEvent.FlatLevelGeneratorPreset) => void): void
-tags(type: "minecraft:worldgen/flat_level_generator_preset", handler: (event: TagEvent.FlatLevelGeneratorPreset) => void): void
-tags(type: "damage_type", handler: (event: TagEvent.DamageType) => void): void
-tags(type: "minecraft:damage_type", handler: (event: TagEvent.DamageType) => void): void
-tags(type: "entity_type", handler: (event: TagEvent.EntityType) => void): void
-tags(type: "minecraft:entity_type", handler: (event: TagEvent.EntityType) => void): void
-tags(type: "potion", handler: (event: TagEvent.Potion) => void): void
-tags(type: "minecraft:potion", handler: (event: TagEvent.Potion) => void): void
-tags(type: "recipe_serializer", handler: (event: TagEvent.RecipeSerializer) => void): void
-tags(type: "minecraft:recipe_serializer", handler: (event: TagEvent.RecipeSerializer) => void): void
-tags(type: "cat_variant", handler: (event: TagEvent.CatVariant) => void): void
-tags(type: "minecraft:cat_variant", handler: (event: TagEvent.CatVariant) => void): void
 tags(type: "block", handler: (event: TagEvent.Block) => void): void
 tags(type: "minecraft:block", handler: (event: TagEvent.Block) => void): void
-tags(type: "mob_effect", handler: (event: TagEvent.MobEffect) => void): void
-tags(type: "minecraft:mob_effect", handler: (event: TagEvent.MobEffect) => void): void
-tags(type: "worldgen/structure", handler: (event: TagEvent.Structure) => void): void
-tags(type: "minecraft:worldgen/structure", handler: (event: TagEvent.Structure) => void): void
-tags(type: "instrument", handler: (event: TagEvent.Instrument) => void): void
-tags(type: "minecraft:instrument", handler: (event: TagEvent.Instrument) => void): void
+tags(type: "damage_type", handler: (event: TagEvent.DamageType) => void): void
+tags(type: "minecraft:damage_type", handler: (event: TagEvent.DamageType) => void): void
 tags(type: "worldgen/biome", handler: (event: TagEvent.Biome) => void): void
 tags(type: "minecraft:worldgen/biome", handler: (event: TagEvent.Biome) => void): void
+tags(type: "cat_variant", handler: (event: TagEvent.CatVariant) => void): void
+tags(type: "minecraft:cat_variant", handler: (event: TagEvent.CatVariant) => void): void
+tags(type: "worldgen/world_preset", handler: (event: TagEvent.WorldPreset) => void): void
+tags(type: "minecraft:worldgen/world_preset", handler: (event: TagEvent.WorldPreset) => void): void
+tags(type: "potion", handler: (event: TagEvent.Potion) => void): void
+tags(type: "minecraft:potion", handler: (event: TagEvent.Potion) => void): void
+tags(type: "enchantment", handler: (event: TagEvent.Enchantment) => void): void
+tags(type: "minecraft:enchantment", handler: (event: TagEvent.Enchantment) => void): void
+tags(type: "banner_pattern", handler: (event: TagEvent.BannerPattern) => void): void
+tags(type: "minecraft:banner_pattern", handler: (event: TagEvent.BannerPattern) => void): void
+tags(type: "entity_type", handler: (event: TagEvent.EntityType) => void): void
+tags(type: "minecraft:entity_type", handler: (event: TagEvent.EntityType) => void): void
+tags(type: "moonlight:soft_fluids", handler: (event: TagEvent.SoftFluids) => void): void
+tags(type: "fluid", handler: (event: TagEvent.Fluid) => void): void
+tags(type: "minecraft:fluid", handler: (event: TagEvent.Fluid) => void): void
+tags(type: "game_event", handler: (event: TagEvent.GameEvent) => void): void
+tags(type: "minecraft:game_event", handler: (event: TagEvent.GameEvent) => void): void
 tags(type: "painting_variant", handler: (event: TagEvent.PaintingVariant) => void): void
 tags(type: "minecraft:painting_variant", handler: (event: TagEvent.PaintingVariant) => void): void
 tags(type: "item", handler: (event: TagEvent.Item) => void): void
 tags(type: "minecraft:item", handler: (event: TagEvent.Item) => void): void
-tags(type: "worldgen/world_preset", handler: (event: TagEvent.WorldPreset) => void): void
-tags(type: "minecraft:worldgen/world_preset", handler: (event: TagEvent.WorldPreset) => void): void
+tags(type: "mob_effect", handler: (event: TagEvent.MobEffect) => void): void
+tags(type: "minecraft:mob_effect", handler: (event: TagEvent.MobEffect) => void): void
+tags(type: "instrument", handler: (event: TagEvent.Instrument) => void): void
+tags(type: "minecraft:instrument", handler: (event: TagEvent.Instrument) => void): void
+tags(type: "worldgen/structure", handler: (event: TagEvent.Structure) => void): void
+tags(type: "minecraft:worldgen/structure", handler: (event: TagEvent.Structure) => void): void
+tags(type: "worldgen/flat_level_generator_preset", handler: (event: TagEvent.FlatLevelGeneratorPreset) => void): void
+tags(type: "minecraft:worldgen/flat_level_generator_preset", handler: (event: TagEvent.FlatLevelGeneratorPreset) => void): void
+tags(type: "recipe_serializer", handler: (event: TagEvent.RecipeSerializer) => void): void
+tags(type: "minecraft:recipe_serializer", handler: (event: TagEvent.RecipeSerializer) => void): void
 tags(type: "point_of_interest_type", handler: (event: TagEvent.PointOfInterestType) => void): void
 tags(type: "minecraft:point_of_interest_type", handler: (event: TagEvent.PointOfInterestType) => void): void
-tags(type: "game_event", handler: (event: TagEvent.GameEvent) => void): void
-tags(type: "minecraft:game_event", handler: (event: TagEvent.GameEvent) => void): void
-tags(type: "banner_pattern", handler: (event: TagEvent.BannerPattern) => void): void
-tags(type: "minecraft:banner_pattern", handler: (event: TagEvent.BannerPattern) => void): void
     /**
      * @at *server*
     */
@@ -143,6 +144,29 @@ declare const NetworkEvents: {
      * @cancellable
     */
 dataReceived(extra: string, handler: (event: Internal.NetworkEventJS) => void):void,
+};
+declare const LycheeEvents: {
+    /**
+     * @at *startup*
+     * 
+     * @cancellable
+    */
+customAction(extra: string, handler: (event: Internal.CustomActionEventJS) => void):void,
+customAction(handler: (event: Internal.CustomActionEventJS) => void):void,
+    /**
+     * @at *startup*
+     * 
+     * @cancellable
+    */
+customCondition(extra: string, handler: (event: Internal.CustomConditionEventJS) => void):void,
+customCondition(handler: (event: Internal.CustomConditionEventJS) => void):void,
+    /**
+     * @at *client*
+     * 
+     * @cancellable
+    */
+clickedInfoBadge(extra: string, handler: (event: Internal.ClickedInfoBadgeEventJS) => void):void,
+clickedInfoBadge(handler: (event: Internal.ClickedInfoBadgeEventJS) => void):void,
 };
 declare const JEIEvents: {
     /**
@@ -722,6 +746,9 @@ registry(type: "minecraft:decorated_pot_patterns", handler: (event: Registry.Dec
 registry(type: "decorated_pot_patterns", handler: (event: Registry.DecoratedPotPatterns) => void):void,
 registry(type: "minecraft:worldgen/multi_noise_biome_source_parameter_list", handler: (event: Registry.WorldgenMultiNoiseBiomeSourceParameterList) => void):void,
 registry(type: "worldgen.multi_noise_biome_source_parameter_list", handler: (event: Registry.WorldgenMultiNoiseBiomeSourceParameterList) => void):void,
+registry(type: "ae2:keytypes", handler: (event: Registry.Keytypes) => void):void,
+registry(type: "biomancy:bio_forge_tab", handler: (event: Registry.BioForgeTab) => void):void,
+registry(type: "biomancy:serum", handler: (event: Registry.Serum) => void):void,
 registry(type: "forge:biome_modifier_serializers", handler: (event: Registry.BiomeModifierSerializers) => void):void,
 registry(type: "forge:display_contexts", handler: (event: Registry.DisplayContexts) => void):void,
 registry(type: "forge:entity_data_serializers", handler: (event: Registry.EntityDataSerializers) => void):void,
@@ -729,12 +756,14 @@ registry(type: "forge:fluid_type", handler: (event: Registry.FluidType) => void)
 registry(type: "forge:global_loot_modifier_serializers", handler: (event: Registry.GlobalLootModifierSerializers) => void):void,
 registry(type: "forge:holder_set_type", handler: (event: Registry.HolderSetType) => void):void,
 registry(type: "forge:structure_modifier_serializers", handler: (event: Registry.StructureModifierSerializers) => void):void,
+registry(type: "lychee:contextual", handler: (event: Registry.Contextual) => void):void,
+registry(type: "lychee:post_action", handler: (event: Registry.PostAction) => void):void,
 registry(type: "visuality:particle_type", handler: (event: Registry.ParticleType) => void):void,
-registry(type: "moonlight:map_markers", handler: (event: Registry.MapMarkers) => void):void,
-registry(type: "moonlight:soft_fluids", handler: (event: Registry.SoftFluids) => void):void,
 registry(type: "forge:structure_modifier", handler: (event: Registry.StructureModifier) => void):void,
-registry(type: "forge:biome_modifier", handler: (event: Registry.BiomeModifier) => void):void,
 registry(type: "paraglider:bargain_types", handler: (event: Registry.BargainTypes) => void):void,
+registry(type: "moonlight:soft_fluids", handler: (event: Registry.SoftFluids) => void):void,
+registry(type: "forge:biome_modifier", handler: (event: Registry.BiomeModifier) => void):void,
+registry(type: "moonlight:map_markers", handler: (event: Registry.MapMarkers) => void):void,
     /**
      * @at *startup*
     */

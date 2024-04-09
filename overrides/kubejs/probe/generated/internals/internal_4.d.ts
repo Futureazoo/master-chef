@@ -1,51 +1,331 @@
 /// <reference path="./internal_*.d.ts" />
-declare namespace com.simibubi.create.foundation.mixin.accessor {
-    interface ServerLevelAccessor {
-        abstract create$getEntityTickList(): Internal.EntityTickList;
-        (): Internal.EntityTickList_;
-    }
-    type ServerLevelAccessor_ = ServerLevelAccessor;
-}
-declare namespace dev.architectury.event {
-    interface Event <T> {
-        abstract invoker(): T;
-        abstract unregister(arg0: T): void;
-        abstract register(arg0: T): void;
-        abstract isRegistered(arg0: T): boolean;
-        abstract clearListeners(): void;
-    }
-    type Event_<T> = Event<T>;
-}
 declare namespace Internal {
-    class UUID implements Internal.Comparable<Internal.UUID>, Internal.Serializable {
-        constructor(arg0: number, arg1: number)
-        clockSequence(): number;
-        static randomUUID(): Internal.UUID;
-        static nameUUIDFromBytes(arg0: number[]): Internal.UUID;
-        version(): number;
-        compareTo(arg0: Internal.UUID_): number;
-        node(): number;
-        timestamp(): number;
-        variant(): number;
-        getMostSignificantBits(): number;
-        compareTo(arg0: any): number;
-        static fromString(arg0: string): Internal.UUID;
-        getLeastSignificantBits(): number;
-        get mostSignificantBits(): number
-        get leastSignificantBits(): number
+    interface ContainerEntity extends net.minecraft.world.Container, Internal.MenuProvider {
+        stopOpen(arg0: Internal.Player_): void;
+        tryClear(arg0: any): void;
+        addChestVehicleSaveData(arg0: Internal.CompoundTag_): void;
+        abstract setLootTableSeed(arg0: number): void;
+        isChestVehicleEmpty(): boolean;
+        setStackInSlot(slot: number, stack: Internal.ItemStack_): void;
+        clear(ingredient: Internal.Ingredient_): void;
+        find(): number;
+        hasAnyOf(arg0: Internal.Set_<Internal.Item>): boolean;
+        abstract removeItem(arg0: number, arg1: number): Internal.ItemStack;
+        getSlots(): number;
+        abstract isRemoved(): boolean;
+        setChanged(): void;
+        isChestVehicleStillValid(arg0: Internal.Player_): boolean;
+        abstract position(): Vec3d;
+        abstract getContainerSize(): number;
+        abstract setItem(arg0: number, arg1: Internal.ItemStack_): void;
+        interactWithContainerVehicle(arg0: Internal.Player_): InteractionResult;
+        hasAnyMatching(arg0: Internal.Predicate_<Internal.ItemStack>): boolean;
+        kjs$self(): net.minecraft.world.Container;
+        getWidth(): number;
+        getSlotLimit(slot: number): number;
+        getMaxStackSize(): number;
+        clearChestVehicleContent(): void;
+        abstract removeItemNoUpdate(arg0: number): Internal.ItemStack;
+        stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_): boolean;
+        abstract setLootTable(arg0: ResourceLocation_): void;
+        abstract clearItemStacks(): void;
+        abstract getItem(arg0: number): Internal.ItemStack;
+        unpackChestVehicleLootTable(arg0: Internal.Player_): void;
+        getChestVehicleSlot(arg0: number): Internal.SlotAccess;
+        isItemValid(slot: number, stack: Internal.ItemStack_): boolean;
+        chestVehicleDestroyed(arg0: DamageSource_, arg1: Internal.Level_, arg2: Internal.Entity_): void;
+        abstract getDisplayName(): net.minecraft.network.chat.Component;
+        count(ingredient: Internal.Ingredient_): number;
+        count(): number;
+        countItem(arg0: Internal.Item_): number;
+        isEmpty(): boolean;
+        startOpen(arg0: Internal.Player_): void;
+        canPlaceItem(arg0: number, arg1: Internal.ItemStack_): boolean;
+        abstract getItemStacks(): Internal.NonNullList<Internal.ItemStack>;
+        abstract createMenu(arg0: number, arg1: Internal.Inventory_, arg2: Internal.Player_): Internal.AbstractContainerMenu;
+        removeChestVehicleItem(arg0: number, arg1: number): Internal.ItemStack;
+        getChestVehicleItem(arg0: number): Internal.ItemStack;
+        extractItem(slot: number, amount: number, simulate: boolean): Internal.ItemStack;
+        getBlock(level: Internal.Level_): Internal.BlockContainerJS;
+        stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_, arg2: number): boolean;
+        readChestVehicleSaveData(arg0: Internal.CompoundTag_): void;
+        getStackInSlot(slot: number): Internal.ItemStack;
+        getHeight(): number;
+        removeChestVehicleItemNoUpdate(arg0: number): Internal.ItemStack;
+        abstract getLootTableSeed(): number;
+        countNonEmpty(): number;
+        asContainer(): net.minecraft.world.Container;
+        getAllItems(): Internal.List<Internal.ItemStack>;
+        canTakeItem(arg0: net.minecraft.world.Container_, arg1: number, arg2: Internal.ItemStack_): boolean;
+        insertItem(stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
+        abstract getLootTable(): ResourceLocation;
+        setChestVehicleItem(arg0: number, arg1: Internal.ItemStack_): void;
+        insertItem(slot: number, stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
+        abstract stillValid(arg0: Internal.Player_): boolean;
+        abstract level(): Internal.Level;
+        isMutable(): boolean;
+        clear(): void;
+        find(ingredient: Internal.Ingredient_): number;
+        abstract clearContent(): void;
+        countNonEmpty(ingredient: Internal.Ingredient_): number;
+        set lootTableSeed(arg0: number)
+        get chestVehicleEmpty(): boolean
+        get slots(): number
+        get removed(): boolean
+        get containerSize(): number
+        get width(): number
+        get maxStackSize(): number
+        set lootTable(arg0: ResourceLocation_)
+        get displayName(): net.minecraft.network.chat.Component
+        get empty(): boolean
+        get itemStacks(): Internal.NonNullList<Internal.ItemStack>
+        get height(): number
+        get lootTableSeed(): number
+        get allItems(): Internal.List<Internal.ItemStack>
+        get lootTable(): ResourceLocation
+        get mutable(): boolean
     }
-    type UUID_ = UUID;
-    class EnumArgument <T extends Internal.Enum<T>> implements Internal.ArgumentType<T> {
-        getExamples(): Internal.Collection<string>;
-        static enumArgument<R extends Internal.Enum<R>>(arg0: R): Internal.EnumArgument<R>;
-        listSuggestions<S>(arg0: Internal.CommandContext_<S>, arg1: Internal.SuggestionsBuilder_): Internal.CompletableFuture<Internal.Suggestions>;
-        parse(arg0: Internal.StringReader_): any;
-        get examples(): Internal.Collection<string>
+    type ContainerEntity_ = ContainerEntity;
+    class BlockIgnoreProcessor extends Internal.StructureProcessor {
+        constructor(arg0: Internal.List_<Internal.Block>)
+        static readonly AIR: Internal.BlockIgnoreProcessor;
+        static readonly STRUCTURE_BLOCK: Internal.BlockIgnoreProcessor;
+        static readonly CODEC: Internal.Codec<Internal.BlockIgnoreProcessor>;
+        static readonly STRUCTURE_AND_AIR: Internal.BlockIgnoreProcessor;
     }
-    type EnumArgument_<T extends Internal.Enum<T>> = EnumArgument<T>;
-    interface Double2LongFunction extends it.unimi.dsi.fastutil.Function<number, number>, Internal.DoubleToLongFunction {
-        andThenFloat(arg0: Internal.Long2FloatFunction_): Internal.Double2FloatFunction;
-        andThenReference<T>(arg0: Internal.Long2ReferenceFunction_<T>): Internal.Double2ReferenceFunction<T>;
+    type BlockIgnoreProcessor_ = BlockIgnoreProcessor;
+    class PooledByteBufAllocator extends Internal.AbstractByteBufAllocator implements Internal.ByteBufAllocatorMetricProvider {
+        constructor()
+        constructor(arg0: boolean, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: boolean)
+        constructor(arg0: boolean, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: boolean)
+        constructor(arg0: boolean, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: boolean, arg9: number)
+        constructor(arg0: boolean, arg1: number, arg2: number, arg3: number, arg4: number)
+        constructor(arg0: number, arg1: number, arg2: number, arg3: number)
+        constructor(arg0: boolean, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: boolean, arg8: number)
+        constructor(arg0: boolean, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number)
+        constructor(arg0: boolean)
+        pinnedDirectMemory(): number;
+        /**
+         * @deprecated
+        */
+        numDirectArenas(): number;
+        static defaultNumDirectArena(): number;
+        /**
+         * @deprecated
+        */
+        freeThreadLocalCache(): void;
+        /**
+         * @deprecated
+        */
+        tinyCacheSize(): number;
+        metric(): Internal.ByteBufAllocatorMetric;
+        static defaultSmallCacheSize(): number;
+        static defaultUseCacheForAllThreads(): boolean;
+        /**
+         * @deprecated
+        */
+        normalCacheSize(): number;
+        static defaultPageSize(): number;
+        static defaultMaxOrder(): number;
+        /**
+         * @deprecated
+        */
+        hasThreadLocalCache(): boolean;
+        /**
+         * @deprecated
+        */
+        directArenas(): Internal.List<Internal.PoolArenaMetric>;
+        /**
+         * @deprecated
+        */
+        numHeapArenas(): number;
+        /**
+         * @deprecated
+        */
+        smallCacheSize(): number;
+        /**
+         * @deprecated
+        */
+        static defaultTinyCacheSize(): number;
+        static isDirectMemoryCacheAlignmentSupported(): boolean;
+        /**
+         * @deprecated
+        */
+        heapArenas(): Internal.List<Internal.PoolArenaMetric>;
+        static defaultNumHeapArena(): number;
+        pinnedHeapMemory(): number;
+        static defaultPreferDirect(): boolean;
+        /**
+         * @deprecated
+        */
+        chunkSize(): number;
+        static defaultNormalCacheSize(): number;
+        trimCurrentThreadCache(): boolean;
+        /**
+         * @deprecated
+        */
+        numThreadLocalCaches(): number;
+        dumpStats(): string;
+        get directMemoryCacheAlignmentSupported(): boolean
+        static readonly DEFAULT: Internal.PooledByteBufAllocator;
+    }
+    type PooledByteBufAllocator_ = PooledByteBufAllocator;
+    class Book {
+        constructor(arg0: Internal.JsonObject_, arg1: Internal.XplatModContainer_, arg2: ResourceLocation_, arg3: boolean)
+        getOwnerName(): string;
+        markUpdated(): void;
+        getSubtitle(): Internal.MutableComponent;
+        getFontStyle(): Internal.Style;
+        reloadLocks(arg0: boolean): void;
+        reloadContents(arg0: Internal.Level_, arg1: boolean): void;
+        getBookItem(): Internal.ItemStack;
+        advancementsEnabled(): boolean;
+        getContents(): Internal.BookContents;
+        popUpdated(): boolean;
+        getIcon(): Internal.BookIcon;
+        get ownerName(): string
+        get subtitle(): Internal.MutableComponent
+        get fontStyle(): Internal.Style
+        get bookItem(): Internal.ItemStack
+        get contents(): Internal.BookContents
+        get icon(): Internal.BookIcon
+        readonly macros: Internal.Map<string, string>;
+        readonly version: string;
+        readonly creativeTab: ResourceLocation;
+        readonly linkHoverColor: number;
+        readonly useBlockyFont: boolean;
+        readonly linkColor: number;
+        readonly headerColor: number;
+        readonly overflowMode: Internal.PatchouliConfigAccess$TextOverflowMode;
+        readonly i18n: boolean;
+        readonly craftingTexture: ResourceLocation;
+        readonly textColor: number;
+        readonly subtitle: string;
+        readonly flipSound: ResourceLocation;
+        readonly isExternal: boolean;
+        readonly showToasts: boolean;
+        readonly openSound: ResourceLocation;
+        readonly showProgress: boolean;
+        readonly id: ResourceLocation;
+        readonly landingText: string;
+        readonly model: ResourceLocation;
+        readonly bookTexture: ResourceLocation;
+        readonly name: string;
+        readonly progressBarColor: number;
+        readonly fillerTexture: ResourceLocation;
+        readonly progressBarBackground: number;
+        readonly pauseGame: boolean;
+        readonly advancementsTab: ResourceLocation;
+        readonly noBook: boolean;
+        readonly indexIconRaw: string;
+        readonly isPamphlet: boolean;
+        readonly nameplateColor: number;
+        readonly owner: Internal.XplatModContainer;
+    }
+    type Book_ = Book;
+    class CarpetSlabBlock extends Internal.SlabBlock implements Internal.EntityBlock, Internal.IRecolorable {
+        constructor(block: Internal.Block_)
+        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
+        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
+        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
+        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        getTicker<T extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<T>): Internal.BlockEntityTicker<T>;
+        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isStickyBlock(arg0: Internal.BlockState_): boolean;
+        setLightEmission(v: number): void;
+        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
+        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
+        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
+        isSlimeBlock(arg0: Internal.BlockState_): boolean;
+        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
+        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
+        setDestroySpeed(v: number): void;
+        isDefaultColor(level: Internal.Level_, blockPos: BlockPos_, blockState: Internal.BlockState_): boolean;
+        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
+        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
+        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
+        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
+        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        arch$holder(): Internal.Holder<Internal.Block>;
+        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
+        newBlockEntity(pPos: BlockPos_, pState: Internal.BlockState_): Internal.BlockEntity;
+        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
+        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
+        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
+        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
+        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
+        tryRecolor(level: Internal.Level_, blockPos: BlockPos_, blockState: Internal.BlockState_, dyeColor: Internal.DyeColor_): boolean;
+        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
+        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
+        getBlockStates(): Internal.List<Internal.BlockState>;
+        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
+        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
+        setRequiresTool(v: boolean): void;
+        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
+        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
+        arch$registryName(): ResourceLocation;
+        getMod(): string;
+        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
+        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
+        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
+        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
+        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        get pickupSound(): Internal.Optional<Internal.SoundEvent>
+        set lightEmission(v: number)
+        set destroySpeed(v: number)
+        get blockStates(): Internal.List<Internal.BlockState>
+        set requiresTool(v: boolean)
+        get mod(): string
+        static readonly SOLID: Internal.BooleanProperty;
+        static readonly LIGHT_LEVEL: Internal.IntegerProperty;
+    }
+    type CarpetSlabBlock_ = CarpetSlabBlock;
+    interface Int2LongFunction extends it.unimi.dsi.fastutil.Function<number, number>, Internal.IntToLongFunction {
+        composeShort(arg0: Internal.Short2IntFunction_): Internal.Short2LongFunction;
+        composeReference<T>(arg0: Internal.Reference2IntFunction_<T>): Internal.Reference2LongFunction<T>;
+        /**
+         * @deprecated
+        */
+        getOrDefault(arg0: any, arg1: any): any;
+        getOrDefault(arg0: number, arg1: number): number;
+        andThenReference<T>(arg0: Internal.Long2ReferenceFunction_<T>): Internal.Int2ReferenceFunction<T>;
+        containsKey(arg0: number): boolean;
+        andThenFloat(arg0: Internal.Long2FloatFunction_): Internal.Int2FloatFunction;
+        composeInt(arg0: Internal.Int2IntFunction_): this;
+        andThenDouble(arg0: Internal.Long2DoubleFunction_): Internal.Int2DoubleFunction;
+        apply(arg0: number): number;
+        /**
+         * @deprecated
+        */
+        get(arg0: any): number;
+        /**
+         * @deprecated
+        */
+        containsKey(arg0: any): boolean;
+        andThenLong(arg0: Internal.Long2LongFunction_): this;
         /**
          * @deprecated
         */
@@ -57,1922 +337,312 @@ declare namespace Internal {
         /**
          * @deprecated
         */
-        getOrDefault(arg0: any, arg1: any): any;
-        remove(arg0: number): number;
-        /**
-         * @deprecated
-        */
-        put(arg0: number, arg1: number): number;
-        composeReference<T>(arg0: Internal.Reference2DoubleFunction_<T>): Internal.Reference2LongFunction<T>;
-        andThenInt(arg0: Internal.Long2IntFunction_): Internal.Double2IntFunction;
-        andThenChar(arg0: Internal.Long2CharFunction_): Internal.Double2CharFunction;
-        /**
-         * @deprecated
-        */
-        get(arg0: any): number;
-        /**
-         * @deprecated
-        */
-        containsKey(arg0: any): boolean;
-        getOrDefault(arg0: number, arg1: number): number;
-        composeObject<T>(arg0: Internal.Object2DoubleFunction_<T>): Internal.Object2LongFunction<T>;
-        /**
-         * @deprecated
-        */
         remove(arg0: any): number;
-        composeShort(arg0: Internal.Short2DoubleFunction_): Internal.Short2LongFunction;
         /**
          * @deprecated
         */
         put(arg0: any, arg1: any): any;
-        composeLong(arg0: Internal.Long2DoubleFunction_): Internal.Long2LongFunction;
-        apply(arg0: number): number;
-        andThenByte(arg0: Internal.Long2ByteFunction_): Internal.Double2ByteFunction;
-        composeInt(arg0: Internal.Int2DoubleFunction_): Internal.Int2LongFunction;
-        abstract get(arg0: number): number;
+        andThenShort(arg0: Internal.Long2ShortFunction_): Internal.Int2ShortFunction;
+        composeDouble(arg0: Internal.Double2IntFunction_): Internal.Double2LongFunction;
+        remove(arg0: number): number;
+        composeChar(arg0: Internal.Char2IntFunction_): Internal.Char2LongFunction;
         defaultReturnValue(): number;
-        composeChar(arg0: Internal.Char2DoubleFunction_): Internal.Char2LongFunction;
-        andThenDouble(arg0: Internal.Long2DoubleFunction_): Internal.Double2DoubleFunction;
-        applyAsLong(arg0: number): number;
+        andThenChar(arg0: Internal.Long2CharFunction_): Internal.Int2CharFunction;
+        put(arg0: number, arg1: number): number;
         /**
          * @deprecated
         */
         getOrDefault(arg0: any, arg1: number): number;
-        andThenShort(arg0: Internal.Long2ShortFunction_): Internal.Double2ShortFunction;
-        andThenLong(arg0: Internal.Long2LongFunction_): this;
-        containsKey(arg0: number): boolean;
-        size(): number;
-        composeByte(arg0: Internal.Byte2DoubleFunction_): Internal.Byte2LongFunction;
-        clear(): void;
-        andThenObject<T>(arg0: Internal.Long2ObjectFunction_<T>): Internal.Double2ObjectFunction<T>;
-        composeDouble(arg0: Internal.Double2DoubleFunction_): this;
-        composeFloat(arg0: Internal.Float2DoubleFunction_): Internal.Float2LongFunction;
-        identity<T>(): Internal.Function<T, T>;
+        andThenInt(arg0: Internal.Long2IntFunction_): Internal.Int2IntFunction;
+        /**
+         * @deprecated
+        */
         put(arg0: number, arg1: number): number;
+        size(): number;
+        composeByte(arg0: Internal.Byte2IntFunction_): Internal.Byte2LongFunction;
+        applyAsLong(arg0: number): number;
+        clear(): void;
+        composeLong(arg0: Internal.Long2IntFunction_): Internal.Long2LongFunction;
+        abstract get(arg0: number): number;
+        composeObject<T>(arg0: Internal.Object2IntFunction_<T>): Internal.Object2LongFunction<T>;
+        andThenObject<T>(arg0: Internal.Long2ObjectFunction_<T>): Internal.Int2ObjectFunction<T>;
+        identity<T>(): Internal.Function<T, T>;
         defaultReturnValue(arg0: number): void;
+        andThenByte(arg0: Internal.Long2ByteFunction_): Internal.Int2ByteFunction;
+        composeFloat(arg0: Internal.Float2IntFunction_): Internal.Float2LongFunction;
         (arg0: number): number;
     }
-    type Double2LongFunction_ = Double2LongFunction;
-    abstract class DynamicConstantDesc <T> implements Internal.ConstantDesc {
-        bootstrapMethod(): Internal.DirectMethodHandleDesc;
-        constantName(): string;
-        bootstrapArgs(): Internal.ConstantDesc[];
-        constantType(): Internal.ClassDesc;
-        static of<T>(arg0: Internal.DirectMethodHandleDesc_): Internal.DynamicConstantDesc<T>;
-        static ofNamed<T>(arg0: Internal.DirectMethodHandleDesc_, arg1: string, arg2: Internal.ClassDesc_, ...arg3: Internal.ConstantDesc_[]): Internal.DynamicConstantDesc<T>;
-        bootstrapArgsList(): Internal.List<Internal.ConstantDesc>;
-        resolveConstantDesc(arg0: Internal.MethodHandles$Lookup_): T;
-        static ofCanonical<T>(arg0: Internal.DirectMethodHandleDesc_, arg1: string, arg2: Internal.ClassDesc_, arg3: Internal.ConstantDesc_[]): Internal.ConstantDesc;
-        static of<T>(arg0: Internal.DirectMethodHandleDesc_, ...arg1: Internal.ConstantDesc_[]): Internal.DynamicConstantDesc<T>;
-    }
-    type DynamicConstantDesc_<T> = DynamicConstantDesc<T>;
-    abstract class AbstractFurnaceBlockEntity extends Internal.BaseContainerBlockEntity implements Internal.StackedContentsCompatible, Internal.RecipeHolder, Internal.WorldlyContainer {
-        stopOpen(arg0: Internal.Player_): void;
-        static serverTick(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.AbstractFurnaceBlockEntity_): void;
-        static tryClear(arg0: any): void;
-        requestModelDataUpdate(): void;
-        handleUpdateTag(arg0: Internal.CompoundTag_): void;
-        setStackInSlot(slot: number, stack: Internal.ItemStack_): void;
-        awardUsedRecipes(arg0: Internal.Player_, arg1: Internal.List_<Internal.ItemStack>): void;
-        clear(ingredient: Internal.Ingredient_): void;
-        find(): number;
-        hasAnyOf(arg0: Internal.Set_<Internal.Item>): boolean;
-        getSlots(): number;
-        setChanged(): void;
-        /**
-         * @deprecated
-        */
-        static getFuel(): Internal.Map<Internal.Item, number>;
-        onLoad(): void;
-        getSlotsForFace(arg0: Internal.Direction_): number[];
-        hasAnyMatching(arg0: Internal.Predicate_<Internal.ItemStack>): boolean;
-        awardUsedRecipesAndPopExperience(arg0: Internal.ServerPlayer_): void;
-        kjs$self(): Internal.Container;
-        getWidth(): number;
-        getSlotLimit(slot: number): number;
-        getMaxStackSize(): number;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        static stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_): boolean;
-        hasCustomName(): boolean;
-        getRecipeUsed(): Internal.Recipe<any>;
-        setRecipeUsed(arg0: Internal.Recipe_<any>): void;
-        canTakeItemThroughFace(arg0: number, arg1: Internal.ItemStack_, arg2: Internal.Direction_): boolean;
-        isItemValid(slot: number, stack: Internal.ItemStack_): boolean;
-        getRenderBoundingBox(): Internal.AABB;
-        count(ingredient: Internal.Ingredient_): number;
-        getCapability<T>(arg0: Internal.Capability_<T>, arg1: Internal.Direction_): Internal.LazyOptional<T>;
-        count(): number;
-        countItem(arg0: Internal.Item_): number;
-        static isFuel(arg0: Internal.ItemStack_): boolean;
-        isEmpty(): boolean;
-        startOpen(arg0: Internal.Player_): void;
-        extractItem(slot: number, amount: number, simulate: boolean): Internal.ItemStack;
-        canPlaceItemThroughFace(arg0: number, arg1: Internal.ItemStack_, arg2: Internal.Direction_): boolean;
-        getBlock(level: Internal.Level_): Internal.BlockContainerJS;
-        serializeNBT(): Internal.Tag;
-        static stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_, arg2: number): boolean;
-        getStackInSlot(slot: number): Internal.ItemStack;
-        getHeight(): number;
-        onDataPacket(arg0: Internal.Connection_, arg1: Internal.ClientboundBlockEntityDataPacket_): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        countNonEmpty(): number;
-        asContainer(): Internal.Container;
-        setRecipeUsed(arg0: Internal.Level_, arg1: Internal.ServerPlayer_, arg2: Internal.Recipe_<any>): boolean;
-        deserializeNBT(arg0: Internal.Tag_): void;
-        getAllItems(): Internal.List<Internal.ItemStack>;
-        fillStackedContents(arg0: Internal.StackedContents_): void;
-        canTakeItem(arg0: Internal.Container_, arg1: number, arg2: Internal.ItemStack_): boolean;
-        insertItem(stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
-        insertItem(slot: number, stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        getModelData(): Internal.ModelData;
-        isMutable(): boolean;
-        clear(): void;
-        find(ingredient: Internal.Ingredient_): number;
-        countNonEmpty(ingredient: Internal.Ingredient_): number;
-        getRecipesToAwardAndPopExperience(arg0: Internal.ServerLevel_, arg1: Vec3d_): Internal.List<Internal.Recipe<any>>;
-        get slots(): number
-        /**
-         * @deprecated
-        */
-        get fuel(): Internal.Map<Internal.Item, number>
-        get width(): number
-        get maxStackSize(): number
-        get recipeUsed(): Internal.Recipe<any>
-        set recipeUsed(arg0: Internal.Recipe_<any>)
-        get renderBoundingBox(): Internal.AABB
-        get empty(): boolean
-        get height(): number
-        get allItems(): Internal.List<Internal.ItemStack>
-        get modelData(): Internal.ModelData
-        get mutable(): boolean
-        static readonly DATA_LIT_DURATION: 1;
-        static readonly DATA_COOKING_PROGRESS: 2;
-        static readonly NUM_DATA_VALUES: 4;
-        static readonly DATA_LIT_TIME: 0;
-        static readonly BURN_TIME_STANDARD: 200;
-        static readonly BURN_COOL_SPEED: 2;
-        static readonly DATA_COOKING_TOTAL_TIME: 3;
-    }
-    type AbstractFurnaceBlockEntity_ = AbstractFurnaceBlockEntity;
-    interface MaterialManager {
-        defaultSolid(): Internal.MaterialGroup;
-        abstract getOriginCoordinate(): Vec3i;
-        defaultCutout(): Internal.MaterialGroup;
-        solid(arg0: Internal.RenderType_): Internal.MaterialGroup;
-        abstract state(arg0: com.jozufozu.flywheel.backend.RenderLayer_, arg1: Internal.RenderType_): Internal.MaterialGroup;
-        transparent(arg0: Internal.RenderType_): Internal.MaterialGroup;
-        defaultTransparent(): Internal.MaterialGroup;
-        cutout(arg0: Internal.RenderType_): Internal.MaterialGroup;
-        get originCoordinate(): Vec3i
-    }
-    type MaterialManager_ = MaterialManager;
-    class ScheduleRuntime$State extends Internal.Enum<Internal.ScheduleRuntime$State> {
-        static valueOf(arg0: string): Internal.ScheduleRuntime$State;
-        static values(): Internal.ScheduleRuntime$State[];
-        static readonly POST_TRANSIT: Internal.ScheduleRuntime$State;
-        static readonly IN_TRANSIT: Internal.ScheduleRuntime$State;
-        static readonly PRE_TRANSIT: Internal.ScheduleRuntime$State;
-    }
-    type ScheduleRuntime$State_ = "pre_transit" | "post_transit" | ScheduleRuntime$State | "in_transit";
-    class ResourceArgument$Info$Template implements Internal.ArgumentTypeInfo$Template<Internal.ResourceArgument<T>> {
-        instantiate(arg0: Internal.CommandBuildContext_): Internal.ArgumentType<any>;
-        type(): Internal.ArgumentTypeInfo<Internal.ResourceArgument<T>, any>;
-    }
-    type ResourceArgument$Info$Template_ = ResourceArgument$Info$Template;
-    class TagEntry {
-        isTag(): boolean;
-        build<T>(arg0: Internal.TagEntry$Lookup_<T>, arg1: Internal.Consumer_<T>): boolean;
-        static tag(arg0: ResourceLocation_): Internal.TagEntry;
-        getId(): ResourceLocation;
-        verifyIfPresent(arg0: Internal.Predicate_<ResourceLocation>, arg1: Internal.Predicate_<ResourceLocation>): boolean;
-        visitOptionalDependencies(arg0: Internal.Consumer_<ResourceLocation>): void;
-        isRequired(): boolean;
-        static element(arg0: ResourceLocation_): Internal.TagEntry;
-        elementOrTag(): Internal.ExtraCodecs$TagOrElementLocation;
-        static optionalTag(arg0: ResourceLocation_): Internal.TagEntry;
-        visitRequiredDependencies(arg0: Internal.Consumer_<ResourceLocation>): void;
-        static optionalElement(arg0: ResourceLocation_): Internal.TagEntry;
-        get tag(): boolean
-        get id(): ResourceLocation
-        get required(): boolean
-        readonly required: boolean;
-        readonly id: ResourceLocation;
-        static readonly CODEC: Internal.Codec<Internal.TagEntry>;
-        readonly tag: boolean;
-    }
-    type TagEntry_ = TagEntry;
-    abstract class Maps$IteratorBasedAbstractMap <K, V> extends Internal.AbstractMap<K, V> {
-        computeIfAbsent(arg0: K, arg1: Internal.Function_<K, V>): V;
-        replace(arg0: K, arg1: V): V;
-        static of<K, V>(): Internal.Map<K, V>;
-        computeIfPresent(arg0: K, arg1: Internal.BiFunction_<K, V, V>): V;
-        getOrDefault(arg0: any, arg1: V): V;
-        static entry<K, V>(arg0: K, arg1: V): Internal.Map$Entry<K, V>;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V): Internal.Map<K, V>;
-        static copyOf<K, V>(arg0: Internal.Map_<K, V>): Internal.Map<K, V>;
-        merge(arg0: K, arg1: V, arg2: Internal.BiFunction_<V, V, V>): V;
-        putIfAbsent(arg0: K, arg1: V): V;
-        forEach(arg0: Internal.BiConsumer_<K, V>): void;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V, arg6: K, arg7: V, arg8: K, arg9: V): Internal.Map<K, V>;
-        entrySet(): Internal.Set<Internal.Map$Entry<K, V>>;
-        compute(arg0: K, arg1: Internal.BiFunction_<K, V, V>): V;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V): Internal.Map<K, V>;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V, arg6: K, arg7: V, arg8: K, arg9: V, arg10: K, arg11: V): Internal.Map<K, V>;
-        remove(arg0: any, arg1: any): boolean;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V, arg6: K, arg7: V, arg8: K, arg9: V, arg10: K, arg11: V, arg12: K, arg13: V, arg14: K, arg15: V): Internal.Map<K, V>;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V, arg6: K, arg7: V): Internal.Map<K, V>;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V, arg6: K, arg7: V, arg8: K, arg9: V, arg10: K, arg11: V, arg12: K, arg13: V, arg14: K, arg15: V, arg16: K, arg17: V, arg18: K, arg19: V): Internal.Map<K, V>;
-        static ofEntries<K, V>(...arg0: Internal.Map$Entry_<K, V>[]): Internal.Map<K, V>;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V, arg6: K, arg7: V, arg8: K, arg9: V, arg10: K, arg11: V, arg12: K, arg13: V, arg14: K, arg15: V, arg16: K, arg17: V): Internal.Map<K, V>;
-        replace(arg0: K, arg1: V, arg2: V): boolean;
-        replaceAll(arg0: Internal.BiFunction_<K, V, V>): void;
-        static of<K, V>(arg0: K, arg1: V, arg2: K, arg3: V, arg4: K, arg5: V, arg6: K, arg7: V, arg8: K, arg9: V, arg10: K, arg11: V, arg12: K, arg13: V): Internal.Map<K, V>;
-        static of<K, V>(arg0: K, arg1: V): Internal.Map<K, V>;
-    }
-    type Maps$IteratorBasedAbstractMap_<K, V> = Maps$IteratorBasedAbstractMap<K, V>;
-    class ExplosionEvent extends Internal.Event {
+    type Int2LongFunction_ = Int2LongFunction;
+    class ViewportEvent$RenderFog extends Internal.ViewportEvent {
         constructor()
-        constructor(arg0: Internal.Level_, arg1: Internal.Explosion_)
+        constructor(arg0: Internal.FogRenderer$FogMode_, arg1: Internal.FogType_, arg2: Internal.Camera_, arg3: number, arg4: number, arg5: number, arg6: Internal.FogShape_)
+        scaleFarPlaneDistance(arg0: number): void;
+        getNearPlaneDistance(): number;
+        getMode(): Internal.FogRenderer$FogMode;
+        getType(): Internal.FogType;
+        setFogShape(arg0: Internal.FogShape_): void;
+        scaleNearPlaneDistance(arg0: number): void;
+        getFogShape(): Internal.FogShape;
+        setFarPlaneDistance(arg0: number): void;
+        setNearPlaneDistance(arg0: number): void;
+        getFarPlaneDistance(): number;
+        get nearPlaneDistance(): number
+        get mode(): Internal.FogRenderer$FogMode
+        get type(): Internal.FogType
+        set fogShape(arg0: Internal.FogShape_)
+        get fogShape(): Internal.FogShape
+        set farPlaneDistance(arg0: number)
+        set nearPlaneDistance(arg0: number)
+        get farPlaneDistance(): number
+    }
+    type ViewportEvent$RenderFog_ = ViewportEvent$RenderFog;
+    interface MenuRegistry$ScreenFactory <H extends Internal.AbstractContainerMenu, S extends Internal.Screen & Internal.MenuAccess<H>> {
+        abstract create(arg0: H, arg1: Internal.Inventory_, arg2: net.minecraft.network.chat.Component_): S;
+        (arg0: H, arg1: Internal.Inventory, arg2: net.minecraft.network.chat.Component): S;
+    }
+    type MenuRegistry$ScreenFactory_<H extends Internal.AbstractContainerMenu, S extends Internal.Screen & Internal.MenuAccess<H>> = MenuRegistry$ScreenFactory<H, S>;
+    abstract class ClientboundMoveEntityPacket implements Internal.Packet<Internal.ClientGamePacketListener> {
+        handle(arg0: Internal.PacketListener_): void;
+        abstract write(arg0: Internal.FriendlyByteBuf_): void;
+        getxRot(): number;
+        getyRot(): number;
+        getEntity(arg0: Internal.Level_): Internal.Entity;
+        hasPosition(): boolean;
+        isSkippable(): boolean;
+        getXa(): number;
+        handle(arg0: Internal.ClientGamePacketListener_): void;
+        getZa(): number;
+        getYa(): number;
+        hasRotation(): boolean;
+        isOnGround(): boolean;
+        get xRot(): number
+        get yRot(): number
+        get skippable(): boolean
+        get xa(): number
+        get za(): number
+        get ya(): number
+        get onGround(): boolean
+    }
+    type ClientboundMoveEntityPacket_ = ClientboundMoveEntityPacket;
+    interface TickablePacketListener extends Internal.PacketListener {
+        abstract isAcceptingMessages(): boolean;
+        abstract onDisconnect(arg0: net.minecraft.network.chat.Component_): void;
+        abstract tick(): void;
+        shouldPropagateHandlingExceptions(): boolean;
+        get acceptingMessages(): boolean
+    }
+    type TickablePacketListener_ = TickablePacketListener;
+    class LevelChunk extends Internal.ChunkAccess implements Internal.ICapabilityProviderImpl<Internal.LevelChunk> {
+        constructor(arg0: Internal.Level_, arg1: Internal.ChunkPos_)
+        constructor(arg0: Internal.ServerLevel_, arg1: Internal.ProtoChunk_, arg2: any_)
+        constructor(arg0: Internal.Level_, arg1: Internal.ChunkPos_, arg2: Internal.UpgradeData_, arg3: Internal.LevelChunkTicks_<Internal.Block>, arg4: Internal.LevelChunkTicks_<Internal.Fluid>, arg5: number, arg6: Internal.LevelChunkSection_[], arg7: any_, arg8: Internal.BlendingData_)
+        getCapability<T>(arg0: Internal.Capability_<T>, arg1: Internal.Direction_): Internal.LazyOptional<T>;
+        clearAllBlockEntities(): void;
+        areCapsCompatible(arg0: Internal.CapabilityProvider_<Internal.LevelChunk>): boolean;
+        getMinSection(): number;
+        getBlockEntity(arg0: BlockPos_, arg1: Internal.LevelChunk$EntityCreationType_): Internal.BlockEntity;
+        clipWithInteractionOverride(arg0: Vec3d_, arg1: Vec3d_, arg2: BlockPos_, arg3: Internal.VoxelShape_, arg4: Internal.BlockState_): Internal.BlockHitResult;
+        getSectionIndex(arg0: number): number;
+        getMaxSection(): number;
+        isEmpty(): boolean;
+        getMaxBuildHeight(): number;
         getLevel(): Internal.Level;
-        getExplosion(): Internal.Explosion;
+        getLightEmission(arg0: BlockPos_): number;
+        getBlockFloorHeight(arg0: BlockPos_): number;
+        setLoaded(arg0: boolean): void;
+        getSectionYFromSectionIndex(arg0: number): number;
+        unpackTicks(arg0: number): void;
+        static create(arg0: number, arg1: number): Internal.LevelHeightAccessor;
+        clip(arg0: Internal.ClipContext_): Internal.BlockHitResult;
+        getBlockFloorHeight(arg0: Internal.VoxelShape_, arg1: Internal.Supplier_<Internal.VoxelShape>): number;
+        runPostLoad(): void;
+        postProcessGeneration(): void;
+        registerAllBlockEntitiesAfterLevelLoad(): void;
+        getBlockEntity<T extends Internal.BlockEntity>(arg0: BlockPos_, arg1: Internal.BlockEntityType_<T>): Internal.Optional<T>;
+        isOutsideBuildHeight(arg0: BlockPos_): boolean;
+        /**
+         * @deprecated
+        */
+        readCapsFromNBT(arg0: Internal.CompoundTag_): void;
+        getFluidState(arg0: number, arg1: number, arg2: number): Internal.FluidState;
+        getModelDataManager(): Internal.ModelDataManager;
+        getFullStatus(): Internal.FullChunkStatus;
+        /**
+         * @deprecated
+        */
+        writeCapsToNBT(): Internal.CompoundTag;
+        invalidateCaps(): void;
+        isOutsideBuildHeight(arg0: number): boolean;
+        isBlockInLine(arg0: Internal.ClipBlockStateContext_): Internal.BlockHitResult;
+        addAndRegisterBlockEntity(arg0: Internal.BlockEntity_): void;
+        setFullStatus(arg0: Internal.Supplier_<Internal.FullChunkStatus>): void;
+        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
+        getBlockStates(arg0: Internal.AABB_): Internal.Stream<Internal.BlockState>;
+        getExistingBlockEntity(arg0: BlockPos_): Internal.BlockEntity;
+        replaceWithPacketData(arg0: Internal.FriendlyByteBuf_, arg1: Internal.CompoundTag_, arg2: Internal.Consumer_<Internal.ClientboundLevelChunkPacketData$BlockEntityTagOutput>): void;
+        unregisterTickContainerFromLevel(arg0: Internal.ServerLevel_): void;
+        registerTickContainerInLevel(arg0: Internal.ServerLevel_): void;
+        getSectionsCount(): number;
+        replaceBiomes(arg0: Internal.FriendlyByteBuf_): void;
+        getBlockEntities(): Internal.Map<BlockPos, Internal.BlockEntity>;
+        getMaxLightLevel(): number;
+        getSectionIndexFromSectionY(arg0: number): number;
+        areCapsCompatible(arg0: Internal.CapabilityDispatcher_): boolean;
+        reviveCaps(): void;
+        static traverseBlocks<T, C>(arg0: Vec3d_, arg1: Vec3d_, arg2: C, arg3: Internal.BiFunction_<C, BlockPos, T>, arg4: Internal.Function_<C, T>): T;
+        get minSection(): number
+        get maxSection(): number
+        get empty(): boolean
+        get maxBuildHeight(): number
         get level(): Internal.Level
-        get explosion(): Internal.Explosion
+        set loaded(arg0: boolean)
+        get modelDataManager(): Internal.ModelDataManager
+        get fullStatus(): Internal.FullChunkStatus
+        set fullStatus(arg0: Internal.Supplier_<Internal.FullChunkStatus>)
+        get sectionsCount(): number
+        get blockEntities(): Internal.Map<BlockPos, Internal.BlockEntity>
+        get maxLightLevel(): number
     }
-    type ExplosionEvent_ = ExplosionEvent;
-    interface ISpecialBlockEntityItemRequirement {
-        abstract getRequiredItems(arg0: Internal.BlockState_): Internal.ItemRequirement;
-        (arg0: Internal.BlockState): Internal.ItemRequirement_;
+    type LevelChunk_ = LevelChunk;
+    class User$Type extends Internal.Enum<Internal.User$Type> {
+        getName(): string;
+        static valueOf(arg0: string): Internal.User$Type;
+        static byName(arg0: string): Internal.User$Type;
+        static values(): Internal.User$Type[];
+        get name(): string
+        static readonly LEGACY: Internal.User$Type;
+        static readonly MSA: Internal.User$Type;
+        static readonly MOJANG: Internal.User$Type;
     }
-    type ISpecialBlockEntityItemRequirement_ = ISpecialBlockEntityItemRequirement;
-    class EmptyPoolElement extends Internal.StructurePoolElement {
-        static readonly CODEC: Internal.Codec<Internal.EmptyPoolElement>;
-        static readonly INSTANCE: Internal.EmptyPoolElement;
+    type User$Type_ = User$Type | "mojang" | "msa" | "legacy";
+    class MutableHashedLinkedMap <K, V> implements Internal.Iterable<Internal.Map$Entry<K, V>> {
+        constructor(arg0: Internal.Hash$Strategy_<K>, arg1: any_<K, V>)
+        constructor()
+        constructor(arg0: Internal.Hash$Strategy_<K>)
+        spliterator(): Internal.Spliterator<Internal.Map$Entry<K, V>>;
+        put(arg0: K, arg1: V): V;
+        putFirst(arg0: K, arg1: V): V;
+        get(arg0: K): V;
+        iterator(): Internal.Iterator<Internal.Map$Entry<K, V>>;
+        contains(arg0: K): boolean;
+        isEmpty(): boolean;
+        putAfter(arg0: K, arg1: K, arg2: V): V;
+        putBefore(arg0: K, arg1: K, arg2: V): V;
+        forEach(arg0: Internal.Consumer_<Internal.Map$Entry<K, V>>): void;
+        remove(arg0: K): V;
+        get empty(): boolean
+        static readonly IDENTITY: Internal.MutableHashedLinkedMap$IdentityStrategy;
+        static readonly BASIC: Internal.MutableHashedLinkedMap$BasicStrategy;
     }
-    type EmptyPoolElement_ = EmptyPoolElement;
-    interface IForgeCommandSourceStack {
-        getRecipeManager(): Internal.RecipeManager;
-        getAdvancement(arg0: ResourceLocation_): Internal.Advancement;
-        getUnsidedLevel(): Internal.Level;
-        getScoreboard(): Internal.Scoreboard;
-        get recipeManager(): Internal.RecipeManager
-        get unsidedLevel(): Internal.Level
-        get scoreboard(): Internal.Scoreboard
-    }
-    type IForgeCommandSourceStack_ = IForgeCommandSourceStack;
-    class SimpleCraftingRecipeSerializer <T extends Internal.CraftingRecipe> implements Internal.RecipeSerializer<T> {
-        constructor(arg0: any_<T>)
+    type MutableHashedLinkedMap_<K, V> = MutableHashedLinkedMap<K, V>;
+    class CookingPotRecipe$Serializer implements Internal.RecipeSerializer<Internal.CookingPotRecipe> {
+        constructor()
         static register<S extends Internal.RecipeSerializer<T>, T extends Internal.Recipe<any>>(arg0: string, arg1: S): S;
+        fromJson(arg0: ResourceLocation_, arg1: Internal.JsonObject_, arg2: Internal.ICondition$IContext_): Internal.CookingPotRecipe;
         fromJson(arg0: ResourceLocation_, arg1: Internal.JsonObject_): Internal.Recipe<any>;
-        toNetwork(arg0: Internal.FriendlyByteBuf_, arg1: T): void;
-        fromJson(arg0: ResourceLocation_, arg1: Internal.JsonObject_, arg2: Internal.ICondition$IContext_): T;
+        toNetwork(arg0: Internal.FriendlyByteBuf_, arg1: Internal.CookingPotRecipe_): void;
         toNetwork(arg0: Internal.FriendlyByteBuf_, arg1: Internal.Recipe_<any>): void;
+        fromJson(arg0: ResourceLocation_, arg1: Internal.JsonObject_): Internal.CookingPotRecipe;
+        fromNetwork(arg0: ResourceLocation_, arg1: Internal.FriendlyByteBuf_): Internal.CookingPotRecipe;
         fromNetwork(arg0: ResourceLocation_, arg1: Internal.FriendlyByteBuf_): Internal.Recipe<any>;
     }
-    type SimpleCraftingRecipeSerializer_<T extends Internal.CraftingRecipe> = SimpleCraftingRecipeSerializer<T>;
-    class SoundBufferLibrary {
-        constructor(arg0: Internal.ResourceProvider_)
-        getStream(arg0: ResourceLocation_, arg1: boolean): Internal.CompletableFuture<Internal.AudioStream>;
-        preload(arg0: Internal.Collection_<Internal.Sound>): Internal.CompletableFuture<any>;
-        clear(): void;
-        getCompleteBuffer(arg0: ResourceLocation_): Internal.CompletableFuture<Internal.SoundBuffer>;
-    }
-    type SoundBufferLibrary_ = SoundBufferLibrary;
-    interface IEditModeConfig {
-        abstract hideIngredientUsingConfigFile<V>(arg0: Internal.ITypedIngredient_<V>, arg1: Internal.IEditModeConfig$HideMode_): void;
-        abstract showIngredientUsingConfigFile<V>(arg0: Internal.ITypedIngredient_<V>, arg1: Internal.IEditModeConfig$HideMode_): void;
-        abstract getIngredientHiddenUsingConfigFile<V>(arg0: Internal.ITypedIngredient_<V>): Internal.Set<Internal.IEditModeConfig$HideMode>;
-        abstract isIngredientHiddenUsingConfigFile<V>(arg0: Internal.ITypedIngredient_<V>): boolean;
-    }
-    type IEditModeConfig_ = IEditModeConfig;
-    class IKeyLockable$KeyStatus extends Internal.Enum<Internal.IKeyLockable$KeyStatus> {
-        static valueOf(name: string): Internal.IKeyLockable$KeyStatus;
-        static values(): Internal.IKeyLockable$KeyStatus[];
-        isCorrect(): boolean;
-        get correct(): boolean
-        static readonly CORRECT_KEY: Internal.IKeyLockable$KeyStatus;
-        static readonly INCORRECT_KEY: Internal.IKeyLockable$KeyStatus;
-        static readonly NO_KEY: Internal.IKeyLockable$KeyStatus;
-    }
-    type IKeyLockable$KeyStatus_ = "no_key" | "correct_key" | IKeyLockable$KeyStatus | "incorrect_key";
-    class ScreenEvent$KeyReleased$Pre extends Internal.ScreenEvent$KeyReleased {
-        constructor()
-        constructor(arg0: Internal.Screen_, arg1: number, arg2: number, arg3: number)
-    }
-    type ScreenEvent$KeyReleased$Pre_ = ScreenEvent$KeyReleased$Pre;
-    class BlazeEnchanterBlock extends Internal.HorizontalDirectionalBlock implements Internal.IWrenchable, Internal.IBE<Internal.BlazeEnchanterBlockEntity> {
-        constructor(arg0: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getBlockEntityClass(): typeof Internal.BlazeEnchanterBlockEntity;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        onBlockEntityUse(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Function_<Internal.BlazeEnchanterBlockEntity, Internal.InteractionResult>): Internal.InteractionResult;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
-        onWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        playRemoveSound(arg0: Internal.Level_, arg1: BlockPos_): void;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        getBlockEntity(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.BlazeEnchanterBlockEntity;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        getTicker<S extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<S>): Internal.BlockEntityTicker<S>;
-        playRotateSound(arg0: Internal.Level_, arg1: BlockPos_): void;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockEntityType(): Internal.BlockEntityType<Internal.BlazeEnchanterBlockEntity>;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        newBlockEntity(arg0: BlockPos_, arg1: Internal.BlockState_): Internal.BlockEntity;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        static onRemove(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        withBlockEntityDo(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Consumer_<Internal.BlazeEnchanterBlockEntity>): void;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        getBlockEntityOptional(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.Optional<Internal.BlazeEnchanterBlockEntity>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        onSneakWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        updateAfterWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.BlockState;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getRotatedBlockState(arg0: Internal.BlockState_, arg1: Internal.Direction_): Internal.BlockState;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        static getLight(arg0: Internal.BlockState_): number;
-        get blockEntityClass(): typeof Internal.BlazeEnchanterBlockEntity
-        set lightEmission(v: number)
-        set destroySpeed(v: number)
-        get blockEntityType(): Internal.BlockEntityType<Internal.BlazeEnchanterBlockEntity>
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-        static readonly HEAT_LEVEL: Internal.EnumProperty<Internal.BlazeEnchanterBlock$HeatLevel>;
-    }
-    type BlazeEnchanterBlock_ = BlazeEnchanterBlock;
-    class PlayerEnderChestContainer extends Internal.SimpleContainer {
-        constructor()
-        count(ingredient: Internal.Ingredient_): number;
-        static tryClear(arg0: any): void;
-        count(): number;
-        countItem(arg0: Internal.Item_): number;
-        setStackInSlot(slot: number, stack: Internal.ItemStack_): void;
-        isEmpty(): boolean;
-        clear(ingredient: Internal.Ingredient_): void;
-        canPlaceItem(arg0: number, arg1: Internal.ItemStack_): boolean;
-        find(): number;
-        hasAnyOf(arg0: Internal.Set_<Internal.Item>): boolean;
-        getSlots(): number;
-        isActiveChest(arg0: Internal.EnderChestBlockEntity_): boolean;
-        extractItem(slot: number, amount: number, simulate: boolean): Internal.ItemStack;
-        setChanged(): void;
-        getBlock(level: Internal.Level_): Internal.BlockContainerJS;
-        static stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_, arg2: number): boolean;
-        getStackInSlot(slot: number): Internal.ItemStack;
-        getHeight(): number;
-        setActiveChest(arg0: Internal.EnderChestBlockEntity_): void;
-        hasAnyMatching(arg0: Internal.Predicate_<Internal.ItemStack>): boolean;
-        countNonEmpty(): number;
-        asContainer(): Internal.Container;
-        kjs$self(): Internal.Container;
-        getWidth(): number;
-        getSlotLimit(slot: number): number;
-        getMaxStackSize(): number;
-        getAllItems(): Internal.List<Internal.ItemStack>;
-        static stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_): boolean;
-        canTakeItem(arg0: Internal.Container_, arg1: number, arg2: Internal.ItemStack_): boolean;
-        insertItem(stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
-        insertItem(slot: number, stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
-        isMutable(): boolean;
-        clear(): void;
-        find(ingredient: Internal.Ingredient_): number;
-        countNonEmpty(ingredient: Internal.Ingredient_): number;
-        isItemValid(slot: number, stack: Internal.ItemStack_): boolean;
-        get empty(): boolean
-        get slots(): number
-        get height(): number
-        set activeChest(arg0: Internal.EnderChestBlockEntity_)
-        get width(): number
-        get maxStackSize(): number
-        get allItems(): Internal.List<Internal.ItemStack>
-        get mutable(): boolean
-    }
-    type PlayerEnderChestContainer_ = PlayerEnderChestContainer;
-    class WoolCarpetBlock extends Internal.CarpetBlock {
-        constructor(arg0: Internal.DyeColor_, arg1: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        getColor(): Internal.DyeColor;
-        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        set lightEmission(v: number)
-        get color(): Internal.DyeColor
-        set destroySpeed(v: number)
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-    }
-    type WoolCarpetBlock_ = WoolCarpetBlock;
-    interface HolderSet <T> extends Internal.Iterable<Internal.Holder<T>>, Internal.IForgeHolderSet<T> {
-        abstract unwrap(): Internal.Either<Internal.TagKey<T>, Internal.List<Internal.Holder<T>>>;
-        abstract iterator(): Internal.Iterator<Internal.Holder<T>>;
-        serializationType(): Internal.IForgeHolderSet$SerializationType;
-        abstract unwrapKey(): Internal.Optional<Internal.TagKey<T>>;
-        /**
-         * @deprecated
-        */
-        emptyNamed<T>(arg0: Internal.HolderOwner_<T>, arg1: Internal.TagKey_<T>): Internal.HolderSet$Named<T>;
-        abstract get(arg0: number): Internal.Holder<T>;
-        spliterator(): Internal.Spliterator<Internal.Holder<T>>;
-        abstract stream(): Internal.Stream<Internal.Holder<T>>;
-        abstract canSerializeIn(arg0: Internal.HolderOwner_<T>): boolean;
-        abstract size(): number;
-        direct<E, T>(arg0: Internal.Function_<E, Internal.Holder<T>>, ...arg1: E[]): Internal.HolderSet$Direct<T>;
-        abstract contains(arg0: Internal.Holder_<T>): boolean;
-        direct<T>(...arg0: Internal.Holder_<T>[]): Internal.HolderSet$Direct<T>;
-        forEach(arg0: Internal.Consumer_<Internal.Holder<T>>): void;
-        direct<T>(arg0: Internal.List_<Internal.Holder<T>>): Internal.HolderSet$Direct<T>;
-        addInvalidationListener(arg0: Internal.Runnable_): void;
-        abstract getRandomElement(arg0: Internal.RandomSource_): Internal.Optional<Internal.Holder<T>>;
-        direct<E, T>(arg0: Internal.Function_<E, Internal.Holder<T>>, arg1: Internal.List_<E>): Internal.HolderSet$Direct<T>;
-    }
-    type HolderSet_<T> = HolderSet<T>;
-    class TraderLlama extends Internal.Llama {
-        constructor(arg0: Internal.EntityType_<Internal.TraderLlama>, arg1: Internal.Level_)
-        getDistance(pos: BlockPos_): number;
-        damageHeldItem(hand: Internal.InteractionHand_, amount: number): void;
-        removeAttribute(attribute: Internal.Attribute_, identifier: string): void;
-        playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
-        setDefaultMovementSpeedMultiplier(speed: number): void;
-        damageEquipment(slot: Internal.EquipmentSlot_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
-        getOffHandItem(): Internal.ItemStack;
-        isOnScoreboardTeam(teamId: string): boolean;
-        getOwner(): Internal.LivingEntity;
-        getEquipment(slot: Internal.EquipmentSlot_): Internal.ItemStack;
-        swing(): void;
-        getPickedResult(arg0: Internal.HitResult_): Internal.ItemStack;
-        setPosition(x: number, y: number, z: number): void;
-        runCommandSilent(command: string): number;
-        canStartSwimming(): boolean;
-        isPlayer(): boolean;
-        isAnimal(): boolean;
-        rayTrace(distance: number, fluids: boolean): Internal.RayTraceResultJS;
-        setY(y: number): void;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        isLiving(): boolean;
-        damageEquipment(slot: Internal.EquipmentSlot_): void;
-        rayTrace(): Internal.RayTraceResultJS;
-        getTotalMovementSpeed(): number;
-        alwaysAccepts(): boolean;
-        moveInFluid(arg0: Internal.FluidState_, arg1: Vec3d_, arg2: number): boolean;
-        isInFluidType(arg0: Internal.FluidState_): boolean;
-        setDespawnDelay(arg0: number): void;
-        damageHeldItem(): void;
-        getSaddleSoundEvent(): Internal.SoundEvent;
-        getDisplayName(): Internal.Component;
-        setPosition(block: Internal.BlockContainerJS_): void;
-        setMotionZ(z: number): void;
-        mergeNbt(tag: Internal.CompoundTag_): Internal.Entity;
-        attack(hp: number): void;
-        canSwimInFluidType(arg0: Internal.FluidType_): boolean;
-        getVariant(): any;
-        getTeamId(): string;
-        setMaxHealth(hp: number): void;
-        canBeRiddenUnderFluidType(arg0: Internal.FluidType_, arg1: Internal.Entity_): boolean;
-        getFacing(): Internal.Direction;
-        getJumpCooldown(): number;
-        shouldRiderSit(): boolean;
-        setMainHandItem(item: Internal.ItemStack_): void;
-        getLegsArmorItem(): Internal.ItemStack;
-        isHoldingInAnyHand(i: Internal.Ingredient_): boolean;
-        rayTrace(distance: number): Internal.RayTraceResultJS;
-        isInFluidType(arg0: Internal.FluidType_): boolean;
-        getReachDistance(): number;
-        getFluidMotionScale(arg0: Internal.FluidType_): number;
-        getMotionX(): number;
-        isWaterCreature(): boolean;
-        getItem(): Internal.ItemStack;
-        setX(x: number): void;
-        setAttributeBaseValue(attribute: Internal.Attribute_, value: number): void;
-        getBreedOffspring(arg0: Internal.ServerLevel_, arg1: Internal.AgeableMob_): Internal.AgeableMob;
-        getPotionEffects(): Internal.EntityPotionEffectsJS;
-        isFrame(): boolean;
-        setLegsArmorItem(item: Internal.ItemStack_): void;
-        playSound(id: Internal.SoundEvent_): void;
-        foodEaten(is: Internal.ItemStack_): void;
-        self(): Internal.LivingEntity;
-        getDefaultMovementSpeed(): number;
-        getHeldItem(hand: Internal.InteractionHand_): Internal.ItemStack;
-        swing(hand: Internal.InteractionHand_): void;
-        getDistance(x: number, y: number, z: number): number;
-        setMotionY(y: number): void;
-        getAttributeTotalValue(attribute: Internal.Attribute_): number;
-        isPeacefulCreature(): boolean;
-        isUndead(): boolean;
-        setRotation(yaw: number, pitch: number): void;
-        getStepHeight(): number;
-        isAmbientCreature(): boolean;
-        getSoundFromFluidType(arg0: Internal.FluidType_, arg1: Internal.SoundAction_): Internal.SoundEvent;
-        isMonster(): boolean;
-        canHydrateInFluidType(arg0: Internal.FluidType_): boolean;
-        getType(): string;
-        setChestArmorItem(item: Internal.ItemStack_): void;
-        getBlock(): Internal.BlockContainerJS;
-        getNbt(): Internal.CompoundTag;
-        setEquipment(slot: Internal.EquipmentSlot_, item: Internal.ItemStack_): void;
-        getMotionY(): number;
-        getName(): Internal.Component;
-        getPassengers(): Internal.EntityArrayList;
-        setTotalMovementSpeedMultiplier(speed: number): void;
-        getFluidFallDistanceModifier(arg0: Internal.FluidType_): number;
-        isInFluidType(arg0: Internal.BiPredicate_<Internal.FluidType, number>): boolean;
-        setHeldItem(hand: Internal.InteractionHand_, item: Internal.ItemStack_): void;
-        canFluidExtinguish(arg0: Internal.FluidType_): boolean;
-        damageHeldItem(hand: Internal.InteractionHand_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
-        isPushedByFluid(arg0: Internal.FluidType_): boolean;
-        getFeetArmorItem(): Internal.ItemStack;
-        setDefaultMovementSpeed(speed: number): void;
-        setOffHandItem(item: Internal.ItemStack_): void;
-        sinkInFluid(arg0: Internal.FluidType_): void;
-        getMainHandItem(): Internal.ItemStack;
-        spawn(): void;
-        getServer(): Internal.MinecraftServer;
-        setMotionX(x: number): void;
-        canEntityBeSeen(entity: Internal.LivingEntity_): boolean;
-        teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
-        setNbt(nbt: Internal.CompoundTag_): void;
-        getLevel(): Internal.Level;
-        getScriptType(): Internal.ScriptType;
-        setMovementSpeedAddition(speed: number): void;
-        isMultipartEntity(): boolean;
-        getHeadArmorItem(): Internal.ItemStack;
-        modifyAttribute(attribute: Internal.Attribute_, identifier: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
-        setFeetArmorItem(item: Internal.ItemStack_): void;
-        getParts(): Internal.PartEntity<any>[];
-        setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        deserializeNBT(arg0: Internal.Tag_): void;
-        getChestArmorItem(): Internal.ItemStack;
-        damageEquipment(slot: Internal.EquipmentSlot_, amount: number): void;
-        getMotionZ(): number;
-        tell(message: Internal.Component_): void;
-        serializeNBT(): Internal.CompoundTag;
-        setZ(z: number): void;
-        setStatusMessage(message: Internal.Component_): void;
-        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        getDistanceSq(pos: BlockPos_): number;
-        getProfile(): Internal.GameProfile;
-        setHeadArmorItem(item: Internal.ItemStack_): void;
-        getAttributeBaseValue(attribute: Internal.Attribute_): number;
-        getClassification(arg0: boolean): Internal.MobCategory;
-        runCommand(command: string): number;
-        canDrownInFluidType(arg0: Internal.FluidType_): boolean;
-        set defaultMovementSpeedMultiplier(speed: number)
-        get offHandItem(): Internal.ItemStack
-        get owner(): Internal.LivingEntity
-        get player(): boolean
-        get animal(): boolean
-        set y(y: number)
-        get living(): boolean
-        get totalMovementSpeed(): number
-        set despawnDelay(arg0: number)
-        get saddleSoundEvent(): Internal.SoundEvent
-        get displayName(): Internal.Component
-        set position(block: Internal.BlockContainerJS_)
-        set motionZ(z: number)
-        get variant(): any
-        get teamId(): string
-        set maxHealth(hp: number)
-        get facing(): Internal.Direction
-        get jumpCooldown(): number
-        set mainHandItem(item: Internal.ItemStack_)
-        get legsArmorItem(): Internal.ItemStack
-        get reachDistance(): number
-        get motionX(): number
-        get waterCreature(): boolean
-        get item(): Internal.ItemStack
-        set x(x: number)
-        get potionEffects(): Internal.EntityPotionEffectsJS
-        get frame(): boolean
-        set legsArmorItem(item: Internal.ItemStack_)
-        get defaultMovementSpeed(): number
-        set motionY(y: number)
-        get peacefulCreature(): boolean
-        get undead(): boolean
-        get stepHeight(): number
-        get ambientCreature(): boolean
-        get monster(): boolean
-        get type(): string
-        set chestArmorItem(item: Internal.ItemStack_)
-        get block(): Internal.BlockContainerJS
-        get nbt(): Internal.CompoundTag
-        get motionY(): number
-        get name(): Internal.Component
-        get passengers(): Internal.EntityArrayList
-        set totalMovementSpeedMultiplier(speed: number)
-        get feetArmorItem(): Internal.ItemStack
-        set defaultMovementSpeed(speed: number)
-        set offHandItem(item: Internal.ItemStack_)
-        get mainHandItem(): Internal.ItemStack
-        get server(): Internal.MinecraftServer
-        set motionX(x: number)
-        set nbt(nbt: Internal.CompoundTag_)
-        get level(): Internal.Level
-        get scriptType(): Internal.ScriptType
-        set movementSpeedAddition(speed: number)
-        get multipartEntity(): boolean
-        get headArmorItem(): Internal.ItemStack
-        set feetArmorItem(item: Internal.ItemStack_)
-        get parts(): Internal.PartEntity<any>[]
-        get chestArmorItem(): Internal.ItemStack
-        get motionZ(): number
-        set z(z: number)
-        set statusMessage(message: Internal.Component_)
-        get profile(): Internal.GameProfile
-        set headArmorItem(item: Internal.ItemStack_)
-    }
-    type TraderLlama_ = TraderLlama;
-    class PistonExtensionPoleBlock extends Internal.WrenchableDirectionalBlock implements Internal.IWrenchable, Internal.SimpleWaterloggedBlock {
-        constructor(arg0: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        onWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        playRemoveSound(arg0: Internal.Level_, arg1: BlockPos_): void;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        placeLiquid(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.FluidState_): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        playRotateSound(arg0: Internal.Level_, arg1: BlockPos_): void;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
-        canPlaceLiquid(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.Fluid_): boolean;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        onSneakWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        updateAfterWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.BlockState;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getRotatedBlockState(arg0: Internal.BlockState_, arg1: Internal.Direction_): Internal.BlockState;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        get pickupSound(): Internal.Optional<Internal.SoundEvent>
-        set lightEmission(v: number)
-        set destroySpeed(v: number)
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-    }
-    type PistonExtensionPoleBlock_ = PistonExtensionPoleBlock;
-    interface BlockColorsForgeAccessor {
-        abstract puzzleslib$getBlockColors(): Internal.Map<Internal.Holder$Reference<Internal.Block>, Internal.BlockColor>;
-        (): Internal.Map_<Internal.Holder$Reference<Internal.Block>, Internal.BlockColor>;
-    }
-    type BlockColorsForgeAccessor_ = BlockColorsForgeAccessor;
-    abstract class TypeToken <T> extends Internal.TypeCapture<T> implements Internal.Serializable {
-        where<X>(arg0: Internal.TypeParameter_<X>, arg1: X): this;
-        static of<T>(arg0: T): Internal.TypeToken<T>;
-        isPrimitive(): boolean;
-        method(arg0: Internal.Method_): Internal.Invokable<T, any>;
-        static of(arg0: Internal.Type_): Internal.TypeToken<any>;
-        getComponentType(): Internal.TypeToken<any>;
-        getTypes(): Internal.TypeToken$TypeSet<>;
-        where<X>(arg0: Internal.TypeParameter_<X>, arg1: Internal.TypeToken_<X>): this;
-        getRawType(): T;
-        resolveType(arg0: Internal.Type_): Internal.TypeToken<any>;
-        isSubtypeOf(arg0: Internal.TypeToken_<any>): boolean;
-        isSupertypeOf(arg0: Internal.Type_): boolean;
-        isArray(): boolean;
-        wrap(): this;
-        isSubtypeOf(arg0: Internal.Type_): boolean;
-        unwrap(): this;
-        getSubtype(arg0: typeof any): this;
-        getSupertype(arg0: T): this;
-        "constructor"(arg0: Internal.Constructor_<any>): Internal.Invokable<T, T>;
-        getType(): Internal.Type;
-        isSupertypeOf(arg0: Internal.TypeToken_<any>): boolean;
-        get primitive(): boolean
-        get componentType(): Internal.TypeToken<any>
-        get types(): Internal.TypeToken$TypeSet<>
-        get rawType(): T
-        get array(): boolean
-        get type(): Internal.Type
-    }
-    type TypeToken_<T> = TypeToken<T>;
-    abstract class Crop extends Internal.RecipeBaseData<Internal.Container> {
-        constructor(arg0: ResourceLocation_)
-        abstract getLightLevel(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_): number;
-        getGroup(): string;
-        getToastSymbol(): Internal.ItemStack;
-        getSchema(): Internal.RecipeSchema;
-        abstract getDisplayState(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_): Internal.List<Internal.DisplayState>;
-        abstract getGrowthTicks(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_, arg3: Internal.Soil_): number;
-        getMod(): string;
-        getRemainingItems(arg0: Internal.Container_): Internal.NonNullList<Internal.ItemStack>;
-        abstract getCategories(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_): Internal.Set<string>;
-        getIngredients(): Internal.NonNullList<Internal.Ingredient>;
-        isSpecial(): boolean;
-        hasOutput(match: Internal.ReplacementMatch_): boolean;
-        onTick(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_): void;
-        abstract matchesLookup(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_, arg3: Internal.ItemStack_): boolean;
-        showNotification(): boolean;
-        replaceInput(match: Internal.ReplacementMatch_, with_: Internal.InputReplacement_): boolean;
-        abstract canGrowInSoil(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_, arg3: Internal.Soil_): boolean;
-        getType(): ResourceLocation;
-        setGroup(group: string): void;
-        getOrCreateId(): ResourceLocation;
-        abstract generateDrops(arg0: Internal.Random_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.BlockEntityBotanyPot_): Internal.List<Internal.ItemStack>;
-        hasInput(match: Internal.ReplacementMatch_): boolean;
-        isIncomplete(): boolean;
-        replaceOutput(match: Internal.ReplacementMatch_, with_: Internal.OutputReplacement_): boolean;
-        onGrowthTick(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockEntityBotanyPot_, arg3: Internal.Soil_): void;
-        get group(): string
-        get toastSymbol(): Internal.ItemStack
-        get schema(): Internal.RecipeSchema
-        get mod(): string
-        get ingredients(): Internal.NonNullList<Internal.Ingredient>
-        get special(): boolean
-        get type(): ResourceLocation
-        set group(group: string)
-        get orCreateId(): ResourceLocation
-        get incomplete(): boolean
-    }
-    type Crop_ = Crop;
-    interface IMultiBlockEntityContainer {
-        getMainAxisOf(arg0: Internal.BlockEntity_): Internal.Direction$Axis;
-        abstract getMaxWidth(): number;
-        abstract removeController(arg0: boolean): void;
-        abstract getControllerBE<T extends Internal.BlockEntity & Internal.IMultiBlockEntityContainer>(): T;
-        abstract setController(arg0: BlockPos_): void;
-        abstract isController(): boolean;
-        abstract getWidth(): number;
-        setExtraData(arg0: any): void;
-        modifyExtraData(arg0: any): any;
-        abstract getController(): BlockPos;
-        abstract getLastKnownPos(): BlockPos;
-        abstract preventConnectivityUpdate(): void;
-        abstract notifyMultiUpdated(): void;
-        getExtraData(): any;
-        abstract getMainConnectionAxis(): Internal.Direction$Axis;
-        abstract setHeight(arg0: number): void;
-        abstract setWidth(arg0: number): void;
-        abstract getHeight(): number;
-        abstract getMaxLength(arg0: Internal.Direction$Axis_, arg1: number): number;
-        get maxWidth(): number
-        get controllerBE(): T
-        set controller(arg0: BlockPos_)
-        get controller(): boolean
-        get width(): number
-        set extraData(arg0: any)
-        get controller(): BlockPos
-        get lastKnownPos(): BlockPos
-        get extraData(): any
-        get mainConnectionAxis(): Internal.Direction$Axis
-        set height(arg0: number)
-        set width(arg0: number)
-        get height(): number
-    }
-    type IMultiBlockEntityContainer_ = IMultiBlockEntityContainer;
-    interface ICustomPacket <T extends Internal.Packet<any>> {
-        getThis(): T;
-        abstract getInternalData(): Internal.FriendlyByteBuf;
-        getDirection(): Internal.NetworkDirection;
-        abstract getName(): ResourceLocation;
-        abstract getIndex(): number;
-        get "this"(): T
-        get internalData(): Internal.FriendlyByteBuf
-        get direction(): Internal.NetworkDirection
-        get name(): ResourceLocation
-        get index(): number
-    }
-    type ICustomPacket_<T extends Internal.Packet<any>> = ICustomPacket<T>;
-    class BlockStateProviderType <P extends Internal.BlockStateProvider> {
-        constructor(arg0: Internal.Codec_<P>)
-        codec(): Internal.Codec<P>;
-        static readonly WEIGHTED_STATE_PROVIDER: Internal.BlockStateProviderType<Internal.WeightedStateProvider>;
-        static readonly SIMPLE_STATE_PROVIDER: Internal.BlockStateProviderType<Internal.SimpleStateProvider>;
-        static readonly DUAL_NOISE_PROVIDER: Internal.BlockStateProviderType<Internal.DualNoiseProvider>;
-        static readonly NOISE_THRESHOLD_PROVIDER: Internal.BlockStateProviderType<Internal.NoiseThresholdProvider>;
-        static readonly ROTATED_BLOCK_PROVIDER: Internal.BlockStateProviderType<Internal.RotatedBlockProvider>;
-        static readonly NOISE_PROVIDER: Internal.BlockStateProviderType<Internal.NoiseProvider>;
-        static readonly RANDOMIZED_INT_STATE_PROVIDER: Internal.BlockStateProviderType<Internal.RandomizedIntStateProvider>;
-    }
-    type BlockStateProviderType_<P extends Internal.BlockStateProvider> = Special.BlockStateProviderType | BlockStateProviderType<P>;
-    class PulleyBlock$MagnetBlock extends Internal.PulleyBlock$RopeBlockBase {
-        constructor(arg0: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        placeLiquid(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.FluidState_): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
-        canPlaceLiquid(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.Fluid_): boolean;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        get pickupSound(): Internal.Optional<Internal.SoundEvent>
-        set lightEmission(v: number)
-        set destroySpeed(v: number)
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-    }
-    type PulleyBlock$MagnetBlock_ = PulleyBlock$MagnetBlock;
-    class MinecartFurnace extends Internal.AbstractMinecart {
-        constructor(arg0: Internal.EntityType_<Internal.MinecartFurnace>, arg1: Internal.Level_)
-        constructor(arg0: Internal.Level_, arg1: number, arg2: number, arg3: number)
-        setMotionY(y: number): void;
-        isPoweredCart(): boolean;
-        isPeacefulCreature(): boolean;
-        getDistance(pos: BlockPos_): number;
-        setRotation(yaw: number, pitch: number): void;
-        playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
-        getStepHeight(): number;
-        isAmbientCreature(): boolean;
-        getSoundFromFluidType(arg0: Internal.FluidType_, arg1: Internal.SoundAction_): Internal.SoundEvent;
-        isMonster(): boolean;
-        getSlopeAdjustment(): number;
-        isOnScoreboardTeam(teamId: string): boolean;
-        canBeRidden(): boolean;
-        canHydrateInFluidType(arg0: Internal.FluidType_): boolean;
-        getType(): string;
-        self(): Internal.Entity;
-        getBlock(): Internal.BlockContainerJS;
-        getPickedResult(arg0: Internal.HitResult_): Internal.ItemStack;
-        getNbt(): Internal.CompoundTag;
-        getMotionY(): number;
-        getName(): Internal.Component;
-        setPosition(x: number, y: number, z: number): void;
-        getPassengers(): Internal.EntityArrayList;
-        runCommandSilent(command: string): number;
-        canStartSwimming(): boolean;
-        isPlayer(): boolean;
-        isAnimal(): boolean;
-        rayTrace(distance: number, fluids: boolean): Internal.RayTraceResultJS;
-        setY(y: number): void;
-        getFluidFallDistanceModifier(arg0: Internal.FluidType_): number;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        isInFluidType(arg0: Internal.BiPredicate_<Internal.FluidType, number>): boolean;
-        isLiving(): boolean;
-        canFluidExtinguish(arg0: Internal.FluidType_): boolean;
-        alwaysAccepts(): boolean;
-        isInFluidType(arg0: Internal.FluidState_): boolean;
-        getComparatorLevel(): number;
-        isPushedByFluid(arg0: Internal.FluidType_): boolean;
-        spawn(): void;
-        getServer(): Internal.MinecraftServer;
-        getDisplayName(): Internal.Component;
-        setMotionX(x: number): void;
-        setPosition(block: Internal.BlockContainerJS_): void;
-        setMotionZ(z: number): void;
-        getCurrentRailPosition(): BlockPos;
-        teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
-        mergeNbt(tag: Internal.CompoundTag_): Internal.Entity;
-        attack(hp: number): void;
-        canSwimInFluidType(arg0: Internal.FluidType_): boolean;
-        getTeamId(): string;
-        setNbt(nbt: Internal.CompoundTag_): void;
-        canBeRiddenUnderFluidType(arg0: Internal.FluidType_, arg1: Internal.Entity_): boolean;
-        getLevel(): Internal.Level;
-        getFacing(): Internal.Direction;
-        getScriptType(): Internal.ScriptType;
-        shouldDoRailFunctions(): boolean;
-        isMultipartEntity(): boolean;
-        shouldRiderSit(): boolean;
-        getParts(): Internal.PartEntity<any>[];
-        setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        rayTrace(distance: number): Internal.RayTraceResultJS;
-        isInFluidType(arg0: Internal.FluidType_): boolean;
-        getFluidMotionScale(arg0: Internal.FluidType_): number;
-        getMotionX(): number;
-        isWaterCreature(): boolean;
-        deserializeNBT(arg0: Internal.Tag_): void;
-        getMotionZ(): number;
-        getItem(): Internal.ItemStack;
-        setX(x: number): void;
-        tell(message: Internal.Component_): void;
-        serializeNBT(): Internal.CompoundTag;
-        setZ(z: number): void;
-        setStatusMessage(message: Internal.Component_): void;
-        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        getDistanceSq(pos: BlockPos_): number;
-        isFrame(): boolean;
-        getProfile(): Internal.GameProfile;
-        playSound(id: Internal.SoundEvent_): void;
-        getClassification(arg0: boolean): Internal.MobCategory;
-        runCommand(command: string): number;
-        getDistance(x: number, y: number, z: number): number;
-        set motionY(y: number)
-        get poweredCart(): boolean
-        get peacefulCreature(): boolean
-        get stepHeight(): number
-        get ambientCreature(): boolean
-        get monster(): boolean
-        get slopeAdjustment(): number
-        get type(): string
-        get block(): Internal.BlockContainerJS
-        get nbt(): Internal.CompoundTag
-        get motionY(): number
-        get name(): Internal.Component
-        get passengers(): Internal.EntityArrayList
-        get player(): boolean
-        get animal(): boolean
-        set y(y: number)
-        get living(): boolean
-        get comparatorLevel(): number
-        get server(): Internal.MinecraftServer
-        get displayName(): Internal.Component
-        set motionX(x: number)
-        set position(block: Internal.BlockContainerJS_)
-        set motionZ(z: number)
-        get currentRailPosition(): BlockPos
-        get teamId(): string
-        set nbt(nbt: Internal.CompoundTag_)
-        get level(): Internal.Level
-        get facing(): Internal.Direction
-        get scriptType(): Internal.ScriptType
-        get multipartEntity(): boolean
-        get parts(): Internal.PartEntity<any>[]
-        get motionX(): number
-        get waterCreature(): boolean
-        get motionZ(): number
-        get item(): Internal.ItemStack
-        set x(x: number)
-        set z(z: number)
-        set statusMessage(message: Internal.Component_)
-        get frame(): boolean
-        get profile(): Internal.GameProfile
-        xPush: number;
-        zPush: number;
-    }
-    type MinecartFurnace_ = MinecartFurnace;
-    interface ISpecialBlockItemRequirement {
-        abstract getRequiredItems(arg0: Internal.BlockState_, arg1: Internal.BlockEntity_): Internal.ItemRequirement;
-        (arg0: Internal.BlockState, arg1: Internal.BlockEntity): Internal.ItemRequirement_;
-    }
-    type ISpecialBlockItemRequirement_ = ISpecialBlockItemRequirement;
-    abstract class AbstractProperty <T extends Internal.AbstractDocumentBase<T>> extends Internal.AbstractDocumentBase<T> {
-        constructor()
-        applyProperties(): T;
-    }
-    type AbstractProperty_<T extends Internal.AbstractDocumentBase<T>> = AbstractProperty<T>;
-    abstract class ForwardingCollection <E> extends Internal.ForwardingObject implements Internal.Collection<E> {
-        add(arg0: E): boolean;
-        forEach(arg0: Internal.Consumer_<E>): void;
-        toArray<T>(arg0: T[]): T[];
-        remove(arg0: any): boolean;
-        parallelStream(): Internal.Stream<E>;
-        isEmpty(): boolean;
-        toArray(): any[];
-        iterator(): Internal.Iterator<E>;
-        retainAll(arg0: Internal.Collection_<any>): boolean;
-        size(): number;
-        containsAll(arg0: Internal.Collection_<any>): boolean;
-        toArray<T>(arg0: Internal.IntFunction_<T[]>): T[];
-        stream(): Internal.Stream<E>;
-        removeAll(arg0: Internal.Collection_<any>): boolean;
-        clear(): void;
-        removeIf(arg0: Internal.Predicate_<E>): boolean;
-        spliterator(): Internal.Spliterator<E>;
-        contains(arg0: any): boolean;
-        addAll(arg0: Internal.Collection_<E>): boolean;
-        get empty(): boolean
-    }
-    type ForwardingCollection_<E> = ForwardingCollection<E>;
-    interface Hopper extends Internal.Container {
-        stopOpen(arg0: Internal.Player_): void;
-        count(ingredient: Internal.Ingredient_): number;
-        tryClear(arg0: any): void;
-        count(): number;
-        countItem(arg0: Internal.Item_): number;
-        setStackInSlot(slot: number, stack: Internal.ItemStack_): void;
-        abstract isEmpty(): boolean;
-        clear(ingredient: Internal.Ingredient_): void;
-        startOpen(arg0: Internal.Player_): void;
-        canPlaceItem(arg0: number, arg1: Internal.ItemStack_): boolean;
-        find(): number;
-        hasAnyOf(arg0: Internal.Set_<Internal.Item>): boolean;
-        abstract removeItem(arg0: number, arg1: number): Internal.ItemStack;
-        getSlots(): number;
-        extractItem(slot: number, amount: number, simulate: boolean): Internal.ItemStack;
-        setChanged(): void;
-        getBlock(level: Internal.Level_): Internal.BlockContainerJS;
-        stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_, arg2: number): boolean;
-        abstract getContainerSize(): number;
-        getStackInSlot(slot: number): Internal.ItemStack;
-        getHeight(): number;
-        abstract setItem(arg0: number, arg1: Internal.ItemStack_): void;
-        hasAnyMatching(arg0: Internal.Predicate_<Internal.ItemStack>): boolean;
-        countNonEmpty(): number;
-        asContainer(): Internal.Container;
-        kjs$self(): Internal.Container;
-        getWidth(): number;
-        getSlotLimit(slot: number): number;
-        getMaxStackSize(): number;
-        getAllItems(): Internal.List<Internal.ItemStack>;
-        abstract removeItemNoUpdate(arg0: number): Internal.ItemStack;
-        stillValidBlockEntity(arg0: Internal.BlockEntity_, arg1: Internal.Player_): boolean;
-        canTakeItem(arg0: Internal.Container_, arg1: number, arg2: Internal.ItemStack_): boolean;
-        insertItem(stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
-        insertItem(slot: number, stack: Internal.ItemStack_, simulate: boolean): Internal.ItemStack;
-        abstract stillValid(arg0: Internal.Player_): boolean;
-        getSuckShape(): Internal.VoxelShape;
-        isMutable(): boolean;
-        clear(): void;
-        abstract getItem(arg0: number): Internal.ItemStack;
-        find(ingredient: Internal.Ingredient_): number;
-        abstract getLevelX(): number;
-        abstract getLevelY(): number;
-        abstract getLevelZ(): number;
-        abstract clearContent(): void;
-        countNonEmpty(ingredient: Internal.Ingredient_): number;
-        isItemValid(slot: number, stack: Internal.ItemStack_): boolean;
-        get empty(): boolean
-        get slots(): number
-        get containerSize(): number
-        get height(): number
-        get width(): number
-        get maxStackSize(): number
-        get allItems(): Internal.List<Internal.ItemStack>
-        get suckShape(): Internal.VoxelShape
-        get mutable(): boolean
-        get levelX(): number
-        get levelY(): number
-        get levelZ(): number
-        readonly SUCK: Internal.ArrayVoxelShape;
-        readonly INSIDE: Internal.ArrayVoxelShape;
-        readonly ABOVE: Internal.ArrayVoxelShape;
-    }
-    type Hopper_ = Hopper;
-    class DeltaFeatureConfiguration implements Internal.FeatureConfiguration {
-        constructor(arg0: Internal.BlockState_, arg1: Internal.BlockState_, arg2: Internal.IntProvider_, arg3: Internal.IntProvider_)
-        getFeatures(): Internal.Stream<Internal.ConfiguredFeature<any, any>>;
-        rim(): Internal.BlockState;
-        rimSize(): Internal.IntProvider;
-        contents(): Internal.BlockState;
-        size(): Internal.IntProvider;
-        get features(): Internal.Stream<Internal.ConfiguredFeature<any, any>>
-        static readonly CODEC: Internal.Codec<Internal.DeltaFeatureConfiguration>;
-    }
-    type DeltaFeatureConfiguration_ = DeltaFeatureConfiguration;
-    interface AccessorShapedRecipe {
-        bookshelf$dissolvePattern(arg0: string[], arg1: Internal.Map_<string, Internal.Ingredient>, arg2: number, arg3: number): Internal.NonNullList<Internal.Ingredient>;
-        bookshelf$shrink(...arg0: string[]): string[];
-        bookshelf$patternFromJson(arg0: Internal.JsonArray_): string[];
-        bookshelf$keyFromJson(arg0: Internal.JsonObject_): Internal.Map<string, Internal.Ingredient>;
-    }
-    type AccessorShapedRecipe_ = AccessorShapedRecipe;
-    interface GlyphInfo {
-        getAdvance(arg0: boolean): number;
-        abstract getAdvance(): number;
-        getBoldOffset(): number;
-        abstract bake(arg0: Internal.Function_<Internal.SheetGlyphInfo, Internal.BakedGlyph>): Internal.BakedGlyph;
-        getShadowOffset(): number;
-        get advance(): number
-        get boldOffset(): number
-        get shadowOffset(): number
-    }
-    type GlyphInfo_ = GlyphInfo;
-    class HolderSetCodec <E> implements Internal.Codec<Internal.HolderSet<E>> {
-        orElse(arg0: Internal.HolderSet_<E>): Internal.Codec<Internal.HolderSet<E>>;
-        flatMap<B>(arg0: Internal.Function_<Internal.HolderSet<E>, Internal.DataResult<B>>): Internal.Decoder<B>;
-        decode<T>(arg0: Internal.DynamicOps_<T>, arg1: T): Internal.DataResult<com.mojang.datafixers.util.Pair<Internal.HolderSet<E>, T>>;
-        static empty<A>(): Internal.MapEncoder<A>;
-        static error<A>(arg0: string): Internal.Encoder<A>;
-        static unit<A>(arg0: Internal.Supplier_<A>): Internal.Codec<A>;
-        static create<E>(arg0: Internal.ResourceKey_<Internal.Registry<E>>, arg1: Internal.Codec_<Internal.Holder<E>>, arg2: boolean): Internal.Codec<Internal.HolderSet<E>>;
-        dispatch<E>(arg0: Internal.Function_<E, Internal.HolderSet<E>>, arg1: Internal.Function_<Internal.HolderSet<E>, Internal.Codec<E>>): Internal.Codec<E>;
-        flatXmap<S>(arg0: Internal.Function_<Internal.HolderSet<E>, Internal.DataResult<S>>, arg1: Internal.Function_<S, Internal.DataResult<Internal.HolderSet<E>>>): Internal.Codec<S>;
-        static floatRange(arg0: number, arg1: number): Internal.Codec<number>;
-        map<B>(arg0: Internal.Function_<Internal.HolderSet<E>, B>): Internal.Decoder<B>;
-        mapResult(arg0: Internal.Codec$ResultFunction_<Internal.HolderSet<E>>): Internal.Codec<Internal.HolderSet<E>>;
-        orElse(arg0: Internal.Consumer_<string>, arg1: Internal.HolderSet_<E>): Internal.Codec<Internal.HolderSet<E>>;
-        orElseGet(arg0: Internal.UnaryOperator_<string>, arg1: Internal.Supplier_<Internal.HolderSet<E>>): Internal.Codec<Internal.HolderSet<E>>;
-        optionalFieldOf(arg0: string, arg1: Internal.Lifecycle_, arg2: Internal.HolderSet_<E>, arg3: Internal.Lifecycle_): Internal.MapCodec<Internal.HolderSet<E>>;
-        static ofBoxed<A>(arg0: Internal.Decoder$Boxed_<A>): Internal.Decoder<A>;
-        deprecated(arg0: number): Internal.Codec<Internal.HolderSet<E>>;
-        terminal(): Internal.Decoder$Terminal<Internal.HolderSet<E>>;
-        partialDispatch<E>(arg0: string, arg1: Internal.Function_<E, Internal.DataResult<Internal.HolderSet<E>>>, arg2: Internal.Function_<Internal.HolderSet<E>, Internal.DataResult<Internal.Codec<E>>>): Internal.Codec<E>;
-        parse<T>(arg0: Internal.DynamicOps_<T>, arg1: T): Internal.DataResult<Internal.HolderSet<E>>;
-        comap<B>(arg0: Internal.Function_<B, Internal.HolderSet<E>>): Internal.Encoder<B>;
-        orElseGet(arg0: Internal.Supplier_<Internal.HolderSet<E>>): Internal.Codec<Internal.HolderSet<E>>;
-        dispatchStable<E>(arg0: Internal.Function_<E, Internal.HolderSet<E>>, arg1: Internal.Function_<Internal.HolderSet<E>, Internal.Codec<E>>): Internal.Codec<E>;
-        static unit<A>(arg0: A): Internal.Codec<A>;
-        static intRange(arg0: number, arg1: number): Internal.Codec<number>;
-        static pair<F, S>(arg0: Internal.Codec_<F>, arg1: Internal.Codec_<S>): Internal.Codec<com.mojang.datafixers.util.Pair<F, S>>;
-        static either<F, S>(arg0: Internal.Codec_<F>, arg1: Internal.Codec_<S>): Internal.Codec<Internal.Either<F, S>>;
-        static checkRange<N extends number & Internal.Comparable<N>>(arg0: N, arg1: N): Internal.Function<N, Internal.DataResult<N>>;
-        dispatchMap<E>(arg0: Internal.Function_<E, Internal.HolderSet<E>>, arg1: Internal.Function_<Internal.HolderSet<E>, Internal.Codec<E>>): Internal.MapCodec<E>;
-        stable(): Internal.Codec<Internal.HolderSet<E>>;
-        withLifecycle(arg0: Internal.Lifecycle_): Internal.Codec<Internal.HolderSet<E>>;
-        static unboundedMap<K, V>(arg0: Internal.Codec_<K>, arg1: Internal.Codec_<V>): Internal.UnboundedMapCodec<K, V>;
-        dispatchMap<E>(arg0: string, arg1: Internal.Function_<E, Internal.HolderSet<E>>, arg2: Internal.Function_<Internal.HolderSet<E>, Internal.Codec<E>>): Internal.MapCodec<E>;
-        xmap<S>(arg0: Internal.Function_<Internal.HolderSet<E>, S>, arg1: Internal.Function_<S, Internal.HolderSet<E>>): Internal.Codec<S>;
-        parse<T>(arg0: Internal.Dynamic_<T>): Internal.DataResult<Internal.HolderSet<E>>;
-        static of<A>(arg0: Internal.Encoder_<A>, arg1: Internal.Decoder_<A>, arg2: string): Internal.Codec<A>;
-        decode<T>(arg0: Internal.Dynamic_<T>): Internal.DataResult<com.mojang.datafixers.util.Pair<Internal.HolderSet<E>, T>>;
-        optionalFieldOf(arg0: string, arg1: Internal.HolderSet_<E>): Internal.MapCodec<Internal.HolderSet<E>>;
-        static ofSimple<A>(arg0: Internal.Decoder$Simple_<A>): Internal.Decoder<A>;
-        static mapEither<F, S>(arg0: Internal.MapCodec_<F>, arg1: Internal.MapCodec_<S>): Internal.MapCodec<Internal.Either<F, S>>;
-        static doubleRange(arg0: number, arg1: number): Internal.Codec<number>;
-        orElseGet(arg0: Internal.Consumer_<string>, arg1: Internal.Supplier_<Internal.HolderSet<E>>): Internal.Codec<Internal.HolderSet<E>>;
-        static optionalField<F>(arg0: string, arg1: Internal.Codec_<F>): Internal.MapCodec<Internal.Optional<F>>;
-        static simpleMap<K, V>(arg0: Internal.Codec_<K>, arg1: Internal.Codec_<V>, arg2: Internal.Keyable_): Internal.SimpleMapCodec<K, V>;
-        static ofTerminal<A>(arg0: Internal.Decoder$Terminal_<A>): Internal.Decoder<A>;
-        encode(arg0: any, arg1: Internal.DynamicOps_<any>, arg2: any): Internal.DataResult<any>;
-        dispatch<E>(arg0: string, arg1: Internal.Function_<E, Internal.HolderSet<E>>, arg2: Internal.Function_<Internal.HolderSet<E>, Internal.Codec<E>>): Internal.Codec<E>;
-        orElse(arg0: Internal.UnaryOperator_<string>, arg1: Internal.HolderSet_<E>): Internal.Codec<Internal.HolderSet<E>>;
-        static list<E>(arg0: Internal.Codec_<E>): Internal.Codec<Internal.List<E>>;
-        optionalFieldOf(arg0: string, arg1: Internal.HolderSet_<E>, arg2: Internal.Lifecycle_): Internal.MapCodec<Internal.HolderSet<E>>;
-        simple(): Internal.Decoder$Simple<Internal.HolderSet<E>>;
-        promotePartial(arg0: Internal.Consumer_<any>): Internal.Decoder<any>;
-        optionalFieldOf(arg0: string): Internal.MapCodec<Internal.Optional<Internal.HolderSet<E>>>;
-        static of<A>(arg0: Internal.MapEncoder_<A>, arg1: Internal.MapDecoder_<A>): Internal.MapCodec<A>;
-        comapFlatMap<S>(arg0: Internal.Function_<Internal.HolderSet<E>, Internal.DataResult<S>>, arg1: Internal.Function_<S, Internal.HolderSet<E>>): Internal.Codec<S>;
-        flatComap<B>(arg0: Internal.Function_<B, Internal.DataResult<Internal.HolderSet<E>>>): Internal.Encoder<B>;
-        static of<A>(arg0: Internal.Encoder_<A>, arg1: Internal.Decoder_<A>): Internal.Codec<A>;
-        fieldOf(arg0: string): Internal.MapCodec<Internal.HolderSet<E>>;
-        boxed(): Internal.Decoder$Boxed<Internal.HolderSet<E>>;
-        static of<A>(arg0: Internal.MapEncoder_<A>, arg1: Internal.MapDecoder_<A>, arg2: Internal.Supplier_<string>): Internal.MapCodec<A>;
-        static compoundList<K, V>(arg0: Internal.Codec_<K>, arg1: Internal.Codec_<V>): Internal.Codec<Internal.List<com.mojang.datafixers.util.Pair<K, V>>>;
-        listOf(): Internal.Codec<Internal.List<Internal.HolderSet<E>>>;
-        encode<T>(arg0: Internal.HolderSet_<E>, arg1: Internal.DynamicOps_<T>, arg2: T): Internal.DataResult<T>;
-        encodeStart<T>(arg0: Internal.DynamicOps_<T>, arg1: Internal.HolderSet_<E>): Internal.DataResult<T>;
-        flatComapMap<S>(arg0: Internal.Function_<Internal.HolderSet<E>, S>, arg1: Internal.Function_<S, Internal.DataResult<Internal.HolderSet<E>>>): Internal.Codec<S>;
-        static mapPair<F, S>(arg0: Internal.MapCodec_<F>, arg1: Internal.MapCodec_<S>): Internal.MapCodec<com.mojang.datafixers.util.Pair<F, S>>;
-    }
-    type HolderSetCodec_<E> = HolderSetCodec<E>;
-    class SequencedGearshiftBlockEntity extends Internal.SplitShaftBlockEntity {
-        constructor(arg0: Internal.BlockEntityType_<any>, arg1: BlockPos_, arg2: Internal.BlockState_)
-        getCapability<T>(arg0: Internal.Capability_<T>, arg1: Internal.Direction_): Internal.LazyOptional<T>;
-        getModifier(): number;
-        onRedstoneUpdate(arg0: boolean, arg1: boolean): void;
-        deserializeNBT(arg0: Internal.Tag_): void;
-        containedFluidTooltip(arg0: Internal.List_<Internal.Component>, arg1: boolean, arg2: Internal.LazyOptional_<Internal.IFluidHandler>): boolean;
-        write(arg0: Internal.CompoundTag_, arg1: boolean): void;
-        isIdle(): boolean;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        getInstruction(arg0: number): Internal.Instruction;
-        getModelData(): Internal.ModelData;
-        run(arg0: number): void;
-        risingFlank(): void;
-        onLoad(): void;
-        serializeNBT(): Internal.Tag;
-        getInstructions(): Internal.Vector<Internal.Instruction>;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        get modifier(): number
-        get idle(): boolean
-        get modelData(): Internal.ModelData
-        get instructions(): Internal.Vector<Internal.Instruction>
-        computerBehaviour: Internal.AbstractComputerBehaviour;
-    }
-    type SequencedGearshiftBlockEntity_ = SequencedGearshiftBlockEntity;
-    class BombEntity$BombType extends Internal.Enum<Internal.BombEntity$BombType> {
-        getRadius(): number;
-        isInstantlyActivated(): boolean;
-        getDisplayStack(active: boolean): Internal.ItemStack;
-        breakMode(): Internal.BombEntity$BreakingMode;
-        afterExploded(exp: Internal.BombExplosion_, level: Internal.Level_): void;
-        static values(): Internal.BombEntity$BombType[];
-        applyStatusEffects(entity: Internal.LivingEntity_, distSq: number): void;
-        spawnExtraParticles(bomb: Internal.BombEntity_): void;
-        volume(): number;
-        static valueOf(name: string): Internal.BombEntity$BombType;
-        get radius(): number
-        get instantlyActivated(): boolean
-        readonly itemOn: Internal.Supplier<Internal.Item>;
-        static readonly BLUE: Internal.BombEntity$BombType;
-        static readonly NORMAL: Internal.BombEntity$BombType;
-        static readonly SPIKY: Internal.BombEntity$BombType;
-        readonly item: Internal.Supplier<Internal.Item>;
-    }
-    type BombEntity$BombType_ = BombEntity$BombType | "normal" | "spiky" | "blue";
-    interface TaskChainer$DelayedTask {
-        abstract submit(arg0: Internal.Executor_): Internal.CompletableFuture<any>;
-        (arg0: Internal.Executor): Internal.CompletableFuture_<any>;
-    }
-    type TaskChainer$DelayedTask_ = TaskChainer$DelayedTask;
-    interface GenericFutureListener <F extends io.netty.util.concurrent.Future<any>> extends Internal.EventListener {
-        abstract operationComplete(arg0: F): void;
-        (arg0: F): void;
-    }
-    type GenericFutureListener_<F extends io.netty.util.concurrent.Future<any>> = GenericFutureListener<F>;
-    class SaplingBlock extends Internal.BushBlock implements Internal.BonemealableBlock {
-        constructor(arg0: any_, arg1: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        isBonemealSuccess(arg0: Internal.Level_, arg1: Internal.RandomSource_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        performBonemeal(arg0: Internal.ServerLevel_, arg1: Internal.RandomSource_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        advanceTree(arg0: Internal.ServerLevel_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.RandomSource_): void;
-        getPlantType(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.PlantType;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        isValidBonemealTarget(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: boolean): boolean;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        set lightEmission(v: number)
-        set destroySpeed(v: number)
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-        static readonly STAGE: Internal.IntegerProperty;
-    }
-    type SaplingBlock_ = SaplingBlock;
-    class Subject implements Internal.Serializable {
-        constructor()
-        constructor(arg0: boolean, arg1: Internal.Set_<Internal.Principal>, arg2: Internal.Set_<any>, arg3: Internal.Set_<any>)
-        getPrivateCredentials<T>(arg0: T): Internal.Set<T>;
-        getPublicCredentials<T>(arg0: T): Internal.Set<T>;
-        getPublicCredentials(): Internal.Set<any>;
-        getPrivateCredentials(): Internal.Set<any>;
-        getPrincipals<T extends Internal.Principal>(arg0: T): Internal.Set<T>;
-        /**
-         * @deprecated
-         * This method is marked to be removed in future!
-        */
-        static getSubject(arg0: Internal.AccessControlContext_): Internal.Subject;
-        static doAs<T>(arg0: Internal.Subject_, arg1: Internal.PrivilegedExceptionAction_<T>): T;
-        /**
-         * @deprecated
-         * This method is marked to be removed in future!
-        */
-        static doAsPrivileged<T>(arg0: Internal.Subject_, arg1: Internal.PrivilegedAction_<T>, arg2: Internal.AccessControlContext_): T;
-        setReadOnly(): void;
-        static doAs<T>(arg0: Internal.Subject_, arg1: Internal.PrivilegedAction_<T>): T;
-        isReadOnly(): boolean;
-        /**
-         * @deprecated
-         * This method is marked to be removed in future!
-        */
-        static doAsPrivileged<T>(arg0: Internal.Subject_, arg1: Internal.PrivilegedExceptionAction_<T>, arg2: Internal.AccessControlContext_): T;
-        getPrincipals(): Internal.Set<Internal.Principal>;
-        get publicCredentials(): Internal.Set<any>
-        get privateCredentials(): Internal.Set<any>
-        get readOnly(): boolean
-        get principals(): Internal.Set<Internal.Principal>
-    }
-    type Subject_ = Subject;
-    class WorldSessionTelemetryManager {
-        constructor(arg0: Internal.TelemetryEventSender_, arg1: boolean, arg2: Duration_, arg3: string)
-        onPlayerInfoReceived(arg0: Internal.GameType_, arg1: boolean): void;
-        onServerBrandReceived(arg0: string): void;
-        worldSessionStart(): void;
-        onAdvancementDone(arg0: Internal.Level_, arg1: Internal.Advancement_): void;
-        tick(): void;
-        onDisconnect(): void;
-        setTime(arg0: number): void;
-        set time(arg0: number)
-    }
-    type WorldSessionTelemetryManager_ = WorldSessionTelemetryManager;
-    class SequencedAssemblyItemBuilder extends Internal.ItemBuilder {
-        constructor(i: ResourceLocation_)
-        createObject(): Internal.Item;
-    }
-    type SequencedAssemblyItemBuilder_ = SequencedAssemblyItemBuilder;
-    class ServerGamePacketListenerImpl implements Internal.ServerPlayerConnection, Internal.ServerGamePacketListenerImplAccessor, Internal.ServerGamePacketListener, Internal.TickablePacketListener {
-        constructor(arg0: Internal.MinecraftServer_, arg1: Internal.Connection_, arg2: Internal.ServerPlayer_)
-        handleChatCommand(arg0: Internal.ServerboundChatCommandPacket_): void;
-        sendPlayerChatMessage(arg0: Internal.PlayerChatMessage_, arg1: Internal.ChatType$Bound_): void;
-        handlePlayerAbilities(arg0: Internal.ServerboundPlayerAbilitiesPacket_): void;
-        handlePlayerInput(arg0: Internal.ServerboundPlayerInputPacket_): void;
-        handleClientCommand(arg0: Internal.ServerboundClientCommandPacket_): void;
-        handleResourcePackResponse(arg0: Internal.ServerboundResourcePackPacket_): void;
-        handleSetCarriedItem(arg0: Internal.ServerboundSetCarriedItemPacket_): void;
-        handlePickItem(arg0: Internal.ServerboundPickItemPacket_): void;
-        handleSetCreativeModeSlot(arg0: Internal.ServerboundSetCreativeModeSlotPacket_): void;
-        handleSeenAdvancements(arg0: Internal.ServerboundSeenAdvancementsPacket_): void;
-        getPlayer(): Internal.ServerPlayer;
-        handleKeepAlive(arg0: Internal.ServerboundKeepAlivePacket_): void;
-        handleUseItem(arg0: Internal.ServerboundUseItemPacket_): void;
-        handlePaddleBoat(arg0: Internal.ServerboundPaddleBoatPacket_): void;
-        handleSetStructureBlock(arg0: Internal.ServerboundSetStructureBlockPacket_): void;
-        handleCustomPayload(arg0: Internal.ServerboundCustomPayloadPacket_): void;
-        send(arg0: Internal.Packet_<any>, arg1: Internal.PacketSendListener_): void;
-        handleSelectTrade(arg0: Internal.ServerboundSelectTradePacket_): void;
-        handleJigsawGenerate(arg0: Internal.ServerboundJigsawGeneratePacket_): void;
-        ackBlockChangesUpTo(arg0: number): void;
-        onDisconnect(arg0: Internal.Component_): void;
-        handleSetJigsawBlock(arg0: Internal.ServerboundSetJigsawBlockPacket_): void;
-        handleSetCommandMinecart(arg0: Internal.ServerboundSetCommandMinecartPacket_): void;
-        tick(): void;
-        getRemoteAddress(): Internal.SocketAddress;
-        handleSetCommandBlock(arg0: Internal.ServerboundSetCommandBlockPacket_): void;
-        handleRecipeBookSeenRecipePacket(arg0: Internal.ServerboundRecipeBookSeenRecipePacket_): void;
-        handleChatSessionUpdate(arg0: Internal.ServerboundChatSessionUpdatePacket_): void;
-        handleBlockEntityTagQuery(arg0: Internal.ServerboundBlockEntityTagQuery_): void;
-        handleContainerButtonClick(arg0: Internal.ServerboundContainerButtonClickPacket_): void;
-        handlePong(arg0: Internal.ServerboundPongPacket_): void;
-        filterTextPacket(arg0: Internal.List_<string>): Internal.CompletableFuture<Internal.List<Internal.FilteredText>>;
-        teleport(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number): void;
-        handlePlaceRecipe(arg0: Internal.ServerboundPlaceRecipePacket_): void;
-        handlePlayerCommand(arg0: Internal.ServerboundPlayerCommandPacket_): void;
-        handleEditBook(arg0: Internal.ServerboundEditBookPacket_): void;
-        sendDisguisedChatMessage(arg0: Internal.Component_, arg1: Internal.ChatType$Bound_): void;
-        handleTeleportToEntityPacket(arg0: Internal.ServerboundTeleportToEntityPacket_): void;
-        handleInteract(arg0: Internal.ServerboundInteractPacket_): void;
-        handleContainerClose(arg0: Internal.ServerboundContainerClosePacket_): void;
-        handleChangeDifficulty(arg0: Internal.ServerboundChangeDifficultyPacket_): void;
-        handleClientInformation(arg0: Internal.ServerboundClientInformationPacket_): void;
-        addPendingMessage(arg0: Internal.PlayerChatMessage_): void;
-        handleRecipeBookChangeSettingsPacket(arg0: Internal.ServerboundRecipeBookChangeSettingsPacket_): void;
-        isAcceptingMessages(): boolean;
-        handleContainerClick(arg0: Internal.ServerboundContainerClickPacket_): void;
-        handleCustomCommandSuggestions(arg0: Internal.ServerboundCommandSuggestionPacket_): void;
-        handleAcceptTeleportPacket(arg0: Internal.ServerboundAcceptTeleportationPacket_): void;
-        setAboveGroundTickCount(arg0: number): void;
-        handleMovePlayer(arg0: Internal.ServerboundMovePlayerPacket_): void;
-        handleChatAck(arg0: Internal.ServerboundChatAckPacket_): void;
-        disconnect(arg0: Internal.Component_): void;
-        handlePlayerAction(arg0: Internal.ServerboundPlayerActionPacket_): void;
-        resetPosition(): void;
-        handleLockDifficulty(arg0: Internal.ServerboundLockDifficultyPacket_): void;
-        handleAnimate(arg0: Internal.ServerboundSwingPacket_): void;
-        handleRenameItem(arg0: Internal.ServerboundRenameItemPacket_): void;
-        shouldPropagateHandlingExceptions(): boolean;
-        handleEntityTagQuery(arg0: Internal.ServerboundEntityTagQuery_): void;
-        handleSignUpdate(arg0: Internal.ServerboundSignUpdatePacket_): void;
-        filterTextPacket(arg0: string): Internal.CompletableFuture<Internal.FilteredText>;
-        handleChat(arg0: Internal.ServerboundChatPacket_): void;
-        teleport(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: Internal.Set_<Internal.RelativeMovement>): void;
-        handleSetBeaconPacket(arg0: Internal.ServerboundSetBeaconPacket_): void;
-        handleUseItemOn(arg0: Internal.ServerboundUseItemOnPacket_): void;
-        send(arg0: Internal.Packet_<any>): void;
-        handleMoveVehicle(arg0: Internal.ServerboundMoveVehiclePacket_): void;
-        get player(): Internal.ServerPlayer
-        get remoteAddress(): Internal.SocketAddress
-        get acceptingMessages(): boolean
-        set aboveGroundTickCount(arg0: number)
-        aboveGroundVehicleTickCount: number;
-        aboveGroundTickCount: number;
-        readonly connection: Internal.Connection;
-        /**
-         * @deprecated
-        */
-        static readonly MAX_INTERACTION_DISTANCE: 36.0;
-        player: Internal.ServerPlayer;
-    }
-    type ServerGamePacketListenerImpl_ = ServerGamePacketListenerImpl;
-    class LivingFallEvent extends Internal.LivingEvent {
-        constructor()
-        constructor(arg0: Internal.LivingEntity_, arg1: number, arg2: number)
-        getDamageMultiplier(): number;
-        getDistance(): number;
-        setDamageMultiplier(arg0: number): void;
-        setDistance(arg0: number): void;
-        get damageMultiplier(): number
-        get distance(): number
-        set damageMultiplier(arg0: number)
-        set distance(arg0: number)
-    }
-    type LivingFallEvent_ = LivingFallEvent;
-    class CommandBlockEntity extends Internal.BlockEntity {
-        constructor(arg0: BlockPos_, arg1: Internal.BlockState_)
-        deserializeNBT(arg0: Internal.Tag_): void;
-        requestModelDataUpdate(): void;
-        handleUpdateTag(arg0: Internal.CompoundTag_): void;
-        isAutomatic(): boolean;
-        getCommandBlock(): Internal.BaseCommandBlock;
-        markConditionMet(): boolean;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        wasConditionMet(): boolean;
-        isConditional(): boolean;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        setAutomatic(arg0: boolean): void;
-        getModelData(): Internal.ModelData;
-        onLoad(): void;
-        serializeNBT(): Internal.Tag;
-        getMode(): Internal.CommandBlockEntity$Mode;
-        onModeSwitch(): void;
-        setPowered(arg0: boolean): void;
-        isPowered(): boolean;
-        onDataPacket(arg0: Internal.Connection_, arg1: Internal.ClientboundBlockEntityDataPacket_): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        getRenderBoundingBox(): Internal.AABB;
-        get automatic(): boolean
-        get commandBlock(): Internal.BaseCommandBlock
-        get conditional(): boolean
-        set automatic(arg0: boolean)
-        get modelData(): Internal.ModelData
-        get mode(): Internal.CommandBlockEntity$Mode
-        set powered(arg0: boolean)
-        get powered(): boolean
-        get renderBoundingBox(): Internal.AABB
-    }
-    type CommandBlockEntity_ = CommandBlockEntity;
-    class RecordItemJS$Builder extends Internal.ItemBuilder {
-        constructor(i: ResourceLocation_)
-        /**
-         * Sets the redstone output of the jukebox when this record is played.
-        */
-        analogOutput(o: number): this;
-        song(song: Internal.SoundEvent_): this;
-        createObject(): any;
-        /**
-         * Sets the song that will play when this record is played.
-         * @param s The location of sound event.
-         * @param seconds The length of the song in seconds.
-        */
-        song(s: ResourceLocation_, seconds: number): this;
-        getSoundEvent(): Internal.SoundEvent;
-        get soundEvent(): Internal.SoundEvent
-    }
-    type RecordItemJS$Builder_ = RecordItemJS$Builder;
-    abstract class SingleBlockEntityEdgePoint extends Internal.TrackEdgePoint {
-        constructor()
-        getBlockEntityPos(): BlockPos;
-        getBlockEntityDimension(): Internal.ResourceKey<Internal.Level>;
-        get blockEntityPos(): BlockPos
-        get blockEntityDimension(): Internal.ResourceKey<Internal.Level>
-        blockEntityPos: BlockPos;
-        blockEntityDimension: Internal.ResourceKey<Internal.Level>;
-    }
-    type SingleBlockEntityEdgePoint_ = SingleBlockEntityEdgePoint;
-    abstract class SpellcasterIllager extends Internal.AbstractIllager {
-        getDistance(pos: BlockPos_): number;
-        damageHeldItem(hand: Internal.InteractionHand_, amount: number): void;
-        removeAttribute(attribute: Internal.Attribute_, identifier: string): void;
-        playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
-        setDefaultMovementSpeedMultiplier(speed: number): void;
-        damageEquipment(slot: Internal.EquipmentSlot_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
-        getOffHandItem(): Internal.ItemStack;
-        isOnScoreboardTeam(teamId: string): boolean;
-        getEquipment(slot: Internal.EquipmentSlot_): Internal.ItemStack;
-        swing(): void;
-        getPickedResult(arg0: Internal.HitResult_): Internal.ItemStack;
-        setPosition(x: number, y: number, z: number): void;
-        runCommandSilent(command: string): number;
-        canStartSwimming(): boolean;
-        isPlayer(): boolean;
-        isAnimal(): boolean;
-        rayTrace(distance: number, fluids: boolean): Internal.RayTraceResultJS;
-        setY(y: number): void;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        isLiving(): boolean;
-        damageEquipment(slot: Internal.EquipmentSlot_): void;
-        rayTrace(): Internal.RayTraceResultJS;
-        getTotalMovementSpeed(): number;
-        alwaysAccepts(): boolean;
-        moveInFluid(arg0: Internal.FluidState_, arg1: Vec3d_, arg2: number): boolean;
-        isInFluidType(arg0: Internal.FluidState_): boolean;
-        damageHeldItem(): void;
-        getDisplayName(): Internal.Component;
-        setPosition(block: Internal.BlockContainerJS_): void;
-        setMotionZ(z: number): void;
-        mergeNbt(tag: Internal.CompoundTag_): Internal.Entity;
-        attack(hp: number): void;
-        canSwimInFluidType(arg0: Internal.FluidType_): boolean;
-        getTeamId(): string;
-        setMaxHealth(hp: number): void;
-        canBeRiddenUnderFluidType(arg0: Internal.FluidType_, arg1: Internal.Entity_): boolean;
-        getFacing(): Internal.Direction;
-        shouldRiderSit(): boolean;
-        setMainHandItem(item: Internal.ItemStack_): void;
-        getLegsArmorItem(): Internal.ItemStack;
-        isHoldingInAnyHand(i: Internal.Ingredient_): boolean;
-        rayTrace(distance: number): Internal.RayTraceResultJS;
-        isInFluidType(arg0: Internal.FluidType_): boolean;
-        getReachDistance(): number;
-        getFluidMotionScale(arg0: Internal.FluidType_): number;
-        getMotionX(): number;
-        isWaterCreature(): boolean;
-        getItem(): Internal.ItemStack;
-        setX(x: number): void;
-        setAttributeBaseValue(attribute: Internal.Attribute_, value: number): void;
-        getPotionEffects(): Internal.EntityPotionEffectsJS;
-        isFrame(): boolean;
-        setLegsArmorItem(item: Internal.ItemStack_): void;
-        playSound(id: Internal.SoundEvent_): void;
-        foodEaten(is: Internal.ItemStack_): void;
-        self(): Internal.LivingEntity;
-        getDefaultMovementSpeed(): number;
-        getHeldItem(hand: Internal.InteractionHand_): Internal.ItemStack;
-        swing(hand: Internal.InteractionHand_): void;
-        getDistance(x: number, y: number, z: number): number;
-        setMotionY(y: number): void;
-        getAttributeTotalValue(attribute: Internal.Attribute_): number;
-        isPeacefulCreature(): boolean;
-        isUndead(): boolean;
-        setRotation(yaw: number, pitch: number): void;
-        getStepHeight(): number;
-        isAmbientCreature(): boolean;
-        getSoundFromFluidType(arg0: Internal.FluidType_, arg1: Internal.SoundAction_): Internal.SoundEvent;
-        isMonster(): boolean;
-        canHydrateInFluidType(arg0: Internal.FluidType_): boolean;
-        getType(): string;
-        setChestArmorItem(item: Internal.ItemStack_): void;
-        getBlock(): Internal.BlockContainerJS;
-        getNbt(): Internal.CompoundTag;
-        setEquipment(slot: Internal.EquipmentSlot_, item: Internal.ItemStack_): void;
-        getMotionY(): number;
-        getName(): Internal.Component;
-        getPassengers(): Internal.EntityArrayList;
-        setTotalMovementSpeedMultiplier(speed: number): void;
-        getFluidFallDistanceModifier(arg0: Internal.FluidType_): number;
-        isInFluidType(arg0: Internal.BiPredicate_<Internal.FluidType, number>): boolean;
-        setHeldItem(hand: Internal.InteractionHand_, item: Internal.ItemStack_): void;
-        canFluidExtinguish(arg0: Internal.FluidType_): boolean;
-        damageHeldItem(hand: Internal.InteractionHand_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
-        isPushedByFluid(arg0: Internal.FluidType_): boolean;
-        getFeetArmorItem(): Internal.ItemStack;
-        setDefaultMovementSpeed(speed: number): void;
-        setOffHandItem(item: Internal.ItemStack_): void;
-        sinkInFluid(arg0: Internal.FluidType_): void;
-        getMainHandItem(): Internal.ItemStack;
-        spawn(): void;
-        getServer(): Internal.MinecraftServer;
-        setMotionX(x: number): void;
-        canEntityBeSeen(entity: Internal.LivingEntity_): boolean;
-        teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
-        setNbt(nbt: Internal.CompoundTag_): void;
-        getLevel(): Internal.Level;
-        getScriptType(): Internal.ScriptType;
-        setMovementSpeedAddition(speed: number): void;
-        isMultipartEntity(): boolean;
-        getHeadArmorItem(): Internal.ItemStack;
-        modifyAttribute(attribute: Internal.Attribute_, identifier: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
-        setFeetArmorItem(item: Internal.ItemStack_): void;
-        getParts(): Internal.PartEntity<any>[];
-        setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        deserializeNBT(arg0: Internal.Tag_): void;
-        getChestArmorItem(): Internal.ItemStack;
-        damageEquipment(slot: Internal.EquipmentSlot_, amount: number): void;
-        getMotionZ(): number;
-        setIsCastingSpell(arg0: Internal.SpellcasterIllager$IllagerSpell_): void;
-        tell(message: Internal.Component_): void;
-        serializeNBT(): Internal.CompoundTag;
-        setZ(z: number): void;
-        setStatusMessage(message: Internal.Component_): void;
-        isCastingSpell(): boolean;
-        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        getDistanceSq(pos: BlockPos_): number;
-        getProfile(): Internal.GameProfile;
-        setHeadArmorItem(item: Internal.ItemStack_): void;
-        getAttributeBaseValue(attribute: Internal.Attribute_): number;
-        getClassification(arg0: boolean): Internal.MobCategory;
-        runCommand(command: string): number;
-        canDrownInFluidType(arg0: Internal.FluidType_): boolean;
-        set defaultMovementSpeedMultiplier(speed: number)
-        get offHandItem(): Internal.ItemStack
-        get player(): boolean
-        get animal(): boolean
-        set y(y: number)
-        get living(): boolean
-        get totalMovementSpeed(): number
-        get displayName(): Internal.Component
-        set position(block: Internal.BlockContainerJS_)
-        set motionZ(z: number)
-        get teamId(): string
-        set maxHealth(hp: number)
-        get facing(): Internal.Direction
-        set mainHandItem(item: Internal.ItemStack_)
-        get legsArmorItem(): Internal.ItemStack
-        get reachDistance(): number
-        get motionX(): number
-        get waterCreature(): boolean
-        get item(): Internal.ItemStack
-        set x(x: number)
-        get potionEffects(): Internal.EntityPotionEffectsJS
-        get frame(): boolean
-        set legsArmorItem(item: Internal.ItemStack_)
-        get defaultMovementSpeed(): number
-        set motionY(y: number)
-        get peacefulCreature(): boolean
-        get undead(): boolean
-        get stepHeight(): number
-        get ambientCreature(): boolean
-        get monster(): boolean
-        get type(): string
-        set chestArmorItem(item: Internal.ItemStack_)
-        get block(): Internal.BlockContainerJS
-        get nbt(): Internal.CompoundTag
-        get motionY(): number
-        get name(): Internal.Component
-        get passengers(): Internal.EntityArrayList
-        set totalMovementSpeedMultiplier(speed: number)
-        get feetArmorItem(): Internal.ItemStack
-        set defaultMovementSpeed(speed: number)
-        set offHandItem(item: Internal.ItemStack_)
-        get mainHandItem(): Internal.ItemStack
-        get server(): Internal.MinecraftServer
-        set motionX(x: number)
-        set nbt(nbt: Internal.CompoundTag_)
-        get level(): Internal.Level
-        get scriptType(): Internal.ScriptType
-        set movementSpeedAddition(speed: number)
-        get multipartEntity(): boolean
-        get headArmorItem(): Internal.ItemStack
-        set feetArmorItem(item: Internal.ItemStack_)
-        get parts(): Internal.PartEntity<any>[]
-        get chestArmorItem(): Internal.ItemStack
-        get motionZ(): number
-        set isCastingSpell(arg0: Internal.SpellcasterIllager$IllagerSpell_)
-        set z(z: number)
-        set statusMessage(message: Internal.Component_)
-        get castingSpell(): boolean
-        get profile(): Internal.GameProfile
-        set headArmorItem(item: Internal.ItemStack_)
-    }
-    type SpellcasterIllager_ = SpellcasterIllager;
-    interface IJeiKeyMappings {
-        abstract getShowUses(): Internal.IJeiKeyMapping;
-        abstract getShowRecipe(): Internal.IJeiKeyMapping;
-        get showUses(): Internal.IJeiKeyMapping
-        get showRecipe(): Internal.IJeiKeyMapping
-    }
-    type IJeiKeyMappings_ = IJeiKeyMappings;
-    class StatsCounter {
-        constructor()
-        getValue(arg0: Internal.Stat_<any>): number;
-        increment(arg0: Internal.Player_, arg1: Internal.Stat_<any>, arg2: number): void;
-        getValue<T>(arg0: Internal.StatType_<T>, arg1: T): number;
-        setValue(arg0: Internal.Player_, arg1: Internal.Stat_<any>, arg2: number): void;
-    }
-    type StatsCounter_ = StatsCounter;
-    interface DataProvider {
-        abstract run(arg0: Internal.CachedOutput_): Internal.CompletableFuture<any>;
+    type CookingPotRecipe$Serializer_ = CookingPotRecipe$Serializer;
+    interface UserPrincipal extends Internal.Principal {
+        abstract hashCode(): number;
+        abstract toString(): string;
         abstract getName(): string;
-        saveStable(arg0: Internal.CachedOutput_, arg1: Internal.JsonElement_, arg2: Internal.Path_): Internal.CompletableFuture<any>;
+        abstract equals(arg0: any): boolean;
+        implies(arg0: Internal.Subject_): boolean;
         get name(): string
-        readonly FIXED_ORDER_FIELDS: {"parent": 1, "type": 0};
-        readonly KEY_COMPARATOR: Internal.Comparator<string>;
-        readonly LOGGER: Internal.Log4jLogger;
     }
-    type DataProvider_ = DataProvider;
-    class Slime extends Internal.Mob implements Internal.Enemy {
-        constructor(arg0: Internal.EntityType_<Internal.Slime>, arg1: Internal.Level_)
+    type UserPrincipal_ = UserPrincipal;
+    class RedstoneWallTorchBlock extends Internal.RedstoneTorchBlock {
+        constructor(arg0: Internal.BlockBehaviour$Properties_)
+        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
+        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
+        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isStickyBlock(arg0: Internal.BlockState_): boolean;
+        setLightEmission(v: number): void;
+        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
+        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
+        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
+        isSlimeBlock(arg0: Internal.BlockState_): boolean;
+        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
+        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
+        setDestroySpeed(v: number): void;
+        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
+        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
+        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
+        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        arch$holder(): Internal.Holder<Internal.Block>;
+        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
+        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
+        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
+        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
+        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
+        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
+        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
+        getBlockStates(): Internal.List<Internal.BlockState>;
+        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
+        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
+        setRequiresTool(v: boolean): void;
+        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
+        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
+        arch$registryName(): ResourceLocation;
+        getMod(): string;
+        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
+        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
+        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
+        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
+        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
+        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        set lightEmission(v: number)
+        set destroySpeed(v: number)
+        get blockStates(): Internal.List<Internal.BlockState>
+        set requiresTool(v: boolean)
+        get mod(): string
+        static readonly FACING: Internal.DirectionProperty;
+        static readonly LIT: Internal.BooleanProperty;
+    }
+    type RedstoneWallTorchBlock_ = RedstoneWallTorchBlock;
+    class ScreenEvent$MouseButtonReleased$Post extends Internal.ScreenEvent$MouseButtonReleased {
+        constructor()
+        constructor(arg0: Internal.Screen_, arg1: number, arg2: number, arg3: number, arg4: boolean)
+        wasHandled(): boolean;
+    }
+    type ScreenEvent$MouseButtonReleased$Post_ = ScreenEvent$MouseButtonReleased$Post;
+    class Turtle extends Internal.Animal {
+        constructor(arg0: Internal.EntityType_<Internal.Turtle>, arg1: Internal.Level_)
         getDistance(pos: BlockPos_): number;
         damageHeldItem(hand: Internal.InteractionHand_, amount: number): void;
         removeAttribute(attribute: Internal.Attribute_, identifier: string): void;
         playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
-        setDefaultMovementSpeedMultiplier(speed: number): void;
         damageEquipment(slot: Internal.EquipmentSlot_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
-        getSize(): number;
+        setDefaultMovementSpeedMultiplier(speed: number): void;
         getOffHandItem(): Internal.ItemStack;
         isOnScoreboardTeam(teamId: string): boolean;
         getEquipment(slot: Internal.EquipmentSlot_): Internal.ItemStack;
@@ -1985,17 +655,16 @@ declare namespace Internal {
         isAnimal(): boolean;
         rayTrace(distance: number, fluids: boolean): Internal.RayTraceResultJS;
         setY(y: number): void;
-        setSize(arg0: number, arg1: boolean): void;
         getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
         isLiving(): boolean;
         damageEquipment(slot: Internal.EquipmentSlot_): void;
-        rayTrace(): Internal.RayTraceResultJS;
         getTotalMovementSpeed(): number;
+        rayTrace(): Internal.RayTraceResultJS;
         alwaysAccepts(): boolean;
         moveInFluid(arg0: Internal.FluidState_, arg1: Vec3d_, arg2: number): boolean;
         isInFluidType(arg0: Internal.FluidState_): boolean;
         damageHeldItem(): void;
-        getDisplayName(): Internal.Component;
+        getDisplayName(): net.minecraft.network.chat.Component;
         setPosition(block: Internal.BlockContainerJS_): void;
         setMotionZ(z: number): void;
         mergeNbt(tag: Internal.CompoundTag_): Internal.Entity;
@@ -2014,215 +683,11 @@ declare namespace Internal {
         getReachDistance(): number;
         getFluidMotionScale(arg0: Internal.FluidType_): number;
         getMotionX(): number;
+        isLayingEgg(): boolean;
         isWaterCreature(): boolean;
-        static checkSlimeSpawnRules(arg0: Internal.EntityType_<Internal.Slime>, arg1: Internal.LevelAccessor_, arg2: Internal.MobSpawnType_, arg3: BlockPos_, arg4: Internal.RandomSource_): boolean;
         getItem(): Internal.ItemStack;
         setX(x: number): void;
-        setAttributeBaseValue(attribute: Internal.Attribute_, value: number): void;
-        getPotionEffects(): Internal.EntityPotionEffectsJS;
-        isFrame(): boolean;
-        setLegsArmorItem(item: Internal.ItemStack_): void;
-        playSound(id: Internal.SoundEvent_): void;
-        foodEaten(is: Internal.ItemStack_): void;
-        isTiny(): boolean;
-        self(): Internal.LivingEntity;
-        getDefaultMovementSpeed(): number;
-        getHeldItem(hand: Internal.InteractionHand_): Internal.ItemStack;
-        swing(hand: Internal.InteractionHand_): void;
-        getDistance(x: number, y: number, z: number): number;
-        setMotionY(y: number): void;
-        getAttributeTotalValue(attribute: Internal.Attribute_): number;
-        isPeacefulCreature(): boolean;
-        isUndead(): boolean;
-        setRotation(yaw: number, pitch: number): void;
-        getStepHeight(): number;
-        isAmbientCreature(): boolean;
-        getSoundFromFluidType(arg0: Internal.FluidType_, arg1: Internal.SoundAction_): Internal.SoundEvent;
-        isMonster(): boolean;
-        canHydrateInFluidType(arg0: Internal.FluidType_): boolean;
-        getType(): string;
-        setChestArmorItem(item: Internal.ItemStack_): void;
-        getBlock(): Internal.BlockContainerJS;
-        getNbt(): Internal.CompoundTag;
-        setEquipment(slot: Internal.EquipmentSlot_, item: Internal.ItemStack_): void;
-        getMotionY(): number;
-        getName(): Internal.Component;
-        getPassengers(): Internal.EntityArrayList;
-        setTotalMovementSpeedMultiplier(speed: number): void;
-        getFluidFallDistanceModifier(arg0: Internal.FluidType_): number;
-        isInFluidType(arg0: Internal.BiPredicate_<Internal.FluidType, number>): boolean;
-        setHeldItem(hand: Internal.InteractionHand_, item: Internal.ItemStack_): void;
-        canFluidExtinguish(arg0: Internal.FluidType_): boolean;
-        damageHeldItem(hand: Internal.InteractionHand_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
-        isPushedByFluid(arg0: Internal.FluidType_): boolean;
-        getFeetArmorItem(): Internal.ItemStack;
-        setDefaultMovementSpeed(speed: number): void;
-        setOffHandItem(item: Internal.ItemStack_): void;
-        sinkInFluid(arg0: Internal.FluidType_): void;
-        getMainHandItem(): Internal.ItemStack;
-        spawn(): void;
-        getServer(): Internal.MinecraftServer;
-        setMotionX(x: number): void;
-        canEntityBeSeen(entity: Internal.LivingEntity_): boolean;
-        teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
-        setNbt(nbt: Internal.CompoundTag_): void;
-        getLevel(): Internal.Level;
-        getScriptType(): Internal.ScriptType;
-        setMovementSpeedAddition(speed: number): void;
-        isMultipartEntity(): boolean;
-        getHeadArmorItem(): Internal.ItemStack;
-        modifyAttribute(attribute: Internal.Attribute_, identifier: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
-        setFeetArmorItem(item: Internal.ItemStack_): void;
-        getParts(): Internal.PartEntity<any>[];
-        setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        deserializeNBT(arg0: Internal.Tag_): void;
-        getChestArmorItem(): Internal.ItemStack;
-        damageEquipment(slot: Internal.EquipmentSlot_, amount: number): void;
-        getMotionZ(): number;
-        tell(message: Internal.Component_): void;
-        getEntityType(): Internal.EntityType<Internal.Slime>;
-        serializeNBT(): Internal.CompoundTag;
-        setZ(z: number): void;
-        setStatusMessage(message: Internal.Component_): void;
-        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        getDistanceSq(pos: BlockPos_): number;
-        getProfile(): Internal.GameProfile;
-        setHeadArmorItem(item: Internal.ItemStack_): void;
-        getAttributeBaseValue(attribute: Internal.Attribute_): number;
-        getClassification(arg0: boolean): Internal.MobCategory;
-        runCommand(command: string): number;
-        canDrownInFluidType(arg0: Internal.FluidType_): boolean;
-        set defaultMovementSpeedMultiplier(speed: number)
-        get size(): number
-        get offHandItem(): Internal.ItemStack
-        get player(): boolean
-        get animal(): boolean
-        set y(y: number)
-        get living(): boolean
-        get totalMovementSpeed(): number
-        get displayName(): Internal.Component
-        set position(block: Internal.BlockContainerJS_)
-        set motionZ(z: number)
-        get teamId(): string
-        set maxHealth(hp: number)
-        get facing(): Internal.Direction
-        set mainHandItem(item: Internal.ItemStack_)
-        get legsArmorItem(): Internal.ItemStack
-        get reachDistance(): number
-        get motionX(): number
-        get waterCreature(): boolean
-        get item(): Internal.ItemStack
-        set x(x: number)
-        get potionEffects(): Internal.EntityPotionEffectsJS
-        get frame(): boolean
-        set legsArmorItem(item: Internal.ItemStack_)
-        get tiny(): boolean
-        get defaultMovementSpeed(): number
-        set motionY(y: number)
-        get peacefulCreature(): boolean
-        get undead(): boolean
-        get stepHeight(): number
-        get ambientCreature(): boolean
-        get monster(): boolean
-        get type(): string
-        set chestArmorItem(item: Internal.ItemStack_)
-        get block(): Internal.BlockContainerJS
-        get nbt(): Internal.CompoundTag
-        get motionY(): number
-        get name(): Internal.Component
-        get passengers(): Internal.EntityArrayList
-        set totalMovementSpeedMultiplier(speed: number)
-        get feetArmorItem(): Internal.ItemStack
-        set defaultMovementSpeed(speed: number)
-        set offHandItem(item: Internal.ItemStack_)
-        get mainHandItem(): Internal.ItemStack
-        get server(): Internal.MinecraftServer
-        set motionX(x: number)
-        set nbt(nbt: Internal.CompoundTag_)
-        get level(): Internal.Level
-        get scriptType(): Internal.ScriptType
-        set movementSpeedAddition(speed: number)
-        get multipartEntity(): boolean
-        get headArmorItem(): Internal.ItemStack
-        set feetArmorItem(item: Internal.ItemStack_)
-        get parts(): Internal.PartEntity<any>[]
-        get chestArmorItem(): Internal.ItemStack
-        get motionZ(): number
-        get entityType(): Internal.EntityType<Internal.Slime>
-        set z(z: number)
-        set statusMessage(message: Internal.Component_)
-        get profile(): Internal.GameProfile
-        set headArmorItem(item: Internal.ItemStack_)
-        static readonly MIN_SIZE: 1;
-        targetSquish: number;
-        squish: number;
-        static readonly MAX_SIZE: 127;
-        oSquish: number;
-    }
-    type Slime_ = Slime;
-    class NoiseThresholdProvider extends Internal.NoiseBasedStateProvider {
-        constructor(arg0: number, arg1: Internal.NormalNoise$NoiseParameters_, arg2: number, arg3: number, arg4: number, arg5: Internal.BlockState_, arg6: Internal.List_<Internal.BlockState>, arg7: Internal.List_<Internal.BlockState>)
-        static readonly CODEC: Internal.Codec<Internal.NoiseThresholdProvider>;
-    }
-    type NoiseThresholdProvider_ = NoiseThresholdProvider;
-    class Sheep extends Internal.Animal implements Internal.Shearable, Internal.IForgeShearable {
-        constructor(arg0: Internal.EntityType_<Internal.Sheep>, arg1: Internal.Level_)
-        isShearable(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: BlockPos_): boolean;
-        getDistance(pos: BlockPos_): number;
-        damageHeldItem(hand: Internal.InteractionHand_, amount: number): void;
-        removeAttribute(attribute: Internal.Attribute_, identifier: string): void;
-        playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
-        setDefaultMovementSpeedMultiplier(speed: number): void;
-        damageEquipment(slot: Internal.EquipmentSlot_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
-        getOffHandItem(): Internal.ItemStack;
-        isOnScoreboardTeam(teamId: string): boolean;
-        getEquipment(slot: Internal.EquipmentSlot_): Internal.ItemStack;
-        swing(): void;
-        getPickedResult(arg0: Internal.HitResult_): Internal.ItemStack;
-        getColor(): Internal.DyeColor;
-        setPosition(x: number, y: number, z: number): void;
-        runCommandSilent(command: string): number;
-        canStartSwimming(): boolean;
-        isPlayer(): boolean;
-        isAnimal(): boolean;
-        readyForShearing(): boolean;
-        rayTrace(distance: number, fluids: boolean): Internal.RayTraceResultJS;
-        setY(y: number): void;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        isLiving(): boolean;
-        damageEquipment(slot: Internal.EquipmentSlot_): void;
-        rayTrace(): Internal.RayTraceResultJS;
-        getTotalMovementSpeed(): number;
-        alwaysAccepts(): boolean;
-        onSheared(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: Internal.Level_, arg3: BlockPos_, arg4: number): Internal.List<Internal.ItemStack>;
-        moveInFluid(arg0: Internal.FluidState_, arg1: Vec3d_, arg2: number): boolean;
-        isInFluidType(arg0: Internal.FluidState_): boolean;
-        damageHeldItem(): void;
-        getDisplayName(): Internal.Component;
-        setPosition(block: Internal.BlockContainerJS_): void;
-        setMotionZ(z: number): void;
-        mergeNbt(tag: Internal.CompoundTag_): Internal.Entity;
-        attack(hp: number): void;
-        canSwimInFluidType(arg0: Internal.FluidType_): boolean;
-        getTeamId(): string;
-        setMaxHealth(hp: number): void;
-        canBeRiddenUnderFluidType(arg0: Internal.FluidType_, arg1: Internal.Entity_): boolean;
-        getFacing(): Internal.Direction;
-        shouldRiderSit(): boolean;
-        setMainHandItem(item: Internal.ItemStack_): void;
-        getLegsArmorItem(): Internal.ItemStack;
-        isHoldingInAnyHand(i: Internal.Ingredient_): boolean;
-        rayTrace(distance: number): Internal.RayTraceResultJS;
-        isInFluidType(arg0: Internal.FluidType_): boolean;
-        getReachDistance(): number;
-        getFluidMotionScale(arg0: Internal.FluidType_): number;
-        getMotionX(): number;
-        isWaterCreature(): boolean;
-        getHeadEatAngleScale(arg0: number): number;
-        getItem(): Internal.ItemStack;
-        setX(x: number): void;
+        static checkTurtleSpawnRules(arg0: Internal.EntityType_<Internal.Turtle>, arg1: Internal.LevelAccessor_, arg2: Internal.MobSpawnType_, arg3: BlockPos_, arg4: Internal.RandomSource_): boolean;
         setAttributeBaseValue(attribute: Internal.Attribute_, value: number): void;
         getPotionEffects(): Internal.EntityPotionEffectsJS;
         isFrame(): boolean;
@@ -2244,7 +709,6 @@ declare namespace Internal {
         isAmbientCreature(): boolean;
         getSoundFromFluidType(arg0: Internal.FluidType_, arg1: Internal.SoundAction_): Internal.SoundEvent;
         isMonster(): boolean;
-        static getColorArray(arg0: Internal.DyeColor_): number[];
         canHydrateInFluidType(arg0: Internal.FluidType_): boolean;
         getType(): string;
         setChestArmorItem(item: Internal.ItemStack_): void;
@@ -2252,39 +716,36 @@ declare namespace Internal {
         getNbt(): Internal.CompoundTag;
         setEquipment(slot: Internal.EquipmentSlot_, item: Internal.ItemStack_): void;
         getMotionY(): number;
-        getName(): Internal.Component;
+        getName(): net.minecraft.network.chat.Component;
         getPassengers(): Internal.EntityArrayList;
         setTotalMovementSpeedMultiplier(speed: number): void;
         getFluidFallDistanceModifier(arg0: Internal.FluidType_): number;
+        setHomePos(arg0: BlockPos_): void;
         isInFluidType(arg0: Internal.BiPredicate_<Internal.FluidType, number>): boolean;
         setHeldItem(hand: Internal.InteractionHand_, item: Internal.ItemStack_): void;
         canFluidExtinguish(arg0: Internal.FluidType_): boolean;
         damageHeldItem(hand: Internal.InteractionHand_, amount: number, onBroken: Internal.Consumer_<Internal.ItemStack>): void;
         isPushedByFluid(arg0: Internal.FluidType_): boolean;
-        setColor(arg0: Internal.DyeColor_): void;
         getFeetArmorItem(): Internal.ItemStack;
-        setDefaultMovementSpeed(speed: number): void;
         setOffHandItem(item: Internal.ItemStack_): void;
+        setDefaultMovementSpeed(speed: number): void;
         sinkInFluid(arg0: Internal.FluidType_): void;
         getMainHandItem(): Internal.ItemStack;
         spawn(): void;
         getServer(): Internal.MinecraftServer;
-        setSheared(arg0: boolean): void;
         setMotionX(x: number): void;
         canEntityBeSeen(entity: Internal.LivingEntity_): boolean;
         teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
-        shear(arg0: Internal.SoundSource_): void;
-        getHeadEatPositionScale(arg0: number): number;
-        getDefaultLootTable(): ResourceLocation;
         setNbt(nbt: Internal.CompoundTag_): void;
         getLevel(): Internal.Level;
         getScriptType(): Internal.ScriptType;
         setMovementSpeedAddition(speed: number): void;
         isMultipartEntity(): boolean;
-        isSheared(): boolean;
+        serializeNBT(): Internal.Tag;
         getHeadArmorItem(): Internal.ItemStack;
         modifyAttribute(attribute: Internal.Attribute_, identifier: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
         setFeetArmorItem(item: Internal.ItemStack_): void;
+        hasEgg(): boolean;
         getParts(): Internal.PartEntity<any>[];
         setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
         hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
@@ -2292,29 +753,26 @@ declare namespace Internal {
         getChestArmorItem(): Internal.ItemStack;
         damageEquipment(slot: Internal.EquipmentSlot_, amount: number): void;
         getMotionZ(): number;
-        tell(message: Internal.Component_): void;
-        serializeNBT(): Internal.CompoundTag;
+        tell(message: net.minecraft.network.chat.Component_): void;
         setZ(z: number): void;
-        setStatusMessage(message: Internal.Component_): void;
-        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
+        setStatusMessage(message: net.minecraft.network.chat.Component_): void;
         deserializeNBT(arg0: Internal.CompoundTag_): void;
+        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
         getDistanceSq(pos: BlockPos_): number;
         getProfile(): Internal.GameProfile;
         setHeadArmorItem(item: Internal.ItemStack_): void;
         getAttributeBaseValue(attribute: Internal.Attribute_): number;
         getClassification(arg0: boolean): Internal.MobCategory;
         runCommand(command: string): number;
-        static getRandomSheepColor(arg0: Internal.RandomSource_): Internal.DyeColor;
         canDrownInFluidType(arg0: Internal.FluidType_): boolean;
         set defaultMovementSpeedMultiplier(speed: number)
         get offHandItem(): Internal.ItemStack
-        get color(): Internal.DyeColor
         get player(): boolean
         get animal(): boolean
         set y(y: number)
         get living(): boolean
         get totalMovementSpeed(): number
-        get displayName(): Internal.Component
+        get displayName(): net.minecraft.network.chat.Component
         set position(block: Internal.BlockContainerJS_)
         set motionZ(z: number)
         get teamId(): string
@@ -2324,6 +782,7 @@ declare namespace Internal {
         get legsArmorItem(): Internal.ItemStack
         get reachDistance(): number
         get motionX(): number
+        get layingEgg(): boolean
         get waterCreature(): boolean
         get item(): Internal.ItemStack
         set x(x: number)
@@ -2342,37 +801,166 @@ declare namespace Internal {
         get block(): Internal.BlockContainerJS
         get nbt(): Internal.CompoundTag
         get motionY(): number
-        get name(): Internal.Component
+        get name(): net.minecraft.network.chat.Component
         get passengers(): Internal.EntityArrayList
         set totalMovementSpeedMultiplier(speed: number)
-        set color(arg0: Internal.DyeColor_)
+        set homePos(arg0: BlockPos_)
         get feetArmorItem(): Internal.ItemStack
-        set defaultMovementSpeed(speed: number)
         set offHandItem(item: Internal.ItemStack_)
+        set defaultMovementSpeed(speed: number)
         get mainHandItem(): Internal.ItemStack
         get server(): Internal.MinecraftServer
-        set sheared(arg0: boolean)
         set motionX(x: number)
-        get defaultLootTable(): ResourceLocation
         set nbt(nbt: Internal.CompoundTag_)
         get level(): Internal.Level
         get scriptType(): Internal.ScriptType
         set movementSpeedAddition(speed: number)
         get multipartEntity(): boolean
-        get sheared(): boolean
         get headArmorItem(): Internal.ItemStack
         set feetArmorItem(item: Internal.ItemStack_)
         get parts(): Internal.PartEntity<any>[]
         get chestArmorItem(): Internal.ItemStack
         get motionZ(): number
         set z(z: number)
-        set statusMessage(message: Internal.Component_)
+        set statusMessage(message: net.minecraft.network.chat.Component_)
         get profile(): Internal.GameProfile
         set headArmorItem(item: Internal.ItemStack_)
+        static readonly BABY_ON_LAND_SELECTOR: Internal.Predicate<Internal.LivingEntity>;
+        static readonly FOOD_ITEMS: Internal.Ingredient;
     }
-    type Sheep_ = Sheep;
-    class FishingRodItem extends Internal.Item implements Internal.Vanishable {
-        constructor(arg0: Internal.Item$Properties_)
+    type Turtle_ = Turtle;
+    class ArrayRecipeComponent <T> extends Internal.Record implements Internal.RecipeComponent<T[]> {
+        constructor(component: Internal.RecipeComponent_<T>, canWriteSelf: boolean, arrayClass: typeof any, emptyArray: T[])
+        addAll(array: T[], ...values: T[]): T[];
+        replaceOutput(arg0: Internal.RecipeJS_, arg1: any, arg2: Internal.ReplacementMatch_, arg3: Internal.OutputReplacement_): any;
+        write(arg0: Internal.RecipeJS_, arg1: any): Internal.JsonElement;
+        /**
+         * Returns a new RecipeComponent that applies the mappingTo function to the input before it is passed to this component to be read
+        */
+        mapIn(mappingTo: Internal.UnaryOperator_<any>): Internal.MappingRecipeComponent<T[]>;
+        arrayClass(): typeof any;
+        key(name: string): Internal.RecipeKey<T[]>;
+        asMap<K>(key: Internal.RecipeComponent_<K>): Internal.RecipeComponent<Internal.TinyMap<K, T[]>>;
+        readFromMap(recipe: Internal.RecipeJS_, cv: Internal.RecipeComponentValue_<T[]>, map: Internal.Map_<any, any>): void;
+        writeToJson(recipe: Internal.RecipeJS_, cv: Internal.RecipeComponentValue_<T[]>, json: Internal.JsonObject_): void;
+        isInput(recipe: Internal.RecipeJS_, value: T[], match: Internal.ReplacementMatch_): boolean;
+        orSelf(): Internal.RecipeComponent<T[]>;
+        role(): Internal.ComponentRole;
+        componentClass(): typeof any;
+        component(): Internal.RecipeComponent<T>;
+        replaceOutput(recipe: Internal.RecipeJS_, original: T[], match: Internal.ReplacementMatch_, with_: Internal.OutputReplacement_): T[];
+        /**
+         * Returns a new RecipeComponent that applies the mappingTo function to the input before it is passed to this component to be read, and the mappingFrom function after the component writes to json, before that json is saved
+        */
+        map(mappingTo: Internal.UnaryOperator_<any>, mappingFrom: Internal.UnaryOperator_<Internal.JsonElement>): Internal.MappingRecipeComponent<T[]>;
+        add(array: T[], value: T): T[];
+        constructorDescription(ctx: Internal.DescriptionContext_): Internal.TypeDescJS;
+        remove(array: T[], index: number): T[];
+        asPatternKey(): Internal.RecipeComponent<Internal.TinyMap<string, T[]>>;
+        componentType(): string;
+        or<O>(other: Internal.RecipeComponent_<O>): Internal.OrRecipeComponent<T[], O>;
+        newArray(length: number): T[];
+        replaceInput(recipe: Internal.RecipeJS_, original: T[], match: Internal.ReplacementMatch_, with_: Internal.InputReplacement_): T[];
+        static builder(): Internal.RecipeComponentBuilder;
+        and<O>(other: Internal.RecipeComponent_<O>): Internal.AndRecipeComponent<T[], O>;
+        hasPriority(recipe: Internal.RecipeJS_, from: any): boolean;
+        emptyArray(): T[];
+        /**
+         * Returns a new RecipeComponent that maps the keys in a JsonObject according to the provided map, both before the json gets passed to the component and after the component returns a written json object.
+         * The mappings should be provided in the format `{recipe: "component"}` where recipe is the key as in the recipe, and component is the key as how the RecipeComponent expects it.
+         * Any keys not included in the provided map will be ignored, and any keys in the provided map that are not in either the input object or output object will be ignored.
+         * Note that if the input or output is not a JsonObject (ie its an ItemStack, or it is a JsonPrimitive) then that will pass through this without being modified.
+         * If you wish to handle those situations use the actual map function
+        */
+        simpleMap(mappings: any): Internal.SimpleMappingRecipeComponent<T[]>;
+        isOutput(recipe: Internal.RecipeJS_, value: T[], match: Internal.ReplacementMatch_): boolean;
+        asArrayOrSelf(): Internal.ArrayRecipeComponent<T[]>;
+        static builder(...key: Internal.RecipeKey_<any>[]): Internal.RecipeComponentBuilder;
+        readFromJson(recipe: Internal.RecipeJS_, cv: Internal.RecipeComponentValue_<T[]>, json: Internal.JsonObject_): void;
+        read(arg0: Internal.RecipeJS_, arg1: any): any;
+        /**
+         * Returns a new RecipeComponent that applies the mappingFrom function after the component writes to json, before that json is saved
+        */
+        mapOut(mappingFrom: Internal.UnaryOperator_<Internal.JsonElement>): Internal.MappingRecipeComponent<T[]>;
+        isOutput(arg0: Internal.RecipeJS_, arg1: any, arg2: Internal.ReplacementMatch_): boolean;
+        replaceInput(arg0: Internal.RecipeJS_, arg1: any, arg2: Internal.ReplacementMatch_, arg3: Internal.InputReplacement_): any;
+        checkEmpty(key: Internal.RecipeKey_<T[]>, value: T[]): string;
+        checkValueHasChanged(oldValue: T[], newValue: T[]): boolean;
+        write(recipe: Internal.RecipeJS_, value: T[]): Internal.JsonElement;
+        canWriteSelf(): boolean;
+        isInput(arg0: Internal.RecipeJS_, arg1: any, arg2: Internal.ReplacementMatch_): boolean;
+        asArray(): Internal.ArrayRecipeComponent<T[]>;
+    }
+    type ArrayRecipeComponent_<T> = ArrayRecipeComponent<T>;
+    interface SerializableTickContainer <T> {
+        abstract save(arg0: number, arg1: Internal.Function_<T, string>): Internal.Tag;
+        (arg0: number, arg1: Internal.Function<T, string>): Internal.Tag_;
+    }
+    type SerializableTickContainer_<T> = SerializableTickContainer<T>;
+    abstract class AbstractIntSet extends Internal.AbstractIntCollection implements Internal.Cloneable, Internal.IntSet {
+        /**
+         * @deprecated
+        */
+        stream(): Internal.Stream<number>;
+        static of(arg0: number, arg1: number): Internal.IntSet;
+        /**
+         * @deprecated
+        */
+        add(arg0: number): boolean;
+        static of(): Internal.IntSet;
+        forEach(arg0: Internal.IntConsumer_): void;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E, arg9: E): Internal.Set<E>;
+        intStream(): Internal.IntStream;
+        toArray<T>(arg0: Internal.IntFunction_<T[]>): T[];
+        static of<E>(arg0: E, arg1: E): Internal.Set<E>;
+        static of(arg0: number, arg1: number, arg2: number): Internal.IntSet;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E): Internal.Set<E>;
+        intParallelStream(): Internal.IntStream;
+        static of<E>(arg0: E, arg1: E, arg2: E): Internal.Set<E>;
+        spliterator(): Internal.IntSpliterator;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E): Internal.Set<E>;
+        intIterator(): Internal.IntIterator;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E): Internal.Set<E>;
+        /**
+         * @deprecated
+        */
+        contains(arg0: any): boolean;
+        removeIf(arg0: Internal.IntPredicate_): boolean;
+        remove(arg0: number): boolean;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E): Internal.Set<E>;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E): Internal.Set<E>;
+        abstract toArray<T>(arg0: T[]): T[];
+        /**
+         * @deprecated
+        */
+        forEach(arg0: Internal.Consumer_<number>): void;
+        /**
+         * @deprecated
+        */
+        parallelStream(): Internal.Stream<number>;
+        /**
+         * @deprecated
+        */
+        remove(arg0: any): boolean;
+        /**
+         * @deprecated
+        */
+        removeIf(arg0: Internal.Predicate_<number>): boolean;
+        static of(arg0: number): Internal.IntSet;
+        intSpliterator(): Internal.IntSpliterator;
+        /**
+         * @deprecated
+        */
+        add(arg0: any): boolean;
+        static of(...arg0: number[]): Internal.IntSet;
+        static of<E>(arg0: E): Internal.Set<E>;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E): Internal.Set<E>;
+        static of<E>(...arg0: E[]): Internal.Set<E>;
+        static copyOf<E>(arg0: Internal.Collection_<E>): Internal.Set<E>;
+    }
+    type AbstractIntSet_ = AbstractIntSet;
+    class BeekeeperArmorItem extends Internal.ArmorItemCoFH {
+        constructor(arg0: Internal.ArmorMaterial_, arg1: Internal.ArmorItem$Type_, arg2: Internal.Item$Properties_)
         getMaxDamage(arg0: Internal.ItemStack_): number;
         elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
         getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
@@ -2382,7 +970,7 @@ declare namespace Internal {
         canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
         getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
         setDigSpeed(speed: number): void;
-        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
         isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
         isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
         getEnchantmentValue(arg0: Internal.ItemStack_): number;
@@ -2392,32 +980,40 @@ declare namespace Internal {
         canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
         onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
         isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        isActive(arg0: Internal.ItemStack_): boolean;
         getXpRepairRatio(arg0: Internal.ItemStack_): number;
         isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
         getCreativeTab(): string;
         initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
         onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
         isDamaged(arg0: Internal.ItemStack_): boolean;
+        hasActiveTag(arg0: Internal.ItemStack_): boolean;
         getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
-        getCreatorModId(arg0: Internal.ItemStack_): string;
         canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
         getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
-        getHighlightTip(arg0: Internal.ItemStack_, arg1: Internal.Component_): Internal.Component;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
         onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        setActive(arg0: Internal.ItemStack_, arg1: boolean): void;
         onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
         canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
         makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
         removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
         setArmorKnockbackResistance(knockbackResistance: number): void;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
         hasCustomEntity(arg0: Internal.ItemStack_): boolean;
         onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        static get(arg0: Internal.ItemStack_): Internal.Equipable;
         getDamage(arg0: Internal.ItemStack_): number;
+        kjs$getMutableAttributeMap(): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        addModeChangeTooltip(arg0: Internal.IMultiModeItem_, arg1: Internal.ItemStack_, arg2: Internal.Level_, arg3: Internal.List_<net.minecraft.network.chat.Component>, arg4: Internal.TooltipFlag_): void;
         getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
         readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
         onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
         getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        setActive(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): void;
         shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
         damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        addIncrementModeChangeTooltip(arg0: Internal.IMultiModeItem_, arg1: Internal.ItemStack_, arg2: Internal.Level_, arg3: Internal.List_<net.minecraft.network.chat.Component>, arg4: Internal.TooltipFlag_): void;
         arch$registryName(): ResourceLocation;
         setAttackDamage(attackDamage: number): void;
         getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
@@ -2434,12 +1030,14 @@ declare namespace Internal {
         setDamage(arg0: Internal.ItemStack_, arg1: number): void;
         hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
         getMaxStackSize(arg0: Internal.ItemStack_): number;
+        addEnergyTooltip(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.List_<net.minecraft.network.chat.Component>, arg3: Internal.TooltipFlag_, arg4: number, arg5: number, arg6: boolean): void;
         doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
         getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
         getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
-        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
         getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
         onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        swapWithEquipmentSlot(arg0: Internal.Item_, arg1: Internal.Level_, arg2: Internal.Player_, arg3: Internal.InteractionHand_): Internal.InteractionResultHolder<Internal.ItemStack>;
         static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
         addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
         getDigSpeed(): number;
@@ -2458,15 +1056,681 @@ declare namespace Internal {
         set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
         set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
     }
-    type FishingRodItem_ = FishingRodItem;
-    class AttributeKey <T> extends Internal.AbstractConstant<Internal.AttributeKey<T>> {
-        static valueOf<T>(arg0: string): Internal.AttributeKey<T>;
-        static newInstance<T>(arg0: string): Internal.AttributeKey<T>;
-        static valueOf<T>(arg0: typeof any, arg1: string): Internal.AttributeKey<T>;
-        static exists(arg0: string): boolean;
+    type BeekeeperArmorItem_ = BeekeeperArmorItem;
+    class EntityEvent$EntityConstructing extends Internal.EntityEvent {
+        constructor()
+        constructor(arg0: Internal.Entity_)
     }
-    type AttributeKey_<T> = AttributeKey<T>;
-    class TippedArrowRecipe extends Internal.CustomRecipe {
+    type EntityEvent$EntityConstructing_ = EntityEvent$EntityConstructing;
+    interface ICopycatWithWrappedBlock <B extends Internal.Block> {
+        abstract getWrappedBlock(): B;
+        unwrap<B extends Internal.Block>(block: B): Internal.Block;
+        get wrappedBlock(): B
+        (): B;
+    }
+    type ICopycatWithWrappedBlock_<B extends Internal.Block> = ICopycatWithWrappedBlock<B>;
+    interface ShortList extends Internal.ShortCollection, Internal.List<number>, Internal.Comparable<Internal.List<number>> {
+        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E): Internal.List<E>;
+        copyOf<E>(arg0: Internal.Collection_<E>): Internal.List<E>;
+        sort(arg0: Internal.ShortComparator_): void;
+        abstract addAll(arg0: number, arg1: Internal.ShortCollection_): boolean;
+        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E): Internal.List<E>;
+        forEach(arg0: Internal.ShortConsumer_): void;
+        /**
+         * @deprecated
+        */
+        removeIf(arg0: Internal.Predicate_<number>): boolean;
+        /**
+         * @deprecated
+        */
+        add(arg0: number, arg1: any): void;
+        of<E>(arg0: E): Internal.List<E>;
+        abstract retainAll(arg0: Internal.Collection_<any>): boolean;
+        intStream(): Internal.IntStream;
+        toArray<T>(arg0: Internal.IntFunction_<T[]>): T[];
+        /**
+         * @deprecated
+        */
+        stream(): Internal.Stream<number>;
+        intParallelStream(): Internal.IntStream;
+        replaceAll(arg0: Internal.ShortUnaryOperator_): void;
+        intIterator(): Internal.IntIterator;
+        abstract set(arg0: number, arg1: number): number;
+        listIterator(): Internal.ListIterator<any>;
+        abstract add(arg0: number, arg1: number): void;
+        abstract size(arg0: number): void;
+        removeIf(arg0: Internal.IntPredicate_): boolean;
+        of(arg0: number, arg1: number, arg2: number): this;
+        addAll(arg0: number, arg1: Internal.ShortList_): boolean;
+        of<E>(arg0: E, arg1: E, arg2: E): Internal.List<E>;
+        /**
+         * @deprecated
+        */
+        forEach(arg0: Internal.Consumer_<number>): void;
+        /**
+         * @deprecated
+        */
+        indexOf(arg0: any): number;
+        spliterator(): Internal.ShortSpliterator;
+        abstract toArray<T>(arg0: T[]): T[];
+        of(arg0: number): this;
+        abstract removeShort(arg0: number): number;
+        /**
+         * @deprecated
+        */
+        remove(arg0: any): boolean;
+        abstract addAll(arg0: Internal.ShortCollection_): boolean;
+        abstract retainAll(arg0: Internal.ShortCollection_): boolean;
+        abstract getElements(arg0: number, arg1: number[], arg2: number, arg3: number): void;
+        unstableSort(arg0: Internal.ShortComparator_): void;
+        /**
+         * @deprecated
+        */
+        add(arg0: any): boolean;
+        abstract addElements(arg0: number, arg1: number[], arg2: number, arg3: number): void;
+        of<E>(arg0: E, arg1: E): Internal.List<E>;
+        addAll(arg0: Internal.ShortList_): boolean;
+        abstract indexOf(arg0: number): number;
+        abstract removeAll(arg0: Internal.Collection_<any>): boolean;
+        abstract iterator(): Internal.ShortListIterator;
+        abstract addElements(arg0: number, arg1: number[]): void;
+        of<E>(arg0: E, arg1: E, arg2: E, arg3: E): Internal.List<E>;
+        /**
+         * @deprecated
+        */
+        set(arg0: number, arg1: any): any;
+        /**
+         * @deprecated
+        */
+        lastIndexOf(arg0: any): number;
+        abstract containsAll(arg0: Internal.ShortCollection_): boolean;
+        abstract removeElements(arg0: number, arg1: number): void;
+        abstract add(arg0: number): boolean;
+        /**
+         * @deprecated
+        */
+        remove(arg0: number): any;
+        setElements(arg0: number, arg1: number[]): void;
+        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E): Internal.List<E>;
+        abstract removeAll(arg0: Internal.ShortCollection_): boolean;
+        abstract addAll(arg0: Internal.Collection_<number>): boolean;
+        abstract isEmpty(): boolean;
+        abstract addAll(arg0: number, arg1: Internal.Collection_<number>): boolean;
+        forEach(arg0: Internal.IntConsumer_): void;
+        abstract getShort(arg0: number): number;
+        setElements(arg0: number[]): void;
+        of<E>(...arg0: E[]): Internal.List<E>;
+        listIterator(arg0: number): Internal.ListIterator<any>;
+        abstract lastIndexOf(arg0: number): number;
+        abstract containsAll(arg0: Internal.Collection_<any>): boolean;
+        /**
+         * @deprecated
+        */
+        add(arg0: number, arg1: number): void;
+        /**
+         * @deprecated
+        */
+        add(arg0: number): boolean;
+        of(arg0: number, arg1: number): this;
+        /**
+         * @deprecated
+        */
+        contains(arg0: any): boolean;
+        /**
+         * @deprecated
+        */
+        replaceAll(arg0: Internal.UnaryOperator_<number>): void;
+        abstract compareTo(arg0: Internal.List_<number>): number;
+        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E): Internal.List<E>;
+        abstract contains(arg0: number): boolean;
+        /**
+         * @deprecated
+        */
+        parallelStream(): Internal.Stream<number>;
+        /**
+         * @deprecated
+        */
+        unstableSort(arg0: Internal.Comparator_<number>): void;
+        of(...arg0: number[]): this;
+        removeIf(arg0: Internal.ShortPredicate_): boolean;
+        replaceAll(arg0: Internal.IntUnaryOperator_): void;
+        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E): Internal.List<E>;
+        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E, arg9: E): Internal.List<E>;
+        abstract toArray(): any[];
+        intSpliterator(): Internal.IntSpliterator;
+        subList(arg0: number, arg1: number): Internal.List<any>;
+        abstract hashCode(): number;
+        abstract size(): number;
+        abstract toShortArray(): number[];
+        /**
+         * @deprecated
+        */
+        toShortArray(arg0: number[]): number[];
+        abstract clear(): void;
+        /**
+         * @deprecated
+        */
+        sort(arg0: Internal.Comparator_<number>): void;
+        abstract toArray(arg0: number[]): number[];
+        of(): this;
+        /**
+         * @deprecated
+        */
+        get(arg0: number): number;
+        abstract rem(arg0: number): boolean;
+        setElements(arg0: number, arg1: number[], arg2: number, arg3: number): void;
+        abstract equals(arg0: any): boolean;
+        /**
+         * @deprecated
+        */
+        set(arg0: number, arg1: number): number;
+        get empty(): boolean
+        set elements(arg0: number[])
+    }
+    type ShortList_ = ShortList;
+    class LanguageManager implements Internal.ResourceManagerReloadListener {
+        constructor(arg0: string)
+        getSelected(): string;
+        getLanguage(arg0: string): Internal.LanguageInfo;
+        setSelected(arg0: string): void;
+        getName(): string;
+        onResourceManagerReload(arg0: Internal.ResourceManager_): void;
+        getJavaLocale(): Internal.Locale;
+        getLanguages(): Internal.SortedMap<string, Internal.LanguageInfo>;
+        reload(arg0: Internal.PreparableReloadListener$PreparationBarrier_, arg1: Internal.ResourceManager_, arg2: Internal.ProfilerFiller_, arg3: Internal.ProfilerFiller_, arg4: Internal.Executor_, arg5: Internal.Executor_): Internal.CompletableFuture<void>;
+        get selected(): string
+        set selected(arg0: string)
+        get name(): string
+        get javaLocale(): Internal.Locale
+        get languages(): Internal.SortedMap<string, Internal.LanguageInfo>
+        static readonly DEFAULT_LANGUAGE_CODE: "en_us";
+    }
+    type LanguageManager_ = LanguageManager;
+    class GiantTrunkPlacer extends Internal.TrunkPlacer {
+        constructor(arg0: number, arg1: number, arg2: number)
+        static readonly CODEC: Internal.Codec<Internal.GiantTrunkPlacer>;
+    }
+    type GiantTrunkPlacer_ = GiantTrunkPlacer;
+    interface IForgeAbstractMinecart {
+        abstract setCanUseRail(arg0: boolean): void;
+        isPoweredCart(): boolean;
+        abstract setMaxSpeedAirLateral(arg0: number): void;
+        getMaxCartSpeedOnRail(): number;
+        getCurrentRailPosition(): BlockPos;
+        abstract getDragAir(): number;
+        abstract getMaxSpeedAirLateral(): number;
+        abstract setCurrentCartSpeedCapOnRail(arg0: number): void;
+        abstract getCurrentCartSpeedCapOnRail(): number;
+        getSlopeAdjustment(): number;
+        abstract setDragAir(arg0: number): void;
+        abstract setMaxSpeedAirVertical(arg0: number): void;
+        shouldDoRailFunctions(): boolean;
+        abstract moveMinecartOnRail(arg0: BlockPos_): void;
+        abstract getMaxSpeedAirVertical(): number;
+        canBeRidden(): boolean;
+        getComparatorLevel(): number;
+        abstract getMaxSpeedWithRail(): number;
+        abstract canUseRail(): boolean;
+        set canUseRail(arg0: boolean)
+        get poweredCart(): boolean
+        set maxSpeedAirLateral(arg0: number)
+        get maxCartSpeedOnRail(): number
+        get currentRailPosition(): BlockPos
+        get dragAir(): number
+        get maxSpeedAirLateral(): number
+        set currentCartSpeedCapOnRail(arg0: number)
+        get currentCartSpeedCapOnRail(): number
+        get slopeAdjustment(): number
+        set dragAir(arg0: number)
+        set maxSpeedAirVertical(arg0: number)
+        get maxSpeedAirVertical(): number
+        get comparatorLevel(): number
+        get maxSpeedWithRail(): number
+        readonly DEFAULT_MAX_SPEED_AIR_VERTICAL: -1.0;
+        readonly DEFAULT_MAX_SPEED_AIR_LATERAL: 0.4;
+        readonly DEFAULT_AIR_DRAG: 0.949999988079071;
+    }
+    type IForgeAbstractMinecart_ = IForgeAbstractMinecart;
+    class RollerSkatesItem extends Internal.RelicItem {
+        constructor()
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        setExperience(arg0: Internal.ItemStack_, arg1: number): void;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        canSync(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        setAbilitiesTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        getStatData(arg0: string, arg1: string): Internal.StatData;
+        getAbilityQuality(arg0: Internal.ItemStack_, arg1: string): number;
+        getEnchantmentValue(arg0: Internal.ItemStack_): number;
+        canUseAbility(arg0: Internal.ItemStack_, arg1: string): boolean;
+        getRelicQuality(arg0: Internal.ItemStack_): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canUnequip(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        setAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string, arg3: number): void;
+        getExperienceLeftForLevel(arg0: Internal.ItemStack_, arg1: number): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        setLevel(arg0: Internal.ItemStack_, arg1: number): void;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        getSlotModifiers(arg0: Internal.ItemStack_): Internal.RelicSlotModifier;
+        getLevelFromExperience(arg0: Internal.ItemStack_, arg1: number): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getLootingBonus(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_, arg3: number): number;
+        tickActiveAbilitySelection(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: string): void;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getAbilityPoints(arg0: Internal.ItemStack_, arg1: string): number;
+        getItem(): Internal.Item;
+        addAbilityPoints(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canEquip(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_): boolean;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        showAttributesTooltip(arg0: string, arg1: Internal.ItemStack_): boolean;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        setAbilityTicking(arg0: Internal.ItemStack_, arg1: string, arg2: boolean): void;
+        addExperience(arg0: Internal.ItemStack_, arg1: number): boolean;
+        onEquipFromUse(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): void;
+        canUnequip(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        testAbilityCastPredicates(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        writeSyncData(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        readSyncData(arg0: Internal.CompoundTag_, arg1: Internal.ItemStack_): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canSync(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): boolean;
+        setAbilityPoints(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        setPoints(arg0: Internal.ItemStack_, arg1: number): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getFortuneBonus(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_, arg3: number): number;
+        getExperienceBetweenLevels(arg0: Internal.ItemStack_, arg1: number, arg2: number): number;
+        mayUpgrade(arg0: Internal.ItemStack_, arg1: string): boolean;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        mayPlayerReroll(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        onEquip(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getRelicData(): Internal.RelicData;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isAbilityTicking(arg0: Internal.ItemStack_, arg1: string): boolean;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        curioTick(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getExchanges(arg0: Internal.ItemStack_): number;
+        setDigSpeed(speed: number): void;
+        isAbilityMaxLevel(arg0: Internal.ItemStack_, arg1: string): boolean;
+        setAttackSpeed(attackSpeed: number): void;
+        isEnderMask(arg0: Internal.SlotContext_, arg1: Internal.EnderMan_, arg2: Internal.ItemStack_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        getLevel(arg0: Internal.ItemStack_): number;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        getStatQuality(arg0: Internal.ItemStack_, arg1: string, arg2: string): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canRightClickEquip(arg0: Internal.ItemStack_): boolean;
+        getEquipSound(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): Internal.ICurio$SoundInfo;
+        canPlayerUseActiveAbility(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        setRelicData(arg0: Internal.RelicData_): void;
+        getAbilityCastPredicates(arg0: string): Internal.CastPredicate;
+        isMaxLevel(arg0: Internal.ItemStack_): boolean;
+        addExchanges(arg0: Internal.ItemStack_, arg1: number): void;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        curioBreak(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): void;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        addAbilityCooldown(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        addPoints(arg0: Internal.ItemStack_, arg1: number): void;
+        getStatByQuality(arg0: string, arg1: string, arg2: number): number;
+        mayPlayerUpgrade(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        getRerollRequiredExperience(arg0: string): number;
+        arch$registryName(): ResourceLocation;
+        getAbilitiesTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        getDropRule(arg0: Internal.SlotContext_, arg1: DamageSource_, arg2: number, arg3: boolean, arg4: Internal.ItemStack_): Internal.ICurio$DropRule;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        randomizeStat(arg0: Internal.ItemStack_, arg1: string, arg2: string): void;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        getAbilityCooldown(arg0: Internal.ItemStack_, arg1: string): number;
+        getMaxQuality(): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        onUnequip(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        setAbilityTag(arg0: Internal.ItemStack_, arg1: string, arg2: Internal.CompoundTag_): void;
+        getExperience(arg0: Internal.ItemStack_): number;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getDropRule(arg0: Internal.LivingEntity_, arg1: Internal.ItemStack_): Internal.ICurio$DropRule;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        playRightClickEquipSound(arg0: Internal.LivingEntity_, arg1: Internal.ItemStack_): void;
+        setAbilityTempTag(arg0: Internal.ItemStack_, arg1: string, arg2: Internal.CompoundTag_): void;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        hasCurioCapability(arg0: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
+        getLevelingTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getCreatorModId(arg0: Internal.ItemStack_): string;
+        isExchangeAvailable(arg0: Internal.Player_, arg1: Internal.ItemStack_): boolean;
+        getAttributeModifiers(arg0: Internal.ItemStack_): Internal.RelicAttributeModifier;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        getAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string, arg3: number): number;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        getAbilityCooldownCap(arg0: Internal.ItemStack_, arg1: string): number;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        testAbilityCastPredicate(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string, arg3: string): boolean;
+        mayPlayerReset(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
+        mayReroll(arg0: Internal.ItemStack_, arg1: string): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getTagsTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: Internal.ItemStack_): Internal.List<net.minecraft.network.chat.Component>;
+        getAbilityCastPredicate(arg0: string, arg1: string): Internal.PredicateEntry;
+        getAbilityData(arg0: string): Internal.AbilityData;
+        setAbilityCooldownCap(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        getAbilityTempTag(arg0: Internal.ItemStack_, arg1: string): Internal.CompoundTag;
+        getExchangeCost(arg0: Internal.ItemStack_): number;
+        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getLootData(): Internal.LootData;
+        getPoints(arg0: Internal.ItemStack_): number;
+        appendConfig(arg0: Internal.ConfigContext_): void;
+        isItemResearched(arg0: Internal.Player_): boolean;
+        setAttackDamage(attackDamage: number): void;
+        castActiveAbility(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: string, arg3: Internal.CastType_, arg4: Internal.CastStage_): void;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        curioBreak(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): void;
+        getResetRequiredExperience(arg0: Internal.ItemStack_, arg1: string): number;
+        setArmorToughness(armorToughness: number): void;
+        setItemResearched(arg0: Internal.Player_, arg1: boolean): void;
+        setAbilityCooldown(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        getUpgradeRequiredExperience(arg0: Internal.ItemStack_, arg1: string): number;
+        dropAllocableExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: Internal.ItemStack_, arg3: number): void;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
+        getAbilityInitialValues(arg0: Internal.ItemStack_, arg1: string): Internal.Map<string, number>;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getAbilityInitialValue(arg0: Internal.ItemStack_, arg1: string, arg2: string): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        curioAnimate(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getConfig(): Internal.OctoConfig;
+        readSyncData(arg0: Internal.SlotContext_, arg1: Internal.CompoundTag_, arg2: Internal.ItemStack_): void;
+        writeSyncData(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): Internal.CompoundTag;
+        getLootingLevel(arg0: Internal.SlotContext_, arg1: DamageSource_, arg2: Internal.LivingEntity_, arg3: number, arg4: Internal.ItemStack_): number;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        dropExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: number): void;
+        dropAllocableExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: Internal.ItemStack_, arg3: number, arg4: number): void;
+        getFortuneLevel(arg0: Internal.SlotContext_, arg1: Internal.LootContext_, arg2: Internal.ItemStack_): number;
+        getAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string): number;
+        dropExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: Internal.ItemStack_, arg3: number): void;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        addExperience(arg0: Internal.Entity_, arg1: Internal.ItemStack_, arg2: number): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        onEquip(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_, arg2: Internal.ItemStack_): void;
+        addAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string, arg3: number): void;
+        addLevel(arg0: Internal.ItemStack_, arg1: number): void;
+        setLevelingTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        getDamage(arg0: Internal.ItemStack_): number;
+        getSlotsTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: Internal.ItemStack_): Internal.List<net.minecraft.network.chat.Component>;
+        randomizeStats(arg0: Internal.ItemStack_, arg1: string): void;
+        getLevelingData(): Internal.LevelingData;
+        setExchanges(arg0: Internal.ItemStack_, arg1: number): void;
+        getMod(): string;
+        makesPiglinsNeutral(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        getTotalExperienceForLevel(arg0: Internal.ItemStack_, arg1: number): number;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        mayReset(arg0: Internal.ItemStack_, arg1: string): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getAttributeModifiers(arg0: string, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        getAbilityTag(arg0: Internal.ItemStack_, arg1: string): Internal.CompoundTag;
+        isAbilityOnCooldown(arg0: Internal.ItemStack_, arg1: string): boolean;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        get item(): Internal.Item
+        get relicData(): Internal.RelicData
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        set relicData(arg0: Internal.RelicData_)
+        set armorKnockbackResistance(knockbackResistance: number)
+        get maxQuality(): number
+        get creativeTab(): string
+        get lootData(): Internal.LootData
+        set attackDamage(attackDamage: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+        get config(): Internal.OctoConfig
+        get levelingData(): Internal.LevelingData
+        get mod(): string
+        set armorProtection(armorProtection: number)
+        static readonly TAG_SKATING_DURATION: "duration";
+    }
+    type RollerSkatesItem_ = RollerSkatesItem;
+    interface ITerminalHost extends Internal.IUpgradeableObject, Internal.IConfigurableObject, Internal.ISubMenuHost {
+        getInstalledUpgrades(arg0: Internal.ItemLike_): number;
+        isUpgradedWith(arg0: Internal.ItemLike_): boolean;
+        getCloseHotkey(): string;
+        abstract getMainMenuIcon(): Internal.ItemStack;
+        getUpgrades(): Internal.IUpgradeInventory;
+        abstract getConfigManager(): Internal.IConfigManager;
+        abstract getInventory(): Internal.MEStorage;
+        abstract returnToMainMenu(arg0: Internal.Player_, arg1: Internal.ISubMenu_): void;
+        get closeHotkey(): string
+        get mainMenuIcon(): Internal.ItemStack
+        get upgrades(): Internal.IUpgradeInventory
+        get configManager(): Internal.IConfigManager
+        get inventory(): Internal.MEStorage
+    }
+    type ITerminalHost_ = ITerminalHost;
+    class DimensionType$MonsterSettings extends Internal.Record {
+        constructor(arg0: boolean, arg1: boolean, arg2: Internal.IntProvider_, arg3: number)
+        hasRaids(): boolean;
+        monsterSpawnBlockLightLimit(): number;
+        piglinSafe(): boolean;
+        monsterSpawnLightTest(): Internal.IntProvider;
+        static readonly CODEC: Internal.MapCodec<Internal.DimensionType$MonsterSettings>;
+    }
+    type DimensionType$MonsterSettings_ = DimensionType$MonsterSettings;
+    class FeedingUpgradeWrapper extends Internal.UpgradeWrapperBase<Internal.FeedingUpgradeWrapper, Internal.FeedingUpgradeItem> implements Internal.IFilteredUpgrade, Internal.ITickableUpgrade {
+        constructor(arg0: Internal.IStorageWrapper_, arg1: Internal.ItemStack_, arg2: Internal.Consumer_<Internal.ItemStack>)
+        canBeDisabled(): boolean;
+        shouldFeedImmediatelyWhenHurt(): boolean;
+        hideSettingsTab(): boolean;
+        setFeedImmediatelyWhenHurt(arg0: boolean): void;
+        setFeedAtHungerLevel(arg0: Internal.HungerLevel_): void;
+        getFeedAtHungerLevel(): Internal.HungerLevel;
+        tick(arg0: Internal.LivingEntity_, arg1: Internal.Level_, arg2: BlockPos_): void;
+        getFilterLogic(): Internal.FilterLogic;
+        onAdded(): void;
+        onBeforeRemoved(): void;
+        set feedImmediatelyWhenHurt(arg0: boolean)
+        set feedAtHungerLevel(arg0: Internal.HungerLevel_)
+        get feedAtHungerLevel(): Internal.HungerLevel
+        get filterLogic(): Internal.FilterLogic
+    }
+    type FeedingUpgradeWrapper_ = FeedingUpgradeWrapper;
+    interface CachedOutput {
+        abstract writeIfNeeded(arg0: Internal.Path_, arg1: number[], arg2: Internal.HashCode_): void;
+        (arg0: Internal.Path, arg1: number[], arg2: Internal.HashCode): void;
+        readonly NO_CACHE: Internal.CachedOutput;
+    }
+    type CachedOutput_ = CachedOutput;
+    interface IForgeShearable {
+        isShearable(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: BlockPos_): boolean;
+        onSheared(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: Internal.Level_, arg3: BlockPos_, arg4: number): Internal.List<Internal.ItemStack>;
+    }
+    type IForgeShearable_ = IForgeShearable;
+    interface ServerLevelKJS extends Internal.LevelKJS, Internal.WithPersistentData {
+        getDisplayName(): net.minecraft.network.chat.Component;
+        spawnLightning(x: number, y: number, z: number, effectOnly: boolean, player: Internal.ServerPlayer_): void;
+        self(): Internal.Level;
+        createEntity(type: Internal.EntityType_<any>): Internal.Entity;
+        createExplosion(x: number, y: number, z: number): Internal.ExplosionJS;
+        createEntityList(entities: Internal.Collection_<Internal.Entity>): Internal.EntityArrayList;
+        spawnLightning(x: number, y: number, z: number, effectOnly: boolean): void;
+        getEntitiesWithin(aabb: Internal.AABB_): Internal.EntityArrayList;
+        getSide(): Internal.ScriptType;
+        getBlock(x: number, y: number, z: number): Internal.BlockContainerJS;
+        getDimension(): ResourceLocation;
+        getPersistentData(): Internal.CompoundTag;
+        getName(): net.minecraft.network.chat.Component;
+        getEntities(): Internal.EntityArrayList;
+        spawnParticles(options: Internal.ParticleOptions_, overrideLimiter: boolean, x: number, y: number, z: number, vx: number, vy: number, vz: number, count: number, speed: number): void;
+        runCommandSilent(command: string): number;
+        tell(message: net.minecraft.network.chat.Component_): void;
+        abstract getData(): Internal.AttachedData<Internal.Level>;
+        spawnFireworks(x: number, y: number, z: number, f: Internal.FireworksJS_): void;
+        setStatusMessage(message: net.minecraft.network.chat.Component_): void;
+        getPlayers(): Internal.EntityArrayList;
+        getBlock(pos: BlockPos_): Internal.BlockContainerJS;
+        isOverworld(): boolean;
+        runCommand(command: string): number;
+        getBlock(blockEntity: Internal.BlockEntity_): Internal.BlockContainerJS;
+        setTime(time: number): void;
+        get displayName(): net.minecraft.network.chat.Component
+        get side(): Internal.ScriptType
+        get dimension(): ResourceLocation
+        get persistentData(): Internal.CompoundTag
+        get name(): net.minecraft.network.chat.Component
+        get entities(): Internal.EntityArrayList
+        get data(): Internal.AttachedData<Internal.Level>
+        set statusMessage(message: net.minecraft.network.chat.Component_)
+        get players(): Internal.EntityArrayList
+        get overworld(): boolean
+        set time(time: number)
+        (): Internal.AttachedData_<Internal.Level>;
+    }
+    type ServerLevelKJS_ = ServerLevelKJS;
+    class FontRenderContext {
+        constructor(arg0: Internal.AffineTransform_, arg1: any, arg2: any)
+        constructor(arg0: Internal.AffineTransform_, arg1: boolean, arg2: boolean)
+        getFractionalMetricsHint(): any;
+        isAntiAliased(): boolean;
+        getAntiAliasingHint(): any;
+        getTransformType(): number;
+        equals(arg0: Internal.FontRenderContext_): boolean;
+        getTransform(): Internal.AffineTransform;
+        isTransformed(): boolean;
+        usesFractionalMetrics(): boolean;
+        get fractionalMetricsHint(): any
+        get antiAliased(): boolean
+        get antiAliasingHint(): any
+        get transformType(): number
+        get transform(): Internal.AffineTransform
+        get transformed(): boolean
+    }
+    type FontRenderContext_ = FontRenderContext;
+    class TooltipArea extends Internal.AbstractSimiWidget {
+        constructor(arg0: number, arg1: number, arg2: number, arg3: number)
+        charTyped(arg0: string, arg1: number): boolean;
+        onClick(arg0: number, arg1: number, arg2: number): void;
+        withTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>): this;
+        getCurrentFocusPath(): Internal.ComponentPath;
+        setPosition(arg0: number, arg1: number): void;
+        mouseScrolled(arg0: number, arg1: number, arg2: number): boolean;
+        keyReleased(arg0: number, arg1: number, arg2: number): boolean;
+        mouseMoved(arg0: number, arg1: number): void;
+        keyPressed(arg0: number, arg1: number, arg2: number): boolean;
+        get currentFocusPath(): Internal.ComponentPath
+    }
+    type TooltipArea_ = TooltipArea;
+    interface IThirdPersonAnimationProvider {
+        abstract poseRightArm<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: Internal.HumanoidModel_<T>, arg2: T, arg3: Internal.HumanoidArm_): boolean;
+        isTwoHanded(): boolean;
+        attachToItem(target: Internal.Item_, object: Internal.IThirdPersonAnimationProvider_): void;
+        get(target: Internal.Item_): this;
+        abstract poseLeftArm<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: Internal.HumanoidModel_<T>, arg2: T, arg3: Internal.HumanoidArm_): boolean;
+        get twoHanded(): boolean
+    }
+    type IThirdPersonAnimationProvider_ = IThirdPersonAnimationProvider;
+    interface IScalingFunction {
+        abstract scaleDamage(arg0: DamageSource_, arg1: Internal.Player_, arg2: number, arg3: Internal.Difficulty_): number;
+        (arg0: DamageSource, arg1: Internal.Player, arg2: number, arg3: Internal.Difficulty): number;
+        readonly DEFAULT: Internal.IScalingFunction;
+    }
+    type IScalingFunction_ = IScalingFunction;
+    class JsonNull extends Internal.JsonElement {
+        constructor()
+        deepCopy(): this;
+        static readonly INSTANCE: Internal.JsonNull;
+    }
+    type JsonNull_ = JsonNull;
+    class RepairItemRecipe extends Internal.CustomRecipe {
         constructor(arg0: ResourceLocation_, arg1: Internal.CraftingBookCategory_)
         getIngredients(): Internal.NonNullList<Internal.Ingredient>;
         getGroup(): string;
@@ -2495,75 +1759,123 @@ declare namespace Internal {
         get incomplete(): boolean
         get mod(): string
     }
-    type TippedArrowRecipe_ = TippedArrowRecipe;
-    class TravellingPoint {
-        constructor()
-        constructor(arg0: Internal.TrackNode_, arg1: Internal.TrackNode_, arg2: Internal.TrackEdge_, arg3: number, arg4: boolean)
-        ignoreEdgePoints(): Internal.TravellingPoint$IEdgePointListener;
-        travel(arg0: Internal.TrackGraph_, arg1: number, arg2: Internal.TravellingPoint$ITrackSelector_): number;
-        getPositionWithOffset(arg0: Internal.TrackGraph_, arg1: number, arg2: boolean): Vec3d;
-        static read(arg0: Internal.CompoundTag_, arg1: Internal.TrackGraph_, arg2: Internal.DimensionPalette_): Internal.TravellingPoint;
-        follow(arg0: Internal.TravellingPoint_): Internal.TravellingPoint$ITrackSelector;
-        travel(arg0: Internal.TrackGraph_, arg1: number, arg2: Internal.TravellingPoint$ITrackSelector_, arg3: Internal.TravellingPoint$IEdgePointListener_, arg4: Internal.TravellingPoint$ITurnListener_): number;
-        random(): Internal.TravellingPoint$ITrackSelector;
-        follow(arg0: Internal.TravellingPoint_, arg1: Internal.Consumer_<boolean>): Internal.TravellingPoint$ITrackSelector;
-        getPosition(arg0: Internal.TrackGraph_, arg1: boolean): Vec3d;
-        ignorePortals(): Internal.TravellingPoint$IPortalListener;
-        travel(arg0: Internal.TrackGraph_, arg1: number, arg2: Internal.TravellingPoint$ITrackSelector_, arg3: Internal.TravellingPoint$IEdgePointListener_, arg4: Internal.TravellingPoint$ITurnListener_, arg5: Internal.TravellingPoint$IPortalListener_): number;
-        write(arg0: Internal.DimensionPalette_): Internal.CompoundTag;
-        reverse(arg0: Internal.TrackGraph_): void;
-        steer(arg0: Internal.TravellingPoint$SteerDirection_, arg1: Vec3d_): Internal.TravellingPoint$ITrackSelector;
-        travel(arg0: Internal.TrackGraph_, arg1: number, arg2: Internal.TravellingPoint$ITrackSelector_, arg3: Internal.TravellingPoint$IEdgePointListener_): number;
-        migrateTo(arg0: Internal.List_<Internal.TrackGraphLocation>): void;
-        getPosition(arg0: Internal.TrackGraph_): Vec3d;
-        ignoreTurns(): Internal.TravellingPoint$ITurnListener;
-        position: number;
-        blocked: boolean;
-        upsideDown: boolean;
-        node1: Internal.TrackNode;
-        node2: Internal.TrackNode;
-        edge: Internal.TrackEdge;
+    type RepairItemRecipe_ = RepairItemRecipe;
+    interface LivingEntityAccessor {
+        abstract biomancy$getHurtSound(arg0: DamageSource_): Internal.SoundEvent;
+        abstract biomancy$getVoicePitch(): number;
+        abstract biomancy$getDeathSound(): Internal.SoundEvent;
+        abstract biomancy$getSoundVolume(): number;
     }
-    type TravellingPoint_ = TravellingPoint;
-    interface BooleanValueInvoker {
-        invokeCreate(defaultValue: boolean, onChanged: Internal.BiConsumer_<Internal.MinecraftServer, Internal.GameRules$BooleanValue>): Internal.GameRules$Type<Internal.GameRules$BooleanValue>;
+    type LivingEntityAccessor_ = LivingEntityAccessor;
+    class MobContainer$MobNBTData$Entity extends Internal.MobContainer$MobNBTData {
+        getScale(): number;
+        get scale(): number
+        readonly mobTag: Internal.CompoundTag;
     }
-    type BooleanValueInvoker_ = BooleanValueInvoker;
-    class BlockRotProcessor extends Internal.StructureProcessor {
-        constructor(arg0: Internal.HolderSet_<Internal.Block>, arg1: number)
-        constructor(arg0: number)
-        static readonly CODEC: Internal.Codec<Internal.BlockRotProcessor>;
+    type MobContainer$MobNBTData$Entity_ = MobContainer$MobNBTData$Entity;
+    interface AudioStream extends Internal.Closeable {
+        abstract read(arg0: number): Internal.ByteBuffer;
+        abstract close(): void;
+        abstract getFormat(): Internal.AudioFormat;
+        get format(): Internal.AudioFormat
     }
-    type BlockRotProcessor_ = BlockRotProcessor;
-    class OceanRuinStructure extends Internal.Structure {
-        constructor(arg0: Internal.Structure$StructureSettings_, arg1: Internal.OceanRuinStructure$Type_, arg2: number, arg3: number)
-        findGenerationPoint(arg0: Internal.Structure$GenerationContext_): Internal.Optional<Internal.Structure$GenerationStub>;
-        readonly biomeTemp: Internal.OceanRuinStructure$Type;
-        static readonly CODEC: Internal.Codec<Internal.OceanRuinStructure>;
-        readonly clusterProbability: number;
-        readonly largeProbability: number;
+    type AudioStream_ = AudioStream;
+    class DespoilingSwordItem extends Internal.SimpleSwordItem {
+        constructor(arg0: Internal.Tier_, arg1: number, arg2: number, arg3: Internal.Item$Properties_)
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        getTooltipText(arg0: Internal.ItemStack_): Internal.MutableComponent;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
+        setDigSpeed(speed: number): void;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        getEnchantmentValue(arg0: Internal.ItemStack_): number;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        getTooltipKey(arg0: Internal.ItemStack_): string;
+        setAttackSpeed(attackSpeed: number): void;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getCreatorModId(arg0: Internal.ItemStack_): string;
+        getTooltipColorWithAlpha(arg0: Internal.ItemStack_): number;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        getTooltipStyle(): Internal.ColorStyles$ITooltipStyle;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        getDamage(arg0: Internal.ItemStack_): number;
+        kjs$getMutableAttributeMap(): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        arch$registryName(): ResourceLocation;
+        setAttackDamage(attackDamage: number): void;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getMod(): string;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        setArmorToughness(armorToughness: number): void;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        getTooltipColor(arg0: Internal.ItemStack_): number;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        get creativeTab(): string
+        get tooltipStyle(): Internal.ColorStyles$ITooltipStyle
+        set armorKnockbackResistance(knockbackResistance: number)
+        set attackDamage(attackDamage: number)
+        get mod(): string
+        set armorProtection(armorProtection: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
     }
-    type OceanRuinStructure_ = OceanRuinStructure;
-    class LootItemConditionType extends Internal.SerializerType<Internal.LootItemCondition> {
-        constructor(arg0: Internal.Serializer_<Internal.LootItemCondition>)
-    }
-    type LootItemConditionType_ = LootItemConditionType | Special.LootConditionType;
-    class LastSeenMessages$Packed extends Internal.Record {
-        constructor(arg0: Internal.List_<Internal.MessageSignature$Packed>)
-        constructor(arg0: Internal.FriendlyByteBuf_)
-        entries(): Internal.List<Internal.MessageSignature$Packed>;
-        write(arg0: Internal.FriendlyByteBuf_): void;
-        unpack(arg0: Internal.MessageSignatureCache_): Internal.Optional<Internal.LastSeenMessages>;
-        static readonly EMPTY: Internal.LastSeenMessages$Packed;
-    }
-    type LastSeenMessages$Packed_ = LastSeenMessages$Packed;
-    interface OptionInstance$CaptionBasedToString <T> {
-        abstract toString(arg0: Internal.Component_, arg1: T): Internal.Component;
-        (arg0: Internal.Component, arg1: T): Internal.Component_;
-    }
-    type OptionInstance$CaptionBasedToString_<T> = OptionInstance$CaptionBasedToString<T>;
-    class CupboardBlock extends Internal.HorizontalDirectionalBlock implements Internal.EntityBlock, Internal.Hammerable {
-        constructor(properties: Internal.BlockBehaviour$Properties_)
+    type DespoilingSwordItem_ = DespoilingSwordItem;
+    class FungusBlock extends Internal.BushBlock implements Internal.BonemealableBlock {
+        constructor(arg0: Internal.BlockBehaviour$Properties_, arg1: Internal.ResourceKey_<Internal.ConfiguredFeature<any, any>>, arg2: Internal.Block_)
         isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
         supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
@@ -2571,11 +1883,12 @@ declare namespace Internal {
         isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
         collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
         canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
         onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        getTicker<T extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<T>): Internal.BlockEntityTicker<T>;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        isBonemealSuccess(arg0: Internal.Level_, arg1: Internal.RandomSource_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        performBonemeal(arg0: Internal.ServerLevel_, arg1: Internal.RandomSource_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
         getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isStickyBlock(arg0: Internal.BlockState_): boolean;
         setLightEmission(v: number): void;
@@ -2590,22 +1903,21 @@ declare namespace Internal {
         shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
         rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
         canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
         isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
         shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
         getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
         arch$holder(): Internal.Holder<Internal.Block>;
+        getPlantType(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.PlantType;
         isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
         getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
         onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
         getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
         onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        newBlockEntity(pos: BlockPos_, state: Internal.BlockState_): Internal.BlockEntity;
         getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
         hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
         onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
@@ -2617,17 +1929,17 @@ declare namespace Internal {
         setRequiresTool(v: boolean): void;
         canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
         getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         arch$registryName(): ResourceLocation;
+        isValidBonemealTarget(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: boolean): boolean;
         getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
         addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
         canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        onHammer(level: Internal.Level_, pos: BlockPos_, state: Internal.BlockState_, side: Internal.Direction_, user: Internal.Player_, hitPos: Vec3d_): void;
         isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
         addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
         getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
         isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
         set lightEmission(v: number)
@@ -2635,721 +1947,258 @@ declare namespace Internal {
         get blockStates(): Internal.List<Internal.BlockState>
         set requiresTool(v: boolean)
         get mod(): string
-        static readonly TYPE: Internal.IntegerProperty;
     }
-    type CupboardBlock_ = CupboardBlock;
-    abstract class TypeAdapter <T> {
-        constructor()
-        toJsonTree(arg0: T): Internal.JsonElement;
-        fromJsonTree(arg0: Internal.JsonElement_): T;
-        abstract write(arg0: Internal.JsonWriter_, arg1: T): void;
-        nullSafe(): this;
-        toJson(arg0: Internal.Writer_, arg1: T): void;
-        abstract read(arg0: Internal.JsonReader_): T;
-        fromJson(arg0: string): T;
-        fromJson(arg0: Internal.Reader_): T;
-        toJson(arg0: T): string;
+    type FungusBlock_ = FungusBlock;
+    class WoodlandMansionStructure extends Internal.Structure {
+        constructor(arg0: Internal.Structure$StructureSettings_)
+        findGenerationPoint(arg0: Internal.Structure$GenerationContext_): Internal.Optional<Internal.Structure$GenerationStub>;
+        static readonly CODEC: Internal.Codec<Internal.WoodlandMansionStructure>;
     }
-    type TypeAdapter_<T> = TypeAdapter<T>;
-    class TrapezoidFloat extends Internal.FloatProvider {
-        static of(arg0: number, arg1: number, arg2: number): Internal.TrapezoidFloat;
-        static readonly CODEC: Internal.Codec<Internal.TrapezoidFloat>;
+    type WoodlandMansionStructure_ = WoodlandMansionStructure;
+    class GantryCarriageBlockEntity extends Internal.KineticBlockEntity implements Internal.IDisplayAssemblyExceptions {
+        constructor(arg0: Internal.BlockEntityType_<any>, arg1: BlockPos_, arg2: Internal.BlockState_)
+        addExceptionToTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>): boolean;
+        deserializeNBT(arg0: Internal.Tag_): void;
+        containedFluidTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: boolean, arg2: Internal.LazyOptional_<Internal.IFluidHandler>): boolean;
+        queueAssembly(): void;
+        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
+        deserializeNBT(arg0: Internal.CompoundTag_): void;
+        getModelData(): Internal.ModelData;
+        checkValidGantryShaft(): void;
+        onLoad(): void;
+        serializeNBT(): Internal.Tag;
+        getLastAssemblyException(): Internal.AssemblyException;
+        static getGantryPinionModifier(arg0: Internal.Direction_, arg1: Internal.Direction_): number;
+        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
+        get modelData(): Internal.ModelData
+        get lastAssemblyException(): Internal.AssemblyException
     }
-    type TrapezoidFloat_ = TrapezoidFloat;
-    interface ClientGamePacketListener extends Internal.PacketListener {
-        abstract setActionBarText(arg0: Internal.ClientboundSetActionBarTextPacket_): void;
-        abstract handleContainerSetSlot(arg0: Internal.ClientboundContainerSetSlotPacket_): void;
-        abstract handleAddPlayer(arg0: Internal.ClientboundAddPlayerPacket_): void;
-        abstract handleSetScore(arg0: Internal.ClientboundSetScorePacket_): void;
-        abstract handlePlayerInfoRemove(arg0: Internal.ClientboundPlayerInfoRemovePacket_): void;
-        abstract handleAnimate(arg0: Internal.ClientboundAnimatePacket_): void;
-        abstract handleResourcePack(arg0: Internal.ClientboundResourcePackPacket_): void;
-        abstract handleOpenScreen(arg0: Internal.ClientboundOpenScreenPacket_): void;
-        abstract handleContainerContent(arg0: Internal.ClientboundContainerSetContentPacket_): void;
-        abstract handleLogin(arg0: Internal.ClientboundLoginPacket_): void;
-        abstract handleTagQueryPacket(arg0: Internal.ClientboundTagQueryPacket_): void;
-        abstract onDisconnect(arg0: Internal.Component_): void;
-        abstract handleUpdateAttributes(arg0: Internal.ClientboundUpdateAttributesPacket_): void;
-        abstract handleSetSpawn(arg0: Internal.ClientboundSetDefaultSpawnPositionPacket_): void;
-        abstract handleCustomPayload(arg0: Internal.ClientboundCustomPayloadPacket_): void;
-        abstract handleLookAt(arg0: Internal.ClientboundPlayerLookAtPacket_): void;
-        abstract handlePlayerInfoUpdate(arg0: Internal.ClientboundPlayerInfoUpdatePacket_): void;
-        abstract handleParticleEvent(arg0: Internal.ClientboundLevelParticlesPacket_): void;
-        abstract handleHurtAnimation(arg0: Internal.ClientboundHurtAnimationPacket_): void;
-        abstract handleTitlesClear(arg0: Internal.ClientboundClearTitlesPacket_): void;
-        abstract handleCustomChatCompletions(arg0: Internal.ClientboundCustomChatCompletionsPacket_): void;
-        abstract handleRemoveEntities(arg0: Internal.ClientboundRemoveEntitiesPacket_): void;
-        abstract handleContainerClose(arg0: Internal.ClientboundContainerClosePacket_): void;
-        abstract handlePlayerCombatEnter(arg0: Internal.ClientboundPlayerCombatEnterPacket_): void;
-        abstract handleSetCamera(arg0: Internal.ClientboundSetCameraPacket_): void;
-        abstract handleTeleportEntity(arg0: Internal.ClientboundTeleportEntityPacket_): void;
-        abstract handleForgetLevelChunk(arg0: Internal.ClientboundForgetLevelChunkPacket_): void;
-        abstract handleBlockEvent(arg0: Internal.ClientboundBlockEventPacket_): void;
-        abstract handleLightUpdatePacket(arg0: Internal.ClientboundLightUpdatePacket_): void;
-        abstract handleMoveVehicle(arg0: Internal.ClientboundMoveVehiclePacket_): void;
-        abstract handleCommands(arg0: Internal.ClientboundCommandsPacket_): void;
-        abstract handleSetBorderCenter(arg0: Internal.ClientboundSetBorderCenterPacket_): void;
-        abstract handleItemCooldown(arg0: Internal.ClientboundCooldownPacket_): void;
-        abstract setSubtitleText(arg0: Internal.ClientboundSetSubtitleTextPacket_): void;
-        abstract handleAddExperienceOrb(arg0: Internal.ClientboundAddExperienceOrbPacket_): void;
-        abstract handleRespawn(arg0: Internal.ClientboundRespawnPacket_): void;
-        abstract handleCommandSuggestions(arg0: Internal.ClientboundCommandSuggestionsPacket_): void;
-        abstract handleSetEquipment(arg0: Internal.ClientboundSetEquipmentPacket_): void;
-        abstract handleChunkBlocksUpdate(arg0: Internal.ClientboundSectionBlocksUpdatePacket_): void;
-        abstract handleBlockChangedAck(arg0: Internal.ClientboundBlockChangedAckPacket_): void;
-        abstract handleExplosion(arg0: Internal.ClientboundExplodePacket_): void;
-        abstract handleKeepAlive(arg0: Internal.ClientboundKeepAlivePacket_): void;
-        abstract handleUpdateMobEffect(arg0: Internal.ClientboundUpdateMobEffectPacket_): void;
-        abstract handleUpdateRecipes(arg0: Internal.ClientboundUpdateRecipesPacket_): void;
-        abstract handleOpenBook(arg0: Internal.ClientboundOpenBookPacket_): void;
-        abstract handleLevelChunkWithLight(arg0: Internal.ClientboundLevelChunkWithLightPacket_): void;
-        abstract handleBlockEntityData(arg0: Internal.ClientboundBlockEntityDataPacket_): void;
-        abstract handleUpdateAdvancementsPacket(arg0: Internal.ClientboundUpdateAdvancementsPacket_): void;
-        abstract handleSetChunkCacheRadius(arg0: Internal.ClientboundSetChunkCacheRadiusPacket_): void;
-        abstract handleBundlePacket(arg0: Internal.ClientboundBundlePacket_): void;
-        abstract handleMapItemData(arg0: Internal.ClientboundMapItemDataPacket_): void;
-        abstract handleInitializeBorder(arg0: Internal.ClientboundInitializeBorderPacket_): void;
-        abstract handleSetPlayerTeamPacket(arg0: Internal.ClientboundSetPlayerTeamPacket_): void;
-        abstract handleServerData(arg0: Internal.ClientboundServerDataPacket_): void;
-        abstract handleTakeItemEntity(arg0: Internal.ClientboundTakeItemEntityPacket_): void;
-        abstract handleBlockDestruction(arg0: Internal.ClientboundBlockDestructionPacket_): void;
-        abstract handleEntityLinkPacket(arg0: Internal.ClientboundSetEntityLinkPacket_): void;
-        abstract handlePlayerChat(arg0: Internal.ClientboundPlayerChatPacket_): void;
-        abstract handleSetBorderSize(arg0: Internal.ClientboundSetBorderSizePacket_): void;
-        abstract handleSetTime(arg0: Internal.ClientboundSetTimePacket_): void;
-        abstract handleSetCarriedItem(arg0: Internal.ClientboundSetCarriedItemPacket_): void;
-        abstract setTitlesAnimation(arg0: Internal.ClientboundSetTitlesAnimationPacket_): void;
-        abstract handleDamageEvent(arg0: Internal.ClientboundDamageEventPacket_): void;
-        abstract handleSetBorderLerpSize(arg0: Internal.ClientboundSetBorderLerpSizePacket_): void;
-        abstract handleSetExperience(arg0: Internal.ClientboundSetExperiencePacket_): void;
-        abstract handleSetDisplayObjective(arg0: Internal.ClientboundSetDisplayObjectivePacket_): void;
-        abstract handleChunksBiomes(arg0: Internal.ClientboundChunksBiomesPacket_): void;
-        abstract handleTabListCustomisation(arg0: Internal.ClientboundTabListPacket_): void;
-        abstract handleAddObjective(arg0: Internal.ClientboundSetObjectivePacket_): void;
-        abstract handleDisconnect(arg0: Internal.ClientboundDisconnectPacket_): void;
-        abstract handleSetHealth(arg0: Internal.ClientboundSetHealthPacket_): void;
-        abstract handleMerchantOffers(arg0: Internal.ClientboundMerchantOffersPacket_): void;
-        abstract handleUpdateTags(arg0: Internal.ClientboundUpdateTagsPacket_): void;
-        abstract handleStopSoundEvent(arg0: Internal.ClientboundStopSoundPacket_): void;
-        abstract handleRemoveMobEffect(arg0: Internal.ClientboundRemoveMobEffectPacket_): void;
-        abstract handleSetSimulationDistance(arg0: Internal.ClientboundSetSimulationDistancePacket_): void;
-        abstract handleSetChunkCacheCenter(arg0: Internal.ClientboundSetChunkCacheCenterPacket_): void;
-        abstract handlePing(arg0: Internal.ClientboundPingPacket_): void;
-        abstract handleDisguisedChat(arg0: Internal.ClientboundDisguisedChatPacket_): void;
-        abstract handleBlockUpdate(arg0: Internal.ClientboundBlockUpdatePacket_): void;
-        abstract handleRotateMob(arg0: Internal.ClientboundRotateHeadPacket_): void;
-        abstract handleSystemChat(arg0: Internal.ClientboundSystemChatPacket_): void;
-        abstract handleMovePlayer(arg0: Internal.ClientboundPlayerPositionPacket_): void;
-        abstract handleDeleteChat(arg0: Internal.ClientboundDeleteChatPacket_): void;
-        abstract handleAddEntity(arg0: Internal.ClientboundAddEntityPacket_): void;
-        abstract handleSoundEntityEvent(arg0: Internal.ClientboundSoundEntityPacket_): void;
-        abstract handleChangeDifficulty(arg0: Internal.ClientboundChangeDifficultyPacket_): void;
-        abstract handleHorseScreenOpen(arg0: Internal.ClientboundHorseScreenOpenPacket_): void;
-        abstract handleSetBorderWarningDelay(arg0: Internal.ClientboundSetBorderWarningDelayPacket_): void;
-        abstract handleEntityEvent(arg0: Internal.ClientboundEntityEventPacket_): void;
-        abstract handleEnabledFeatures(arg0: Internal.ClientboundUpdateEnabledFeaturesPacket_): void;
-        abstract handleOpenSignEditor(arg0: Internal.ClientboundOpenSignEditorPacket_): void;
-        abstract setTitleText(arg0: Internal.ClientboundSetTitleTextPacket_): void;
-        abstract handleSetEntityData(arg0: Internal.ClientboundSetEntityDataPacket_): void;
-        abstract handleBossUpdate(arg0: Internal.ClientboundBossEventPacket_): void;
-        abstract handlePlaceRecipe(arg0: Internal.ClientboundPlaceGhostRecipePacket_): void;
-        abstract handleGameEvent(arg0: Internal.ClientboundGameEventPacket_): void;
-        abstract isAcceptingMessages(): boolean;
-        abstract handleSoundEvent(arg0: Internal.ClientboundSoundPacket_): void;
-        abstract handleSetEntityMotion(arg0: Internal.ClientboundSetEntityMotionPacket_): void;
-        abstract handleContainerSetData(arg0: Internal.ClientboundContainerSetDataPacket_): void;
-        abstract handlePlayerCombatEnd(arg0: Internal.ClientboundPlayerCombatEndPacket_): void;
-        abstract handleMoveEntity(arg0: Internal.ClientboundMoveEntityPacket_): void;
-        abstract handleLevelEvent(arg0: Internal.ClientboundLevelEventPacket_): void;
-        abstract handlePlayerAbilities(arg0: Internal.ClientboundPlayerAbilitiesPacket_): void;
-        shouldPropagateHandlingExceptions(): boolean;
-        abstract handlePlayerCombatKill(arg0: Internal.ClientboundPlayerCombatKillPacket_): void;
-        abstract handleSetBorderWarningDistance(arg0: Internal.ClientboundSetBorderWarningDistancePacket_): void;
-        abstract handleSetEntityPassengersPacket(arg0: Internal.ClientboundSetPassengersPacket_): void;
-        abstract handleAwardStats(arg0: Internal.ClientboundAwardStatsPacket_): void;
-        abstract handleSelectAdvancementsTab(arg0: Internal.ClientboundSelectAdvancementsTabPacket_): void;
-        abstract handleAddOrRemoveRecipes(arg0: Internal.ClientboundRecipePacket_): void;
-        set actionBarText(arg0: Internal.ClientboundSetActionBarTextPacket_)
-        set subtitleText(arg0: Internal.ClientboundSetSubtitleTextPacket_)
-        set titlesAnimation(arg0: Internal.ClientboundSetTitlesAnimationPacket_)
-        set titleText(arg0: Internal.ClientboundSetTitleTextPacket_)
-        get acceptingMessages(): boolean
+    type GantryCarriageBlockEntity_ = GantryCarriageBlockEntity;
+    class Pointing extends Internal.Enum<Internal.Pointing> implements Internal.StringRepresentable {
+        static fromEnum<E extends Internal.Enum<E> & Internal.StringRepresentable>(arg0: Internal.Supplier_<E[]>): Internal.StringRepresentable$EnumCodec<E>;
+        static fromEnumWithMapping<E extends Internal.Enum<E> & Internal.StringRepresentable>(arg0: Internal.Supplier_<E[]>, arg1: Internal.Function_<string, string>): Internal.StringRepresentable$EnumCodec<E>;
+        static keys(arg0: Internal.StringRepresentable_[]): Internal.Keyable;
+        getSerializedName(): string;
+        static valueOf(arg0: string): Internal.Pointing;
+        getXRotation(): number;
+        getCombinedDirection(arg0: Internal.Direction_): Internal.Direction;
+        static values(): Internal.Pointing[];
+        get serializedName(): string
+        get XRotation(): number
+        static readonly LEFT: Internal.Pointing;
+        static readonly RIGHT: Internal.Pointing;
+        static readonly UP: Internal.Pointing;
+        static readonly DOWN: Internal.Pointing;
     }
-    type ClientGamePacketListener_ = ClientGamePacketListener;
-    class ClipContext$Fluid extends Internal.Enum<Internal.ClipContext$Fluid> {
-        static valueOf(arg0: string): Internal.ClipContext$Fluid;
-        canPick(arg0: Internal.FluidState_): boolean;
-        static values(): Internal.ClipContext$Fluid[];
-        static readonly SOURCE_ONLY: Internal.ClipContext$Fluid;
-        static readonly WATER: Internal.ClipContext$Fluid;
-        static readonly NONE: Internal.ClipContext$Fluid;
-        static readonly ANY: Internal.ClipContext$Fluid;
-    }
-    type ClipContext$Fluid_ = "any" | "source_only" | ClipContext$Fluid | "water" | "none";
-    class EnchantmentCategory extends Internal.Enum<Internal.EnchantmentCategory> implements Internal.IExtensibleEnum {
-        static valueOf(arg0: string): Internal.EnchantmentCategory;
-        static createCodecForExtensibleEnum<E extends Internal.Enum<E> & Internal.StringRepresentable>(arg0: Internal.Supplier_<E[]>, arg1: Internal.Function_<string, E>): Internal.Codec<E>;
-        static create(arg0: string, arg1: Internal.Predicate_<Internal.Item>): Internal.EnchantmentCategory;
-        /**
-         * @deprecated
-        */
-        init(): void;
-        canEnchant(arg0: Internal.Item_): boolean;
-        static values(): Internal.EnchantmentCategory[];
-        static readonly ARMOR_CHEST: Internal.EnchantmentCategory;
-        static readonly BOW: Internal.EnchantmentCategory;
-        static readonly ARMOR: Internal.EnchantmentCategory;
-        static readonly ARMOR_FEET: Internal.EnchantmentCategory;
-        static readonly TRIDENT: Internal.EnchantmentCategory;
-        static readonly CROSSBOW: Internal.EnchantmentCategory;
-        static readonly BREAKABLE: Internal.EnchantmentCategory;
-        static readonly WEAPON: Internal.EnchantmentCategory;
-        static readonly ARMOR_HEAD: Internal.EnchantmentCategory;
-        static readonly ARMOR_LEGS: Internal.EnchantmentCategory;
-        static readonly WEARABLE: Internal.EnchantmentCategory;
-        static readonly DIGGER: Internal.EnchantmentCategory;
-        static readonly FISHING_ROD: Internal.EnchantmentCategory;
-        static readonly VANISHABLE: Internal.EnchantmentCategory;
-    }
-    type EnchantmentCategory_ = "armor_head" | "armor_legs" | "crossbow" | "vanishable" | "armor_chest" | "breakable" | "fishing_rod" | "trident" | "digger" | "wearable" | "weapon" | "knife" | "armor" | "bow" | "armor_feet" | EnchantmentCategory;
-    class BedItem extends Internal.BlockItem {
-        constructor(arg0: Internal.Block_, arg1: Internal.Item$Properties_)
-        getMaxDamage(arg0: Internal.ItemStack_): number;
-        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
-        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
-        isDamageable(arg0: Internal.ItemStack_): boolean;
-        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+    type Pointing_ = Pointing | "up" | "down" | "right" | "left";
+    class BeltFunnelBlock extends Internal.AbstractHorizontalFunnelBlock implements Internal.ISpecialBlockItemRequirement {
+        constructor(arg0: any_<Internal.FunnelBlock>, arg1: Internal.BlockBehaviour$Properties_)
+        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
+        withBlockEntityDo(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Consumer_<Internal.FunnelBlockEntity>): void;
+        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
         isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
-        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
-        setDigSpeed(speed: number): void;
-        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
-        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
-        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
-        getEnchantmentValue(arg0: Internal.ItemStack_): number;
-        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
-        setAttackSpeed(attackSpeed: number): void;
-        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
-        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
-        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
-        getXpRepairRatio(arg0: Internal.ItemStack_): number;
-        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
-        getCreativeTab(): string;
-        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
-        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
-        isDamaged(arg0: Internal.ItemStack_): boolean;
-        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
-        getCreatorModId(arg0: Internal.ItemStack_): string;
-        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
-        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
-        getHighlightTip(arg0: Internal.ItemStack_, arg1: Internal.Component_): Internal.Component;
-        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
-        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
-        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
-        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
-        setArmorKnockbackResistance(knockbackResistance: number): void;
-        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
-        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
-        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
-        getDamage(arg0: Internal.ItemStack_): number;
-        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
-        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
-        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
-        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
-        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
-        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        getRequiredItems(arg0: Internal.BlockState_, arg1: Internal.BlockEntity_): Internal.ItemRequirement;
+        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
+        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
+        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        fluidState(arg0: Internal.BlockState_): Internal.FluidState;
+        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isStickyBlock(arg0: Internal.BlockState_): boolean;
+        setLightEmission(v: number): void;
+        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
+        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
+        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
+        isSlimeBlock(arg0: Internal.BlockState_): boolean;
+        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
+        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
+        setDestroySpeed(v: number): void;
+        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
+        getBlockEntity(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.FunnelBlockEntity;
+        playRemoveSound(arg0: Internal.Level_, arg1: BlockPos_): void;
+        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
+        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
+        placeLiquid(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.FluidState_): boolean;
+        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
+        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        arch$holder(): Internal.Holder<Internal.Block>;
+        getTicker<S extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<S>): Internal.BlockEntityTicker<S>;
+        playRotateSound(arg0: Internal.Level_, arg1: BlockPos_): void;
+        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        isOfSameType(arg0: Internal.FunnelBlock_): boolean;
+        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
+        newBlockEntity(arg0: BlockPos_, arg1: Internal.BlockState_): Internal.BlockEntity;
+        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
+        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
+        canPlaceLiquid(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.Fluid_): boolean;
+        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
+        static onRemove(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
+        updateWater(arg0: Internal.LevelAccessor_, arg1: Internal.BlockState_, arg2: BlockPos_): void;
+        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
+        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
+        onBlockEntityUse(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Function_<Internal.FunnelBlockEntity, InteractionResult>): InteractionResult;
+        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
+        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
+        getBlockStates(): Internal.List<Internal.BlockState>;
+        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
+        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
+        setRequiresTool(v: boolean): void;
+        static withWater(arg0: Internal.LevelAccessor_, arg1: Internal.BlockState_, arg2: BlockPos_): Internal.BlockState;
+        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
+        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        onSneakWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): InteractionResult;
+        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
+        static getShapeForPosition(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Direction_, arg3: boolean): Internal.BeltFunnelBlock$Shape;
         arch$registryName(): ResourceLocation;
-        setAttackDamage(attackDamage: number): void;
-        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
-        arch$holder(): Internal.Holder<Internal.Item>;
+        withWater(arg0: Internal.BlockState_, arg1: Internal.BlockPlaceContext_): Internal.BlockState;
         getMod(): string;
-        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
-        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
-        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
-        setArmorProtection(armorProtection: number): void;
-        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
-        setArmorToughness(armorToughness: number): void;
-        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
-        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
-        getMaxStackSize(arg0: Internal.ItemStack_): number;
-        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
-        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
-        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
-        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
-        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
-        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
-        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
-        getDigSpeed(): number;
-        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
-        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
-        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
-        set digSpeed(speed: number)
-        set attackSpeed(attackSpeed: number)
-        get creativeTab(): string
-        set armorKnockbackResistance(knockbackResistance: number)
-        set attackDamage(attackDamage: number)
+        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
+        updateAfterWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.BlockState;
+        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
+        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
+        getRotatedBlockState(arg0: Internal.BlockState_, arg1: Internal.Direction_): Internal.BlockState;
+        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
+        static isOnValidBelt(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
+        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        getBlockEntityOptional(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.Optional<Internal.FunnelBlockEntity>;
+        get pickupSound(): Internal.Optional<Internal.SoundEvent>
+        set lightEmission(v: number)
+        set destroySpeed(v: number)
+        get blockStates(): Internal.List<Internal.BlockState>
+        set requiresTool(v: boolean)
         get mod(): string
-        set armorProtection(armorProtection: number)
-        set armorToughness(armorToughness: number)
-        get digSpeed(): number
-        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
-        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+        static readonly SHAPE: Internal.EnumProperty<Internal.BeltFunnelBlock$Shape>;
     }
-    type BedItem_ = BedItem;
-    class ScreenEvent$MouseScrolled$Post extends Internal.ScreenEvent$MouseScrolled {
+    type BeltFunnelBlock_ = BeltFunnelBlock;
+    class SettingsCategory extends Internal.Enum<Internal.SettingsCategory> {
+        getLabel(): net.minecraft.network.chat.Component;
+        static valueOf(arg0: string): Internal.SettingsCategory;
+        static values(): Internal.SettingsCategory[];
+        get label(): net.minecraft.network.chat.Component
+        static readonly SETTINGS: Internal.SettingsCategory;
+        static readonly UPGRADES: Internal.SettingsCategory;
+        static readonly PRIORITY: Internal.SettingsCategory;
+        static readonly CONFIG_INV: Internal.SettingsCategory;
+    }
+    type SettingsCategory_ = SettingsCategory | "config_inv" | "upgrades" | "settings" | "priority";
+    class SpikeConfiguration implements Internal.FeatureConfiguration {
+        constructor(arg0: boolean, arg1: Internal.List_<Internal.SpikeFeature$EndSpike>, arg2: BlockPos_)
+        getFeatures(): Internal.Stream<Internal.ConfiguredFeature<any, any>>;
+        getCrystalBeamTarget(): BlockPos;
+        getSpikes(): Internal.List<Internal.SpikeFeature$EndSpike>;
+        isCrystalInvulnerable(): boolean;
+        get features(): Internal.Stream<Internal.ConfiguredFeature<any, any>>
+        get crystalBeamTarget(): BlockPos
+        get spikes(): Internal.List<Internal.SpikeFeature$EndSpike>
+        get crystalInvulnerable(): boolean
+        static readonly CODEC: Internal.Codec<Internal.SpikeConfiguration>;
+    }
+    type SpikeConfiguration_ = SpikeConfiguration;
+    class ExplosionEvent$Start extends Internal.ExplosionEvent {
         constructor()
-        constructor(arg0: Internal.Screen_, arg1: number, arg2: number, arg3: number)
+        constructor(arg0: Internal.Level_, arg1: Internal.Explosion_)
     }
-    type ScreenEvent$MouseScrolled$Post_ = ScreenEvent$MouseScrolled$Post;
-    class ClientboundSetBorderWarningDelayPacket implements Internal.Packet<Internal.ClientGamePacketListener> {
-        constructor(arg0: Internal.WorldBorder_)
-        constructor(arg0: Internal.FriendlyByteBuf_)
-        handle(arg0: Internal.PacketListener_): void;
-        getWarningDelay(): number;
-        write(arg0: Internal.FriendlyByteBuf_): void;
-        handle(arg0: Internal.ClientGamePacketListener_): void;
-        isSkippable(): boolean;
-        get warningDelay(): number
-        get skippable(): boolean
-    }
-    type ClientboundSetBorderWarningDelayPacket_ = ClientboundSetBorderWarningDelayPacket;
-    interface Quaternionfc {
-        abstract slerp(arg0: Internal.Quaternionfc_, arg1: number, arg2: Quaternionf_): Quaternionf;
-        abstract transformInverse(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformPositiveY(arg0: Vec3f_): Vec3f;
-        abstract transformPositiveX(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract mul(arg0: Internal.Quaternionfc_, arg1: Quaternionf_): Quaternionf;
-        abstract transformUnit(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract getEulerAnglesXYZ(arg0: Vec3f_): Vec3f;
-        abstract get(arg0: Internal.Matrix4d_): Internal.Matrix4d;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract conjugate(arg0: Quaternionf_): Quaternionf;
-        abstract transform(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnitPositiveZ(arg0: Vec3f_): Vec3f;
-        abstract transformUnitPositiveY(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnit(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract z(): number;
-        abstract transformInverse(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformPositiveY(arg0: Vec4f_): Vec4f;
-        abstract transformPositiveX(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract normalizedPositiveX(arg0: Vec3f_): Vec3f;
-        abstract transformUnit(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract premul(arg0: Internal.Quaternionfc_, arg1: Quaternionf_): Quaternionf;
-        abstract invert(arg0: Quaternionf_): Quaternionf;
-        abstract getAsMatrix3f(arg0: Internal.FloatBuffer_): Internal.FloatBuffer;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverseUnit(arg0: Vec3f_): Vec3f;
-        abstract lengthSquared(): number;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract transform(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract getEulerAnglesYXZ(arg0: Vec3f_): Vec3f;
-        abstract positiveZ(arg0: Vec3f_): Vec3f;
-        abstract get(arg0: Quaternionf_): Quaternionf;
-        abstract transformUnitPositiveX(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract rotateX(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract transformUnitPositiveY(arg0: Vec4f_): Vec4f;
-        abstract div(arg0: Internal.Quaternionfc_, arg1: Quaternionf_): Quaternionf;
-        abstract transformPositiveY(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformPositiveZ(arg0: Vec3f_): Vec3f;
-        abstract transformUnit(arg0: Vec4f_): Vec4f;
-        abstract scale(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract nlerp(arg0: Internal.Quaternionfc_, arg1: number, arg2: Quaternionf_): Quaternionf;
-        abstract rotateZYX(arg0: number, arg1: number, arg2: number, arg3: Quaternionf_): Quaternionf;
-        abstract rotateLocalX(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract lookAlong(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: Quaternionf_): Quaternionf;
-        abstract transformUnit(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: Vec4f_): Vec4f;
-        abstract get(arg0: Matrix4f_): Matrix4f;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract transform(arg0: Vec4f_): Vec4f;
-        abstract transformUnit(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnitPositiveX(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract getAsMatrix3f(arg0: Internal.ByteBuffer_): Internal.ByteBuffer;
-        abstract transformUnitPositiveY(arg0: Vec3f_): Vec3f;
-        abstract normalize(arg0: Quaternionf_): Quaternionf;
-        abstract transformInverseUnit(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract get(arg0: Internal.AxisAngle4f_): Internal.AxisAngle4f;
-        abstract mul(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract w(): number;
-        abstract transform(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformPositiveY(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract rotateTo(arg0: Internal.Vector3fc_, arg1: Internal.Vector3fc_, arg2: Quaternionf_): Quaternionf;
-        abstract normalizedPositiveY(arg0: Vec3f_): Vec3f;
-        abstract transformPositiveZ(arg0: Vec4f_): Vec4f;
-        abstract transform(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract equals(arg0: Internal.Quaternionfc_, arg1: number): boolean;
-        abstract transformInverse(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverse(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract get(arg0: org.joml.Matrix3d_): org.joml.Matrix3d;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract rotateAxis(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Quaternionf_): Quaternionf;
-        abstract transform(arg0: Vec3f_): Vec3f;
-        abstract transformUnitPositiveX(arg0: Vec4f_): Vec4f;
-        abstract premul(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Quaternionf_): Quaternionf;
-        abstract get(arg0: Internal.Matrix4x3d_): Internal.Matrix4x3d;
-        abstract getAsMatrix4x3f(arg0: Internal.ByteBuffer_): Internal.ByteBuffer;
-        abstract add(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Quaternionf_): Quaternionf;
-        abstract transformPositiveZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract lookAlong(arg0: Internal.Vector3fc_, arg1: Internal.Vector3fc_, arg2: Quaternionf_): Quaternionf;
-        abstract rotateLocalY(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverseUnit(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract isFinite(): boolean;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnitPositiveX(arg0: Vec3f_): Vec3f;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract get(arg0: Internal.AxisAngle4d_): Internal.AxisAngle4d;
-        abstract x(): number;
-        abstract normalizedPositiveZ(arg0: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract conjugateBy(arg0: Internal.Quaternionfc_, arg1: Quaternionf_): Quaternionf;
-        abstract transformPositiveZ(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnit(arg0: Vec3f_): Vec3f;
-        abstract getEulerAnglesZYX(arg0: Vec3f_): Vec3f;
-        abstract angle(): number;
-        abstract transformInverseUnit(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformInverseUnit(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract get(arg0: Matrix3f_): Matrix3f;
-        abstract rotateZ(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract positiveX(arg0: Vec3f_): Vec3f;
-        abstract rotateYXZ(arg0: number, arg1: number, arg2: number, arg3: Quaternionf_): Quaternionf;
-        abstract transformUnitPositiveZ(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract integrate(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Quaternionf_): Quaternionf;
-        abstract getAsMatrix4f(arg0: Internal.ByteBuffer_): Internal.ByteBuffer;
-        abstract get(arg0: Internal.Matrix4x3f_): Internal.Matrix4x3f;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverse(arg0: Vec4f_): Vec4f;
-        abstract getEulerAnglesZXY(arg0: Vec3f_): Vec3f;
-        abstract nlerpIterative(arg0: Internal.Quaternionfc_, arg1: number, arg2: number, arg3: Quaternionf_): Quaternionf;
-        abstract difference(arg0: Internal.Quaternionfc_, arg1: Quaternionf_): Quaternionf;
-        abstract transformPositiveX(arg0: Vec3f_): Vec3f;
-        abstract transform(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract rotateLocalZ(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract getAsMatrix4f(arg0: Internal.FloatBuffer_): Internal.FloatBuffer;
-        abstract mul(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Quaternionf_): Quaternionf;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract add(arg0: Internal.Quaternionfc_, arg1: Quaternionf_): Quaternionf;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        abstract equals(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
-        abstract transform(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract rotateXYZ(arg0: number, arg1: number, arg2: number, arg3: Quaternionf_): Quaternionf;
-        abstract transformUnitPositiveZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        abstract rotateAxis(arg0: number, arg1: Internal.Vector3fc_, arg2: Quaternionf_): Quaternionf;
-        abstract y(): number;
-        abstract transformInverse(arg0: Vec3f_): Vec3f;
-        abstract transformInverse(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract rotateTo(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: Quaternionf_): Quaternionf;
-        abstract transformPositiveX(arg0: Vec4f_): Vec4f;
-        abstract getAsMatrix4x3f(arg0: Internal.FloatBuffer_): Internal.FloatBuffer;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract positiveY(arg0: Vec3f_): Vec3f;
-        abstract transformUnitPositiveZ(arg0: Vec4f_): Vec4f;
-        abstract get(arg0: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformInverse(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnitPositiveY(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract rotateY(arg0: number, arg1: Quaternionf_): Quaternionf;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        get finite(): boolean
-    }
-    type Quaternionfc_ = Quaternionfc;
-    class PrintWriter extends Internal.Writer {
-        constructor(arg0: Internal.File_)
-        constructor(arg0: Internal.OutputStream_, arg1: boolean)
-        constructor(arg0: Internal.OutputStream_)
-        constructor(arg0: string, arg1: string)
-        constructor(arg0: string, arg1: Internal.Charset_)
-        constructor(arg0: Internal.File_, arg1: Internal.Charset_)
-        constructor(arg0: Internal.Writer_, arg1: boolean)
-        constructor(arg0: Internal.Writer_)
-        constructor(arg0: Internal.OutputStream_, arg1: boolean, arg2: Internal.Charset_)
-        constructor(arg0: string)
-        constructor(arg0: Internal.File_, arg1: string)
-        print(arg0: string): void;
-        println(arg0: number): void;
-        println(): void;
-        format(arg0: Internal.Locale_, arg1: string, ...arg2: any[]): this;
-        println(arg0: number): void;
-        print(arg0: number): void;
-        println(arg0: string): void;
-        print(arg0: number): void;
-        printf(arg0: string, ...arg1: any[]): this;
-        append(arg0: Internal.CharSequence_, arg1: number, arg2: number): this;
-        print(arg0: number): void;
-        print(arg0: boolean): void;
-        printf(arg0: Internal.Locale_, arg1: string, ...arg2: any[]): this;
-        println(arg0: string): void;
-        println(arg0: string[]): void;
-        println(arg0: boolean): void;
-        append(arg0: Internal.CharSequence_): this;
-        println(arg0: number): void;
-        println(arg0: number): void;
-        checkError(): boolean;
-        print(arg0: any): void;
-        print(arg0: string[]): void;
-        print(arg0: string): void;
-        format(arg0: string, ...arg1: any[]): this;
-        print(arg0: number): void;
-        println(arg0: any): void;
-        append(arg0: string): this;
-    }
-    type PrintWriter_ = PrintWriter;
-    class TooltipItem extends Internal.Item {
-        constructor(tooltip: Internal.Component_, properties: Internal.Item$Properties_)
-        getMaxDamage(arg0: Internal.ItemStack_): number;
-        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
-        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
-        isDamageable(arg0: Internal.ItemStack_): boolean;
-        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
-        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
-        setDigSpeed(speed: number): void;
-        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
-        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
-        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
-        getEnchantmentValue(arg0: Internal.ItemStack_): number;
-        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
-        setAttackSpeed(attackSpeed: number): void;
-        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
-        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
-        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
-        getXpRepairRatio(arg0: Internal.ItemStack_): number;
-        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
-        getCreativeTab(): string;
-        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
-        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
-        isDamaged(arg0: Internal.ItemStack_): boolean;
-        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
-        getCreatorModId(arg0: Internal.ItemStack_): string;
-        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
-        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
-        getHighlightTip(arg0: Internal.ItemStack_, arg1: Internal.Component_): Internal.Component;
-        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
-        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
-        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
-        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
-        setArmorKnockbackResistance(knockbackResistance: number): void;
-        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
-        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
-        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
-        getDamage(arg0: Internal.ItemStack_): number;
-        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
-        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
-        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
-        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
-        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
-        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
-        arch$registryName(): ResourceLocation;
-        setAttackDamage(attackDamage: number): void;
-        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
-        arch$holder(): Internal.Holder<Internal.Item>;
-        getMod(): string;
-        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
-        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
-        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
-        setArmorProtection(armorProtection: number): void;
-        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
-        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
-        setArmorToughness(armorToughness: number): void;
-        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
-        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
-        getMaxStackSize(arg0: Internal.ItemStack_): number;
-        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
-        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
-        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
-        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
-        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
-        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
-        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
-        getDigSpeed(): number;
-        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
-        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
-        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
-        set digSpeed(speed: number)
-        set attackSpeed(attackSpeed: number)
-        get creativeTab(): string
-        set armorKnockbackResistance(knockbackResistance: number)
-        set attackDamage(attackDamage: number)
-        get mod(): string
-        set armorProtection(armorProtection: number)
-        set armorToughness(armorToughness: number)
-        get digSpeed(): number
-        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
-        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
-    }
-    type TooltipItem_ = TooltipItem;
-    interface Object2ObjectMap$FastEntrySet <K, V> extends Internal.ObjectSet<Internal.Object2ObjectMap$Entry<K, V>> {
-        abstract addAll(arg0: Internal.Collection_<Internal.Object2ObjectMap$Entry<K, V>>): boolean;
-        of<K>(arg0: K, arg1: K, arg2: K): Internal.ObjectSet<K>;
-        abstract isEmpty(): boolean;
-        parallelStream(): Internal.Stream<Internal.Object2ObjectMap$Entry<K, V>>;
-        of<K>(arg0: K, arg1: K): Internal.ObjectSet<K>;
-        abstract add(arg0: Internal.Object2ObjectMap$Entry_<K, V>): boolean;
-        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E, arg9: E): Internal.Set<E>;
-        abstract retainAll(arg0: Internal.Collection_<any>): boolean;
-        abstract containsAll(arg0: Internal.Collection_<any>): boolean;
-        toArray<T>(arg0: Internal.IntFunction_<T[]>): T[];
-        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E): Internal.Set<E>;
-        of<E>(arg0: E, arg1: E, arg2: E, arg3: E): Internal.Set<E>;
-        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E): Internal.Set<E>;
-        abstract contains(arg0: any): boolean;
-        abstract fastIterator(): Internal.ObjectIterator<Internal.Object2ObjectMap$Entry<K, V>>;
-        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E): Internal.Set<E>;
-        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E): Internal.Set<E>;
-        iterator(): Internal.Iterator<any>;
-        forEach(arg0: Internal.Consumer_<Internal.Object2ObjectMap$Entry<K, V>>): void;
-        abstract toArray<T>(arg0: T[]): T[];
-        abstract remove(arg0: any): boolean;
-        abstract toArray(): any[];
-        stream(): Internal.Stream<Internal.Object2ObjectMap$Entry<K, V>>;
-        fastForEach(arg0: Internal.Consumer_<Internal.Object2ObjectMap$Entry<K, V>>): void;
-        of<K>(): Internal.ObjectSet<K>;
-        abstract hashCode(): number;
-        abstract size(): number;
-        of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E): Internal.Set<E>;
-        spliterator(): Internal.Spliterator<any>;
-        abstract removeAll(arg0: Internal.Collection_<any>): boolean;
-        removeIf(arg0: Internal.Predicate_<Internal.Object2ObjectMap$Entry<K, V>>): boolean;
-        of<K>(...arg0: K[]): Internal.ObjectSet<K>;
-        abstract clear(): void;
-        of<K>(arg0: K): Internal.ObjectSet<K>;
-        abstract equals(arg0: any): boolean;
-        copyOf<E>(arg0: Internal.Collection_<E>): Internal.Set<E>;
-        get empty(): boolean
-    }
-    type Object2ObjectMap$FastEntrySet_<K, V> = Object2ObjectMap$FastEntrySet<K, V>;
-    class ExperienceOrb extends Internal.Entity implements Internal.ExperienceOrbAccess, Internal.IClumpedOrb {
-        constructor(arg0: Internal.Level_, arg1: number, arg2: number, arg3: number, arg4: number)
-        constructor(arg0: Internal.EntityType_<Internal.ExperienceOrb>, arg1: Internal.Level_)
+    type ExplosionEvent$Start_ = ExplosionEvent$Start;
+    class ThrownExperienceBottle extends Internal.ThrowableItemProjectile {
+        constructor(arg0: Internal.EntityType_<Internal.ThrownExperienceBottle>, arg1: Internal.Level_)
+        constructor(arg0: Internal.Level_, arg1: Internal.LivingEntity_)
+        constructor(arg0: Internal.Level_, arg1: number, arg2: number, arg3: number)
+        setMotionY(y: number): void;
+        isPeacefulCreature(): boolean;
         getDistance(pos: BlockPos_): number;
-        handler$zbm000$addAdditionalSaveData(arg0: Internal.CompoundTag_, arg1: Internal.CallbackInfo_): void;
+        setRotation(yaw: number, pitch: number): void;
         playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
-        clumps$setCount(arg0: number): void;
+        getStepHeight(): number;
+        isAmbientCreature(): boolean;
+        getSoundFromFluidType(arg0: Internal.FluidType_, arg1: Internal.SoundAction_): Internal.SoundEvent;
+        isMonster(): boolean;
         isOnScoreboardTeam(teamId: string): boolean;
-        getValue(): number;
+        canHydrateInFluidType(arg0: Internal.FluidType_): boolean;
+        getType(): string;
+        self(): Internal.Entity;
+        getBlock(): Internal.BlockContainerJS;
         getPickedResult(arg0: Internal.HitResult_): Internal.ItemStack;
-        handler$zbm000$playerTouch(arg0: Internal.Player_, arg1: Internal.CallbackInfo_): void;
+        getNbt(): Internal.CompoundTag;
+        getMotionY(): number;
+        getName(): net.minecraft.network.chat.Component;
         setPosition(x: number, y: number, z: number): void;
+        getPassengers(): Internal.EntityArrayList;
         runCommandSilent(command: string): number;
         canStartSwimming(): boolean;
         isPlayer(): boolean;
         isAnimal(): boolean;
-        readAdditionalSaveData(arg0: Internal.CompoundTag_): void;
         rayTrace(distance: number, fluids: boolean): Internal.RayTraceResultJS;
         setY(y: number): void;
+        getFluidFallDistanceModifier(arg0: Internal.FluidType_): number;
         getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
+        isInFluidType(arg0: Internal.BiPredicate_<Internal.FluidType, number>): boolean;
         isLiving(): boolean;
+        canFluidExtinguish(arg0: Internal.FluidType_): boolean;
         alwaysAccepts(): boolean;
         isInFluidType(arg0: Internal.FluidState_): boolean;
-        getDisplayName(): Internal.Component;
-        localvar$zbm000$clumps$captureCurrentEntry(arg0: Internal.Map$Entry_<any, any>): Internal.Map$Entry<any, any>;
+        isPushedByFluid(arg0: Internal.FluidType_): boolean;
+        spawn(): void;
+        getServer(): Internal.MinecraftServer;
+        getDisplayName(): net.minecraft.network.chat.Component;
+        setMotionX(x: number): void;
         setPosition(block: Internal.BlockContainerJS_): void;
         setMotionZ(z: number): void;
+        teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
         mergeNbt(tag: Internal.CompoundTag_): Internal.Entity;
-        handler$zbm000$merge(arg0: Internal.ExperienceOrb_, arg1: Internal.CallbackInfo_): void;
         attack(hp: number): void;
         canSwimInFluidType(arg0: Internal.FluidType_): boolean;
         getTeamId(): string;
-        handler$zbm000$clumps$repairPlayerItems(arg0: Internal.Player_, arg1: number, arg2: Internal.CallbackInfoReturnable_<any>): void;
+        setNbt(nbt: Internal.CompoundTag_): void;
         canBeRiddenUnderFluidType(arg0: Internal.FluidType_, arg1: Internal.Entity_): boolean;
+        getLevel(): Internal.Level;
         getFacing(): Internal.Direction;
-        clumps$setClumpedMap(arg0: Internal.Map_<any, any>): void;
-        getIcon(): number;
-        clumps$getClumpedMap(): Internal.Map<any, any>;
+        getScriptType(): Internal.ScriptType;
+        isMultipartEntity(): boolean;
+        serializeNBT(): Internal.Tag;
         shouldRiderSit(): boolean;
+        getParts(): Internal.PartEntity<any>[];
+        setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
+        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
         rayTrace(distance: number): Internal.RayTraceResultJS;
         isInFluidType(arg0: Internal.FluidType_): boolean;
         getFluidMotionScale(arg0: Internal.FluidType_): number;
         getMotionX(): number;
         isWaterCreature(): boolean;
-        getItem(): Internal.ItemStack;
-        setX(x: number): void;
-        isFrame(): boolean;
-        playSound(id: Internal.SoundEvent_): void;
-        getDistance(x: number, y: number, z: number): number;
-        setMotionY(y: number): void;
-        isPeacefulCreature(): boolean;
-        clumps$resolve(): boolean;
-        setRotation(yaw: number, pitch: number): void;
-        getStepHeight(): number;
-        isAmbientCreature(): boolean;
-        getSoundFromFluidType(arg0: Internal.FluidType_, arg1: Internal.SoundAction_): Internal.SoundEvent;
-        isMonster(): boolean;
-        addAdditionalSaveData(arg0: Internal.CompoundTag_): void;
-        canHydrateInFluidType(arg0: Internal.FluidType_): boolean;
-        getType(): string;
-        self(): Internal.Entity;
-        getBlock(): Internal.BlockContainerJS;
-        getNbt(): Internal.CompoundTag;
-        getMotionY(): number;
-        getName(): Internal.Component;
-        repairPlayerItems(arg0: Internal.Player_, arg1: number): number;
-        getPassengers(): Internal.EntityArrayList;
-        handler$zbm000$readAdditionalSaveData(arg0: Internal.CompoundTag_, arg1: Internal.CallbackInfo_): void;
-        getFluidFallDistanceModifier(arg0: Internal.FluidType_): number;
-        isInFluidType(arg0: Internal.BiPredicate_<Internal.FluidType, number>): boolean;
-        static award(arg0: Internal.ServerLevel_, arg1: Vec3d_, arg2: number): void;
-        canFluidExtinguish(arg0: Internal.FluidType_): boolean;
-        isPushedByFluid(arg0: Internal.FluidType_): boolean;
-        spawn(): void;
-        getServer(): Internal.MinecraftServer;
-        setMotionX(x: number): void;
-        teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
-        static getExperienceValue(arg0: number): number;
-        setNbt(nbt: Internal.CompoundTag_): void;
-        getLevel(): Internal.Level;
-        getScriptType(): Internal.ScriptType;
-        isMultipartEntity(): boolean;
-        clumps$setAge(arg0: number): void;
-        getParts(): Internal.PartEntity<any>[];
-        setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
         deserializeNBT(arg0: Internal.Tag_): void;
         getMotionZ(): number;
-        static tryMergeToExisting(arg0: Internal.ServerLevel_, arg1: Vec3d_, arg2: number): boolean;
-        tell(message: Internal.Component_): void;
-        serializeNBT(): Internal.CompoundTag;
+        getItem(): Internal.ItemStack;
+        setX(x: number): void;
+        tell(message: net.minecraft.network.chat.Component_): void;
         setZ(z: number): void;
-        setStatusMessage(message: Internal.Component_): void;
-        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
+        setStatusMessage(message: net.minecraft.network.chat.Component_): void;
         deserializeNBT(arg0: Internal.CompoundTag_): void;
+        isEyeInFluidType(arg0: Internal.FluidType_): boolean;
         getDistanceSq(pos: BlockPos_): number;
-        clumps$getAge(): number;
+        isFrame(): boolean;
         getProfile(): Internal.GameProfile;
+        playSound(id: Internal.SoundEvent_): void;
         getClassification(arg0: boolean): Internal.MobCategory;
         runCommand(command: string): number;
-        get value(): number
-        get player(): boolean
-        get animal(): boolean
-        set y(y: number)
-        get living(): boolean
-        get displayName(): Internal.Component
-        set position(block: Internal.BlockContainerJS_)
-        set motionZ(z: number)
-        get teamId(): string
-        get facing(): Internal.Direction
-        get icon(): number
-        get motionX(): number
-        get waterCreature(): boolean
-        get item(): Internal.ItemStack
-        set x(x: number)
-        get frame(): boolean
+        getDistance(x: number, y: number, z: number): number;
         set motionY(y: number)
         get peacefulCreature(): boolean
         get stepHeight(): number
@@ -3359,120 +2208,206 @@ declare namespace Internal {
         get block(): Internal.BlockContainerJS
         get nbt(): Internal.CompoundTag
         get motionY(): number
-        get name(): Internal.Component
+        get name(): net.minecraft.network.chat.Component
         get passengers(): Internal.EntityArrayList
+        get player(): boolean
+        get animal(): boolean
+        set y(y: number)
+        get living(): boolean
         get server(): Internal.MinecraftServer
+        get displayName(): net.minecraft.network.chat.Component
         set motionX(x: number)
+        set position(block: Internal.BlockContainerJS_)
+        set motionZ(z: number)
+        get teamId(): string
         set nbt(nbt: Internal.CompoundTag_)
         get level(): Internal.Level
+        get facing(): Internal.Direction
         get scriptType(): Internal.ScriptType
         get multipartEntity(): boolean
         get parts(): Internal.PartEntity<any>[]
+        get motionX(): number
+        get waterCreature(): boolean
         get motionZ(): number
+        get item(): Internal.ItemStack
+        set x(x: number)
         set z(z: number)
-        set statusMessage(message: Internal.Component_)
+        set statusMessage(message: net.minecraft.network.chat.Component_)
+        get frame(): boolean
         get profile(): Internal.GameProfile
-        count: number;
-        clumps$clumpedMap: Internal.Map<any, any>;
-        value: number;
-        clumps$currentEntry: Internal.Map$Entry<any, any>;
     }
-    type ExperienceOrb_ = ExperienceOrb;
-    class ServerboundPaddleBoatPacket implements Internal.Packet<Internal.ServerGamePacketListener> {
+    type ThrownExperienceBottle_ = ThrownExperienceBottle;
+    class ClientboundPlaceGhostRecipePacket implements Internal.Packet<Internal.ClientGamePacketListener> {
         constructor(arg0: Internal.FriendlyByteBuf_)
-        constructor(arg0: boolean, arg1: boolean)
+        constructor(arg0: number, arg1: Internal.Recipe_<any>)
         handle(arg0: Internal.PacketListener_): void;
+        getRecipe(): ResourceLocation;
         write(arg0: Internal.FriendlyByteBuf_): void;
-        getRight(): boolean;
-        handle(arg0: Internal.ServerGamePacketListener_): void;
+        handle(arg0: Internal.ClientGamePacketListener_): void;
+        getContainerId(): number;
         isSkippable(): boolean;
-        getLeft(): boolean;
-        get right(): boolean
+        get recipe(): ResourceLocation
+        get containerId(): number
         get skippable(): boolean
-        get left(): boolean
     }
-    type ServerboundPaddleBoatPacket_ = ServerboundPaddleBoatPacket;
-    abstract class BlockEntity extends Internal.CapabilityProvider<Internal.BlockEntity> implements Internal.IForgeBlockEntity {
-        constructor(arg0: Internal.BlockEntityType_<any>, arg1: BlockPos_, arg2: Internal.BlockState_)
-        saveWithId(): Internal.CompoundTag;
-        static getPosFromTag(arg0: Internal.CompoundTag_): BlockPos;
-        getUpdateTag(): Internal.CompoundTag;
-        requestModelDataUpdate(): void;
-        handleUpdateTag(arg0: Internal.CompoundTag_): void;
-        onChunkUnloaded(): void;
-        saveToItem(arg0: Internal.ItemStack_): void;
-        setLevel(arg0: Internal.Level_): void;
-        static addEntityType(arg0: Internal.CompoundTag_, arg1: Internal.BlockEntityType_<any>): void;
-        getLevel(): Internal.Level;
-        getUpdatePacket(): Internal.Packet<Internal.ClientGamePacketListener>;
+    type ClientboundPlaceGhostRecipePacket_ = ClientboundPlaceGhostRecipePacket;
+    class ArmorItem extends Internal.Item implements Internal.Equipable, Internal.ModifiableItemKJS {
+        constructor(arg0: Internal.ArmorMaterial_, arg1: Internal.ArmorItem$Type_, arg2: Internal.Item$Properties_)
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        getType(): Internal.ArmorItem$Type;
+        static dispenseArmor(arg0: Internal.BlockSource_, arg1: Internal.ItemStack_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        getMaterial(): Internal.ArmorMaterial;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
+        setDigSpeed(speed: number): void;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        getEnchantmentValue(arg0: Internal.ItemStack_): number;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        setAttackSpeed(attackSpeed: number): void;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        getEquipSound(): Internal.SoundEvent;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getCreatorModId(arg0: Internal.ItemStack_): string;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        static get(arg0: Internal.ItemStack_): Internal.Equipable;
+        kjs$getAttributeMap(): Internal.Multimap<any, any>;
+        getDamage(arg0: Internal.ItemStack_): number;
+        getDefense(): number;
+        kjs$getMutableAttributeMap(): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getToughness(): number;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        arch$registryName(): ResourceLocation;
+        setAttackDamage(attackDamage: number): void;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getMod(): string;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        getEquipmentSlot(): Internal.EquipmentSlot;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        setArmorToughness(armorToughness: number): void;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
+        kjs$setAttributeMap(arg0: Internal.Multimap_<any, any>): void;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        swapWithEquipmentSlot(arg0: Internal.Item_, arg1: Internal.Level_, arg2: Internal.Player_, arg3: Internal.InteractionHand_): Internal.InteractionResultHolder<Internal.ItemStack>;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        get type(): Internal.ArmorItem$Type
+        get material(): Internal.ArmorMaterial
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        get equipSound(): Internal.SoundEvent
+        get creativeTab(): string
+        set armorKnockbackResistance(knockbackResistance: number)
+        get defense(): number
+        get toughness(): number
+        set attackDamage(attackDamage: number)
+        get mod(): string
+        get equipmentSlot(): Internal.EquipmentSlot
+        set armorProtection(armorProtection: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+        static readonly DISPENSE_ITEM_BEHAVIOR: Internal.DispenseItemBehavior;
+        defaultModifiers: Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+    }
+    type ArmorItem_ = ArmorItem;
+    class ItemDisplayContext extends Internal.Enum<Internal.ItemDisplayContext> implements Internal.IExtensibleEnum, Internal.StringRepresentable {
+        firstPerson(): boolean;
+        static fromEnumWithMapping<E extends Internal.Enum<E> & Internal.StringRepresentable>(arg0: Internal.Supplier_<E[]>, arg1: Internal.Function_<string, string>): Internal.StringRepresentable$EnumCodec<E>;
+        static createCodecForExtensibleEnum<E extends Internal.Enum<E> & Internal.StringRepresentable>(arg0: Internal.Supplier_<E[]>, arg1: Internal.Function_<string, E>): Internal.Codec<E>;
         /**
          * @deprecated
         */
-        setBlockState(arg0: Internal.BlockState_): void;
-        getBlockPos(): BlockPos;
-        isRemoved(): boolean;
-        clearRemoved(): void;
-        onlyOpCanSetNbt(): boolean;
-        load(arg0: Internal.CompoundTag_): void;
-        setChanged(): void;
-        onLoad(): void;
-        serializeNBT(): Internal.Tag;
-        saveWithoutMetadata(): Internal.CompoundTag;
-        fillCrashReportCategory(arg0: Internal.CrashReportCategory_): void;
-        saveWithFullMetadata(): Internal.CompoundTag;
-        onDataPacket(arg0: Internal.Connection_, arg1: Internal.ClientboundBlockEntityDataPacket_): void;
-        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        getPersistentData(): Internal.CompoundTag;
-        deserializeNBT(arg0: Internal.Tag_): void;
-        getBlockState(): Internal.BlockState;
-        triggerEvent(arg0: number, arg1: number): boolean;
-        hasLevel(): boolean;
-        setRemoved(): void;
-        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        getType(): Internal.BlockEntityType<any>;
-        deserializeNBT(arg0: Internal.CompoundTag_): void;
-        static loadStatic(arg0: BlockPos_, arg1: Internal.BlockState_, arg2: Internal.CompoundTag_): Internal.BlockEntity;
-        getModelData(): Internal.ModelData;
-        getRenderBoundingBox(): Internal.AABB;
-        get updateTag(): Internal.CompoundTag
-        set level(arg0: Internal.Level_)
-        get level(): Internal.Level
-        get updatePacket(): Internal.Packet<Internal.ClientGamePacketListener>
-        /**
-         * @deprecated
-        */
-        set blockState(arg0: Internal.BlockState_)
-        get blockPos(): BlockPos
-        get removed(): boolean
-        get persistentData(): Internal.CompoundTag
-        get blockState(): Internal.BlockState
-        get type(): Internal.BlockEntityType<any>
-        get modelData(): Internal.ModelData
-        get renderBoundingBox(): Internal.AABB
+        init(): void;
+        static create(arg0: string, arg1: ResourceLocation_, arg2: Internal.ItemDisplayContext_): Internal.ItemDisplayContext;
+        getSerializedName(): string;
+        isModded(): boolean;
+        static fromEnum<E extends Internal.Enum<E> & Internal.StringRepresentable>(arg0: Internal.Supplier_<E[]>): Internal.StringRepresentable$EnumCodec<E>;
+        static keys(arg0: Internal.StringRepresentable_[]): Internal.Keyable;
+        static valueOf(arg0: string): Internal.ItemDisplayContext;
+        fallback(): this;
+        getId(): number;
+        static values(): Internal.ItemDisplayContext[];
+        get serializedName(): string
+        get modded(): boolean
+        get id(): number
+        static readonly HEAD: Internal.ItemDisplayContext;
+        static readonly NONE: Internal.ItemDisplayContext;
+        static readonly GUI: Internal.ItemDisplayContext;
+        static readonly CODEC: Internal.Codec<Internal.ItemDisplayContext>;
+        static readonly THIRD_PERSON_LEFT_HAND: Internal.ItemDisplayContext;
+        static readonly FIXED: Internal.ItemDisplayContext;
+        static readonly FIRST_PERSON_LEFT_HAND: Internal.ItemDisplayContext;
+        static readonly FIRST_PERSON_RIGHT_HAND: Internal.ItemDisplayContext;
+        static readonly THIRD_PERSON_RIGHT_HAND: Internal.ItemDisplayContext;
+        static readonly GROUND: Internal.ItemDisplayContext;
+        static readonly BY_ID: Internal.IntFunction<Internal.ItemDisplayContext>;
+        static readonly ADD_CALLBACK: Internal.IForgeRegistry$AddCallback<Internal.ItemDisplayContext>;
     }
-    type BlockEntity_ = BlockEntity;
-    class DiggingEnchantment extends Internal.Enchantment {
-        allowedInCreativeTab(arg0: Internal.Item_, arg1: Internal.Set_<Internal.EnchantmentCategory>): boolean;
-        getDamageBonus(arg0: number, arg1: Internal.MobType_, arg2: Internal.ItemStack_): number;
+    type ItemDisplayContext_ = "fixed" | "first_person_right_hand" | ItemDisplayContext | "gui" | "third_person_left_hand" | "ground" | "head" | "none" | "third_person_right_hand" | "first_person_left_hand";
+    interface AdvancementList$Listener {
+        abstract onAddAdvancementRoot(arg0: Internal.Advancement_): void;
+        abstract onRemoveAdvancementRoot(arg0: Internal.Advancement_): void;
+        abstract onRemoveAdvancementTask(arg0: Internal.Advancement_): void;
+        abstract onAddAdvancementTask(arg0: Internal.Advancement_): void;
+        abstract onAdvancementsCleared(): void;
     }
-    type DiggingEnchantment_ = DiggingEnchantment;
-    class ServerChatEvent extends Internal.Event {
-        constructor()
-        constructor(arg0: Internal.ServerPlayer_, arg1: string, arg2: Internal.Component_)
-        getMessage(): Internal.Component;
-        getUsername(): string;
-        getRawText(): string;
-        setMessage(arg0: Internal.Component_): void;
-        getPlayer(): Internal.ServerPlayer;
-        get message(): Internal.Component
-        get username(): string
-        get rawText(): string
-        set message(arg0: Internal.Component_)
-        get player(): Internal.ServerPlayer
+    type AdvancementList$Listener_ = AdvancementList$Listener;
+    class PointedDripstoneFeature extends Internal.Feature<Internal.PointedDripstoneConfiguration> {
+        constructor(arg0: Internal.Codec_<Internal.PointedDripstoneConfiguration>)
     }
-    type ServerChatEvent_ = ServerChatEvent;
-    abstract class AbstractBellBlock <BE extends Internal.AbstractBellBlockEntity> extends Internal.BellBlock implements Internal.IBE<BE> {
-        constructor(arg0: Internal.BlockBehaviour$Properties_)
+    type PointedDripstoneFeature_ = PointedDripstoneFeature;
+    abstract class FarmersDelightCompatImpl$TomatoLoggedBlock extends Internal.TomatoVineBlock {
+        constructor(properties: Internal.BlockBehaviour$Properties_)
         isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
         supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
@@ -3480,12 +2415,10 @@ declare namespace Internal {
         isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
         collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
         canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
         onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        abstract playSound(arg0: Internal.Level_, arg1: BlockPos_): void;
-        getTicker<T extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<T>): Internal.BlockEntityTicker<T>;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
         getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isStickyBlock(arg0: Internal.BlockState_): boolean;
         setLightEmission(v: number): void;
@@ -3496,74 +2429,639 @@ declare namespace Internal {
         getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
         getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
         setDestroySpeed(v: number): void;
-        abstract getBlockEntityType(): Internal.BlockEntityType<BE>;
-        onBlockEntityUse(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Function_<BE, Internal.InteractionResult>): Internal.InteractionResult;
         canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
         shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
         rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
         canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
         isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        canRingFrom(arg0: Internal.BlockState_, arg1: Internal.Direction_, arg2: number): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
         shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
         getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
         arch$holder(): Internal.Holder<Internal.Block>;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        getPlantType(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.PlantType;
         getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
         makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
         getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
         onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
         getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        static onRemove(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
         hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
         onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
         getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
         getBlockStates(): Internal.List<Internal.BlockState>;
-        getBlockEntityOptional(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.Optional<BE>;
         isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
         getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
         getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
         setRequiresTool(v: boolean): void;
         canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
         getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         arch$registryName(): ResourceLocation;
         getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
         addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
         canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        withBlockEntityDo(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Consumer_<BE>): void;
         isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
         addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        abstract getBlockEntityClass(): BE;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
+        abstract getInnerBlock(): Internal.Block;
         getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
         isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        getBlockEntity(arg0: Internal.BlockGetter_, arg1: BlockPos_): BE;
         set lightEmission(v: number)
         set destroySpeed(v: number)
-        get blockEntityType(): Internal.BlockEntityType<BE>
         get blockStates(): Internal.List<Internal.BlockState>
         set requiresTool(v: boolean)
         get mod(): string
-        get blockEntityClass(): BE
+        get innerBlock(): Internal.Block
     }
-    type AbstractBellBlock_<BE extends Internal.AbstractBellBlockEntity> = AbstractBellBlock<BE>;
-    class RegularEnumSet <E extends Internal.Enum<E>> extends Internal.EnumSet<E> {
+    type FarmersDelightCompatImpl$TomatoLoggedBlock_ = FarmersDelightCompatImpl$TomatoLoggedBlock;
+    class AtomicInteger extends number implements Internal.Serializable {
+        constructor()
+        constructor(arg0: number)
+        decrementAndGet(): number;
+        compareAndExchangeAcquire(arg0: number, arg1: number): number;
+        set(arg0: number): void;
+        getAndAccumulate(arg0: number, arg1: Internal.IntBinaryOperator_): number;
+        /**
+         * @deprecated
+        */
+        weakCompareAndSet(arg0: number, arg1: number): boolean;
+        setRelease(arg0: number): void;
+        updateAndGet(arg0: Internal.IntUnaryOperator_): number;
+        getOpaque(): number;
+        getAndSet(arg0: number): number;
+        weakCompareAndSetAcquire(arg0: number, arg1: number): boolean;
+        accumulateAndGet(arg0: number, arg1: Internal.IntBinaryOperator_): number;
+        getAndAdd(arg0: number): number;
+        weakCompareAndSetRelease(arg0: number, arg1: number): boolean;
+        compareAndSet(arg0: number, arg1: number): boolean;
+        lazySet(arg0: number): void;
+        weakCompareAndSetVolatile(arg0: number, arg1: number): boolean;
+        getAcquire(): number;
+        getAndDecrement(): number;
+        compareAndExchange(arg0: number, arg1: number): number;
+        compareAndExchangeRelease(arg0: number, arg1: number): number;
+        setOpaque(arg0: number): void;
+        incrementAndGet(): number;
+        getAndUpdate(arg0: Internal.IntUnaryOperator_): number;
+        getAndIncrement(): number;
+        weakCompareAndSetPlain(arg0: number, arg1: number): boolean;
+        setPlain(arg0: number): void;
+        addAndGet(arg0: number): number;
+        getPlain(): number;
+        get(): number;
+        set release(arg0: number)
+        get opaque(): number
+        get acquire(): number
+        get andDecrement(): number
+        set opaque(arg0: number)
+        get andIncrement(): number
+        set plain(arg0: number)
+        get plain(): number
+    }
+    type AtomicInteger_ = AtomicInteger;
+    interface VariantHolder <T> {
+        abstract setVariant(arg0: T): void;
+        abstract getVariant(): T;
+        set variant(arg0: T)
+        get variant(): T
+    }
+    type VariantHolder_<T> = VariantHolder<T>;
+    class CanyonCarverConfiguration$CanyonShapeConfiguration {
+        constructor(arg0: Internal.FloatProvider_, arg1: Internal.FloatProvider_, arg2: number, arg3: Internal.FloatProvider_, arg4: number, arg5: number)
+        readonly verticalRadiusCenterFactor: number;
+        readonly verticalRadiusDefaultFactor: number;
+        readonly distanceFactor: Internal.FloatProvider;
+        readonly widthSmoothness: number;
+        static readonly CODEC: Internal.Codec<Internal.CanyonCarverConfiguration$CanyonShapeConfiguration>;
+        readonly thickness: Internal.FloatProvider;
+        readonly horizontalRadiusFactor: Internal.FloatProvider;
+    }
+    type CanyonCarverConfiguration$CanyonShapeConfiguration_ = CanyonCarverConfiguration$CanyonShapeConfiguration;
+    interface BlockColor {
+        abstract getColor(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: number): number;
+        (arg0: Internal.BlockState, arg1: Internal.BlockAndTintGetter, arg2: BlockPos, arg3: number): number;
+    }
+    type BlockColor_ = BlockColor;
+    interface LevelEntityGetter <T extends Internal.EntityAccess> {
+        abstract get(arg0: number): T;
+        abstract get(arg0: Internal.AABB_, arg1: Internal.Consumer_<T>): void;
+        abstract get<U extends T>(arg0: Internal.EntityTypeTest_<T, U>, arg1: Internal.AABB_, arg2: Internal.AbortableIterationConsumer_<U>): void;
+        abstract get<U extends T>(arg0: Internal.EntityTypeTest_<T, U>, arg1: Internal.AbortableIterationConsumer_<U>): void;
+        abstract getAll(): Internal.Iterable<T>;
+        abstract get(arg0: Internal.UUID_): T;
+        get all(): Internal.Iterable<T>
+    }
+    type LevelEntityGetter_<T extends Internal.EntityAccess> = LevelEntityGetter<T>;
+    class CopycatBeamBlock extends Internal.CTWaterloggedCopycatBlock {
+        constructor(pProperties: Internal.BlockBehaviour$Properties_)
+        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
+        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
+        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        fluidState(arg0: Internal.BlockState_): Internal.FluidState;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isStickyBlock(arg0: Internal.BlockState_): boolean;
+        setLightEmission(v: number): void;
+        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
+        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
+        getBlockEntityOptional(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.Optional<Internal.CopycatBlockEntity>;
+        allowCTAppearance(state: Internal.BlockState_, level: Internal.BlockAndTintGetter_, pos: BlockPos_, side: Internal.Direction_, queryState: Internal.BlockState_, queryPos: BlockPos_): boolean;
+        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
+        isSlimeBlock(arg0: Internal.BlockState_): boolean;
+        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
+        setDestroySpeed(v: number): void;
+        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
+        onBlockEntityUse(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Function_<Internal.CopycatBlockEntity, InteractionResult>): InteractionResult;
+        playRemoveSound(arg0: Internal.Level_, arg1: BlockPos_): void;
+        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
+        placeLiquid(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.FluidState_): boolean;
+        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
+        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        arch$holder(): Internal.Holder<Internal.Block>;
+        getTicker<S extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<S>): Internal.BlockEntityTicker<S>;
+        playRotateSound(arg0: Internal.Level_, arg1: BlockPos_): void;
+        abstract getBlockEntityType(): Internal.BlockEntityType<Internal.CopycatBlockEntity>;
+        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
+        newBlockEntity(arg0: BlockPos_, arg1: Internal.BlockState_): Internal.BlockEntity;
+        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
+        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
+        canPlaceLiquid(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.Fluid_): boolean;
+        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
+        static onRemove(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
+        updateWater(arg0: Internal.LevelAccessor_, arg1: Internal.BlockState_, arg2: BlockPos_): void;
+        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
+        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
+        withBlockEntityDo(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Consumer_<Internal.CopycatBlockEntity>): void;
+        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
+        toggleCT(pState: Internal.BlockState_, pLevel: Internal.Level_, pPos: BlockPos_, pPlayer: Internal.Player_, pHand: Internal.InteractionHand_, pHit: Internal.BlockHitResult_): InteractionResult;
+        getBlockStates(): Internal.List<Internal.BlockState>;
+        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
+        setRequiresTool(v: boolean): void;
+        abstract getBlockEntityClass(): typeof Internal.CopycatBlockEntity;
+        static withWater(arg0: Internal.LevelAccessor_, arg1: Internal.BlockState_, arg2: BlockPos_): Internal.BlockState;
+        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
+        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        arch$registryName(): ResourceLocation;
+        withWater(arg0: Internal.BlockState_, arg1: Internal.BlockPlaceContext_): Internal.BlockState;
+        getMod(): string;
+        getBlockEntity(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.CopycatBlockEntity;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
+        updateAfterWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.BlockState;
+        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
+        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
+        getRotatedBlockState(arg0: Internal.BlockState_, arg1: Internal.Direction_): Internal.BlockState;
+        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        get pickupSound(): Internal.Optional<Internal.SoundEvent>
+        set lightEmission(v: number)
+        set destroySpeed(v: number)
+        get blockEntityType(): Internal.BlockEntityType<Internal.CopycatBlockEntity>
+        get blockStates(): Internal.List<Internal.BlockState>
+        set requiresTool(v: boolean)
+        get blockEntityClass(): typeof Internal.CopycatBlockEntity
+        get mod(): string
+        static readonly AXIS: Internal.EnumProperty<Internal.Direction$Axis>;
+    }
+    type CopycatBeamBlock_ = CopycatBeamBlock;
+    class GuiBookEntry extends Internal.GuiBook implements Internal.IComponentRenderContext {
+        constructor(arg0: Internal.Book_, arg1: Internal.BookEntry_, arg2: number)
+        constructor(arg0: Internal.Book_, arg1: Internal.BookEntry_)
+        charTyped(arg0: string, arg1: number): boolean;
+        isFocused(): boolean;
+        renderItemStack(arg0: Internal.GuiGraphics_, arg1: number, arg2: number, arg3: number, arg4: number, arg5: Internal.ItemStack_): void;
+        getGui(): Internal.Screen;
+        setFocused(arg0: boolean): void;
+        getTicksInBook(): number;
+        addWidget(arg0: Internal.AbstractWidget_, arg1: number): void;
+        getTabOrderGroup(): number;
+        keyReleased(arg0: number, arg1: number, arg2: number): boolean;
+        getHeaderColor(): number;
+        registerButton(arg0: Internal.Button_, arg1: number, arg2: Internal.Runnable_): void;
+        setHoverTooltip(arg0: Internal.List_<string>): void;
+        mouseDragged(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number): boolean;
+        mouseMoved(arg0: number, arg1: number): void;
+        isAreaHovered(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): boolean;
+        nextFocusPath(arg0: Internal.FocusNavigationEvent_): Internal.ComponentPath;
+        static displayOrBookmark(arg0: Internal.GuiBook_, arg1: Internal.BookEntry_): void;
+        magicalSpecialHackyFocus(arg0: Internal.GuiEventListener_): void;
+        getEntry(): Internal.BookEntry;
+        setHoverTooltipComponents(arg0: Internal.List_<net.minecraft.network.chat.Component>): void;
+        getCraftingTexture(): ResourceLocation;
+        navigateToEntry(arg0: ResourceLocation_, arg1: number, arg2: boolean): boolean;
+        mouseReleased(arg0: number, arg1: number, arg2: number): boolean;
+        getTextColor(): number;
+        getBookTexture(): ResourceLocation;
+        getCurrentFocusPath(): Internal.ComponentPath;
+        getFont(): Internal.Style;
+        renderIngredient(arg0: Internal.GuiGraphics_, arg1: number, arg2: number, arg3: number, arg4: number, arg5: Internal.Ingredient_): void;
+        getChildAt(arg0: number, arg1: number): Internal.Optional<Internal.GuiEventListener>;
+        get focused(): boolean
+        get gui(): Internal.Screen
+        set focused(arg0: boolean)
+        get ticksInBook(): number
+        get tabOrderGroup(): number
+        get headerColor(): number
+        set hoverTooltip(arg0: Internal.List_<string>)
+        get entry(): Internal.BookEntry
+        set hoverTooltipComponents(arg0: Internal.List_<net.minecraft.network.chat.Component>)
+        get craftingTexture(): ResourceLocation
+        get textColor(): number
+        get bookTexture(): ResourceLocation
+        get currentFocusPath(): Internal.ComponentPath
+        get font(): Internal.Style
+    }
+    type GuiBookEntry_ = GuiBookEntry;
+    interface ChunkProgressListener {
+        abstract start(): void;
+        abstract stop(): void;
+        abstract onStatusChange(arg0: Internal.ChunkPos_, arg1: Internal.ChunkStatus_): void;
+        abstract updateSpawnPos(arg0: Internal.ChunkPos_): void;
+    }
+    type ChunkProgressListener_ = ChunkProgressListener;
+    class ScreenEvent$CharacterTyped$Post extends Internal.ScreenEvent$CharacterTyped {
+        constructor()
+        constructor(arg0: Internal.Screen_, arg1: string, arg2: number)
+    }
+    type ScreenEvent$CharacterTyped$Post_ = ScreenEvent$CharacterTyped$Post;
+    class StructureCheckResult extends Internal.Enum<Internal.StructureCheckResult> {
+        static values(): Internal.StructureCheckResult[];
+        static valueOf(arg0: string): Internal.StructureCheckResult;
+        static readonly START_NOT_PRESENT: Internal.StructureCheckResult;
+        static readonly CHUNK_LOAD_NEEDED: Internal.StructureCheckResult;
+        static readonly START_PRESENT: Internal.StructureCheckResult;
+    }
+    type StructureCheckResult_ = "start_present" | "chunk_load_needed" | StructureCheckResult | "start_not_present";
+    class WitherRoseBlock extends Internal.FlowerBlock {
+        constructor(arg0: Internal.MobEffect_, arg1: Internal.BlockBehaviour$Properties_)
+        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
+        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
+        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isStickyBlock(arg0: Internal.BlockState_): boolean;
+        setLightEmission(v: number): void;
+        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
+        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
+        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
+        isSlimeBlock(arg0: Internal.BlockState_): boolean;
+        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
+        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
+        setDestroySpeed(v: number): void;
+        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
+        static tryGet(arg0: Internal.ItemLike_): Internal.SuspiciousEffectHolder;
+        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
+        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
+        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        arch$holder(): Internal.Holder<Internal.Block>;
+        getPlantType(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.PlantType;
+        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
+        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
+        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
+        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
+        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
+        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
+        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
+        getBlockStates(): Internal.List<Internal.BlockState>;
+        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
+        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
+        setRequiresTool(v: boolean): void;
+        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
+        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
+        arch$registryName(): ResourceLocation;
+        getMod(): string;
+        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
+        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
+        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
+        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
+        static getAllEffectHolders(): Internal.List<Internal.SuspiciousEffectHolder>;
+        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
+        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        set lightEmission(v: number)
+        set destroySpeed(v: number)
+        get blockStates(): Internal.List<Internal.BlockState>
+        set requiresTool(v: boolean)
+        get mod(): string
+        get allEffectHolders(): Internal.List<Internal.SuspiciousEffectHolder>
+    }
+    type WitherRoseBlock_ = WitherRoseBlock;
+    class CaveFilter$Type implements Internal.PlacementModifierType<Internal.CaveFilter> {
+        constructor()
+        codec(): Internal.Codec<Internal.CaveFilter>;
+    }
+    type CaveFilter$Type_ = CaveFilter$Type;
+    class BoneMealItem extends Internal.Item {
+        constructor(arg0: Internal.Item$Properties_)
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        static addGrowthParticles(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: number): void;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
+        setDigSpeed(speed: number): void;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        getEnchantmentValue(arg0: Internal.ItemStack_): number;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        setAttackSpeed(attackSpeed: number): void;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getCreatorModId(arg0: Internal.ItemStack_): string;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        static applyBonemeal(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        getDamage(arg0: Internal.ItemStack_): number;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        arch$registryName(): ResourceLocation;
+        setAttackDamage(attackDamage: number): void;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getMod(): string;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        setArmorToughness(armorToughness: number): void;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        /**
+         * @deprecated
+        */
+        static growCrop(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: BlockPos_): boolean;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        static growWaterPlant(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        get creativeTab(): string
+        set armorKnockbackResistance(knockbackResistance: number)
+        set attackDamage(attackDamage: number)
+        get mod(): string
+        set armorProtection(armorProtection: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+        static readonly GRASS_COUNT_MULTIPLIER: 3;
+        static readonly GRASS_SPREAD_WIDTH: 3;
+        static readonly GRASS_SPREAD_HEIGHT: 1;
+    }
+    type BoneMealItem_ = BoneMealItem;
+    class ClientboundSetDefaultSpawnPositionPacket implements Internal.Packet<Internal.ClientGamePacketListener> {
+        constructor(arg0: Internal.FriendlyByteBuf_)
+        constructor(arg0: BlockPos_, arg1: number)
+        handle(arg0: Internal.PacketListener_): void;
+        getPos(): BlockPos;
+        write(arg0: Internal.FriendlyByteBuf_): void;
+        handle(arg0: Internal.ClientGamePacketListener_): void;
+        getAngle(): number;
+        isSkippable(): boolean;
+        get pos(): BlockPos
+        get angle(): number
+        get skippable(): boolean
+    }
+    type ClientboundSetDefaultSpawnPositionPacket_ = ClientboundSetDefaultSpawnPositionPacket;
+    interface Key extends Internal.Serializable {
+        abstract getAlgorithm(): string;
+        abstract getFormat(): string;
+        abstract getEncoded(): number[];
+        get algorithm(): string
+        get format(): string
+        get encoded(): number[]
+        /**
+         * @deprecated
+        */
+        readonly serialVersionUID: 6603384152749567654;
+    }
+    type Key_ = Key;
+    class ZetaStairsBlock extends Internal.StairBlock implements Internal.IZetaBlockExtensions, Internal.IForgeBlock, Internal.IZetaBlockColorProvider, Internal.IZetaBlock {
+        constructor(arg0: Internal.IZetaBlock_, arg1: Internal.ResourceKey_<Internal.CreativeModeTab>)
+        static isEnabled(arg0: Internal.Item_): boolean;
+        canStickToZeta(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
+        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
+        isScaffoldingZeta(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        getBlockColorProviderName(): string;
+        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
+        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
+        getModule(): Internal.ZetaModule;
+        setCreativeTab(arg0: Internal.ResourceKey_<Internal.CreativeModeTab>, arg1: Internal.ItemLike_, arg2: boolean): Internal.Block;
+        getBeaconColorMultiplierZeta(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
+        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        setLightEmission(v: number): void;
+        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
+        getFireSpreadSpeedZeta(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
+        isSlimeBlock(arg0: Internal.BlockState_): boolean;
+        setCreativeTab(arg0: Internal.ResourceKey_<Internal.CreativeModeTab>): Internal.Block;
+        getLightEmissionZeta(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
+        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
+        doesConditionApply(): boolean;
+        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
+        setDestroySpeed(v: number): void;
+        isStickyBlockZeta(arg0: Internal.BlockState_): boolean;
+        getFlammabilityZeta(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getSoundTypeZeta(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
+        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
+        shouldDisplayFluidOverlayZeta(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
+        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
+        static isEnabled(arg0: Internal.Block_): boolean;
+        placeLiquid(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.FluidState_): boolean;
+        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isLadderZeta(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        arch$holder(): Internal.Holder<Internal.Block>;
+        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
+        getBlock(): Internal.Block;
+        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
+        getItemColorProviderName(): string;
+        isConduitFrameZeta(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
+        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
+        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
+        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
+        canPlaceLiquid(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.Fluid_): boolean;
+        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
+        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
+        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
+        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
+        isEnabled(): boolean;
+        getBlockStates(): Internal.List<Internal.BlockState>;
+        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
+        getEnchantPowerBonusZeta(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
+        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
+        setRequiresTool(v: boolean): void;
+        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        arch$registryName(): ResourceLocation;
+        setCondition(arg0: Internal.BooleanSupplier_): this;
+        getMod(): string;
+        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
+        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
+        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        makesOpenTrapdoorAboveClimbableZeta(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        collisionExtendsVerticallyZeta(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        isFlammableZeta(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getToolModifiedStateZeta(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: string, arg3: boolean): Internal.BlockState;
+        canSustainPlantZeta(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: string): boolean;
+        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        get blockColorProviderName(): string
+        get pickupSound(): Internal.Optional<Internal.SoundEvent>
+        get module(): Internal.ZetaModule
+        set lightEmission(v: number)
+        set creativeTab(arg0: Internal.ResourceKey_<Internal.CreativeModeTab>)
+        set destroySpeed(v: number)
+        get block(): Internal.Block
+        get itemColorProviderName(): string
+        get enabled(): boolean
+        get blockStates(): Internal.List<Internal.BlockState>
+        set requiresTool(v: boolean)
+        set condition(arg0: Internal.BooleanSupplier_)
+        get mod(): string
+    }
+    type ZetaStairsBlock_ = ZetaStairsBlock;
+    class PageAttributes implements Internal.Cloneable {
+        constructor(arg0: Internal.PageAttributes$ColorType_, arg1: Internal.PageAttributes$MediaType_, arg2: Internal.PageAttributes$OrientationRequestedType_, arg3: Internal.PageAttributes$OriginType_, arg4: Internal.PageAttributes$PrintQualityType_, arg5: number[])
+        constructor()
+        constructor(arg0: Internal.PageAttributes_)
+        setMediaToDefault(): void;
+        clone(): any;
+        setPrintQuality(arg0: number): void;
+        setPrinterResolution(arg0: number[]): void;
+        setPrintQuality(arg0: Internal.PageAttributes$PrintQualityType_): void;
+        setPrinterResolution(arg0: number): void;
+        setOrientationRequested(arg0: number): void;
+        getOrigin(): Internal.PageAttributes$OriginType;
+        setOrientationRequested(arg0: Internal.PageAttributes$OrientationRequestedType_): void;
+        getColor(): Internal.PageAttributes$ColorType;
+        set(arg0: Internal.PageAttributes_): void;
+        getPrintQuality(): Internal.PageAttributes$PrintQualityType;
+        setOrientationRequestedToDefault(): void;
+        getMedia(): Internal.PageAttributes$MediaType;
+        setColor(arg0: Internal.PageAttributes$ColorType_): void;
+        getPrinterResolution(): number[];
+        setMedia(arg0: Internal.PageAttributes$MediaType_): void;
+        setPrintQualityToDefault(): void;
+        getOrientationRequested(): Internal.PageAttributes$OrientationRequestedType;
+        setOrigin(arg0: Internal.PageAttributes$OriginType_): void;
+        setPrinterResolutionToDefault(): void;
+        set printQuality(arg0: number)
+        set printerResolution(arg0: number[])
+        set printQuality(arg0: Internal.PageAttributes$PrintQualityType_)
+        set printerResolution(arg0: number)
+        set orientationRequested(arg0: number)
+        get origin(): Internal.PageAttributes$OriginType
+        set orientationRequested(arg0: Internal.PageAttributes$OrientationRequestedType_)
+        get color(): Internal.PageAttributes$ColorType
+        get printQuality(): Internal.PageAttributes$PrintQualityType
+        get media(): Internal.PageAttributes$MediaType
+        set color(arg0: Internal.PageAttributes$ColorType_)
+        get printerResolution(): number[]
+        set media(arg0: Internal.PageAttributes$MediaType_)
+        get orientationRequested(): Internal.PageAttributes$OrientationRequestedType
+        set origin(arg0: Internal.PageAttributes$OriginType_)
+    }
+    type PageAttributes_ = PageAttributes;
+    abstract class ForwardingSet <E> extends Internal.ForwardingCollection<E> implements Internal.Set<E> {
         static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E): Internal.Set<E>;
-        add(arg0: E): boolean;
         static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E): Internal.Set<E>;
         forEach(arg0: Internal.Consumer_<E>): void;
         abstract toArray<T>(arg0: T[]): T[];
         parallelStream(): Internal.Stream<E>;
         static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E, arg9: E): Internal.Set<E>;
-        iterator(): Internal.Iterator<E>;
+        abstract iterator(): Internal.Iterator<E>;
         static of<E>(arg0: E): Internal.Set<E>;
         static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E): Internal.Set<E>;
         static of<E>(...arg0: E[]): Internal.Set<E>;
@@ -3576,27 +3074,11 @@ declare namespace Internal {
         static of<E>(arg0: E, arg1: E, arg2: E): Internal.Set<E>;
         spliterator(): Internal.Spliterator<E>;
         static of<E>(arg0: E, arg1: E, arg2: E, arg3: E): Internal.Set<E>;
+        static copyOf<E>(arg0: Internal.Collection_<E>): Internal.Set<E>;
         static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E): Internal.Set<E>;
     }
-    type RegularEnumSet_<E extends Internal.Enum<E>> = RegularEnumSet<E>;
-    interface ObjectBidirectionalIterator <K> extends Internal.ObjectIterator<K>, Internal.BidirectionalIterator<K> {
-        abstract hasPrevious(): boolean;
-        remove(): void;
-        skip(arg0: number): number;
-        abstract next(): K;
-        back(arg0: number): number;
-        abstract hasNext(): boolean;
-        forEachRemaining(arg0: Internal.Consumer_<K>): void;
-        abstract previous(): K;
-    }
-    type ObjectBidirectionalIterator_<K> = ObjectBidirectionalIterator<K>;
-    interface ThresholdSwitchObservable {
-        abstract getPercent(): number;
-        get percent(): number
-        (): number;
-    }
-    type ThresholdSwitchObservable_ = ThresholdSwitchObservable;
-    class BambooWindChimeBlock extends Internal.CarvedBambooWindChimeBlock {
+    type ForwardingSet_<E> = ForwardingSet<E>;
+    class PropelplantStemBlock extends Internal.PropelplantBlock {
         constructor(arg0: Internal.BlockBehaviour$Properties_)
         isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
@@ -3605,16 +3087,14 @@ declare namespace Internal {
         isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
         collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
         canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
         onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
         getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isStickyBlock(arg0: Internal.BlockState_): boolean;
         setLightEmission(v: number): void;
         getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
         getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
         isSlimeBlock(arg0: Internal.BlockState_): boolean;
         getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
@@ -3624,240 +3104,20 @@ declare namespace Internal {
         shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
         rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
         canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
         isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        placeLiquid(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.FluidState_): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
-        canPlaceLiquid(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.Fluid_): boolean;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        get pickupSound(): Internal.Optional<Internal.SoundEvent>
-        set lightEmission(v: number)
-        set destroySpeed(v: number)
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-        static readonly PLACEMENT: Internal.EnumProperty<Internal.Placement>;
-        static readonly WATERLOGGED: Internal.BooleanProperty;
-        static readonly FACING: Internal.DirectionProperty;
-        static readonly HALF: Internal.EnumProperty<Internal.DoubleBlockHalf>;
-    }
-    type BambooWindChimeBlock_ = BambooWindChimeBlock;
-    class FireworksJS$Shape extends Internal.Enum<Internal.FireworksJS$Shape> {
-        static values(): Internal.FireworksJS$Shape[];
-        static valueOf(name: string): Internal.FireworksJS$Shape;
-        static get(name: string): Internal.FireworksJS$Shape;
-        static readonly CREEPER: Internal.FireworksJS$Shape;
-        readonly type: number;
-        static readonly LARGE_BALL: Internal.FireworksJS$Shape;
-        static readonly VALUES: Internal.FireworksJS$Shape[];
-        static readonly BURST: Internal.FireworksJS$Shape;
-        static readonly STAR: Internal.FireworksJS$Shape;
-        static readonly SMALL_BALL: Internal.FireworksJS$Shape;
-    }
-    type FireworksJS$Shape_ = "star" | "burst" | FireworksJS$Shape | "large_ball" | "creeper" | "small_ball";
-    interface ItemFrameEntityKJS extends Internal.EntityKJS {
-        setMotionY(y: number): void;
-        isPeacefulCreature(): boolean;
-        getDistance(pos: BlockPos_): number;
-        setRotation(yaw: number, pitch: number): void;
-        playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
-        isAmbientCreature(): boolean;
-        isMonster(): boolean;
-        isOnScoreboardTeam(teamId: string): boolean;
-        getType(): string;
-        self(): Internal.Entity;
-        getBlock(): Internal.BlockContainerJS;
-        getNbt(): Internal.CompoundTag;
-        getMotionY(): number;
-        getName(): Internal.Component;
-        setPosition(x: number, y: number, z: number): void;
-        getPassengers(): Internal.EntityArrayList;
-        runCommandSilent(command: string): number;
-        isPlayer(): boolean;
-        isAnimal(): boolean;
-        rayTrace(distance: number, fluids: boolean): Internal.RayTraceResultJS;
-        setY(y: number): void;
-        isLiving(): boolean;
-        spawn(): void;
-        getServer(): Internal.MinecraftServer;
-        getDisplayName(): Internal.Component;
-        setMotionX(x: number): void;
-        setPosition(block: Internal.BlockContainerJS_): void;
-        setMotionZ(z: number): void;
-        teleportTo(dimension: ResourceLocation_, x: number, y: number, z: number, yaw: number, pitch: number): void;
-        mergeNbt(tag: Internal.CompoundTag_): Internal.Entity;
-        attack(hp: number): void;
-        getTeamId(): string;
-        setNbt(nbt: Internal.CompoundTag_): void;
-        getLevel(): Internal.Level;
-        getFacing(): Internal.Direction;
-        getScriptType(): Internal.ScriptType;
-        setPositionAndRotation(x: number, y: number, z: number, yaw: number, pitch: number): void;
-        rayTrace(distance: number): Internal.RayTraceResultJS;
-        getMotionX(): number;
-        isWaterCreature(): boolean;
-        getPersistentData(): Internal.CompoundTag;
-        getMotionZ(): number;
-        getItem(): Internal.ItemStack;
-        setX(x: number): void;
-        tell(message: Internal.Component_): void;
-        setZ(z: number): void;
-        setStatusMessage(message: Internal.Component_): void;
-        getDistanceSq(pos: BlockPos_): number;
-        isFrame(): boolean;
-        getProfile(): Internal.GameProfile;
-        playSound(id: Internal.SoundEvent_): void;
-        runCommand(command: string): number;
-        getDistance(x: number, y: number, z: number): number;
-        set motionY(y: number)
-        get peacefulCreature(): boolean
-        get ambientCreature(): boolean
-        get monster(): boolean
-        get type(): string
-        get block(): Internal.BlockContainerJS
-        get nbt(): Internal.CompoundTag
-        get motionY(): number
-        get name(): Internal.Component
-        get passengers(): Internal.EntityArrayList
-        get player(): boolean
-        get animal(): boolean
-        set y(y: number)
-        get living(): boolean
-        get server(): Internal.MinecraftServer
-        get displayName(): Internal.Component
-        set motionX(x: number)
-        set position(block: Internal.BlockContainerJS_)
-        set motionZ(z: number)
-        get teamId(): string
-        set nbt(nbt: Internal.CompoundTag_)
-        get level(): Internal.Level
-        get facing(): Internal.Direction
-        get scriptType(): Internal.ScriptType
-        get motionX(): number
-        get waterCreature(): boolean
-        get persistentData(): Internal.CompoundTag
-        get motionZ(): number
-        get item(): Internal.ItemStack
-        set x(x: number)
-        set z(z: number)
-        set statusMessage(message: Internal.Component_)
-        get frame(): boolean
-        get profile(): Internal.GameProfile
-    }
-    type ItemFrameEntityKJS_ = ItemFrameEntityKJS;
-    class SignalBlockEntity$OverlayState extends Internal.Enum<Internal.SignalBlockEntity$OverlayState> {
-        static values(): Internal.SignalBlockEntity$OverlayState[];
-        static valueOf(arg0: string): Internal.SignalBlockEntity$OverlayState;
-        static readonly DUAL: Internal.SignalBlockEntity$OverlayState;
-        static readonly RENDER: Internal.SignalBlockEntity$OverlayState;
-        static readonly SKIP: Internal.SignalBlockEntity$OverlayState;
-    }
-    type SignalBlockEntity$OverlayState_ = "dual" | "skip" | SignalBlockEntity$OverlayState | "render";
-    class ModLifecycleEvent extends Internal.Event implements Internal.IModBusEvent {
-        constructor()
-        constructor(arg0: Internal.ModContainer_)
-        getIMCStream(): Internal.Stream<Internal.InterModComms$IMCMessage>;
-        getIMCStream(arg0: Internal.Predicate_<string>): Internal.Stream<Internal.InterModComms$IMCMessage>;
-        description(): string;
-        get IMCStream(): Internal.Stream<Internal.InterModComms$IMCMessage>
-    }
-    type ModLifecycleEvent_ = ModLifecycleEvent;
-    class ServerboundInteractPacket implements Internal.Packet<Internal.ServerGamePacketListener> {
-        constructor(arg0: Internal.FriendlyByteBuf_)
-        handle(arg0: Internal.PacketListener_): void;
-        static createAttackPacket(arg0: Internal.Entity_, arg1: boolean): Internal.ServerboundInteractPacket;
-        write(arg0: Internal.FriendlyByteBuf_): void;
-        handle(arg0: Internal.ServerGamePacketListener_): void;
-        static createInteractionPacket(arg0: Internal.Entity_, arg1: boolean, arg2: Internal.InteractionHand_): Internal.ServerboundInteractPacket;
-        dispatch(arg0: Internal.ServerboundInteractPacket$Handler_): void;
-        getTarget(arg0: Internal.ServerLevel_): Internal.Entity;
-        static createInteractionPacket(arg0: Internal.Entity_, arg1: boolean, arg2: Internal.InteractionHand_, arg3: Vec3d_): Internal.ServerboundInteractPacket;
-        isSkippable(): boolean;
-        isUsingSecondaryAction(): boolean;
-        get skippable(): boolean
-        get usingSecondaryAction(): boolean
-    }
-    type ServerboundInteractPacket_ = ServerboundInteractPacket;
-    class MushroomBlock extends Internal.BushBlock implements Internal.BonemealableBlock {
-        constructor(arg0: Internal.BlockBehaviour$Properties_, arg1: Internal.ResourceKey_<Internal.ConfiguredFeature<any, any>>)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        isBonemealSuccess(arg0: Internal.Level_, arg1: Internal.RandomSource_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        performBonemeal(arg0: Internal.ServerLevel_, arg1: Internal.RandomSource_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
         getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
         shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
         arch$holder(): Internal.Holder<Internal.Block>;
         getPlantType(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.PlantType;
         isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
         getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
         onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
         onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
         getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
         hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
         onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
@@ -3869,18 +3129,15 @@ declare namespace Internal {
         setRequiresTool(v: boolean): void;
         canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
         getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         arch$registryName(): ResourceLocation;
-        isValidBonemealTarget(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: boolean): boolean;
         getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
         addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
         canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
         isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
         addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        growMushroom(arg0: Internal.ServerLevel_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.RandomSource_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
         getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
         isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
         set lightEmission(v: number)
@@ -3889,472 +3146,223 @@ declare namespace Internal {
         set requiresTool(v: boolean)
         get mod(): string
     }
-    type MushroomBlock_ = MushroomBlock;
-    interface Guard {
-        abstract checkGuard(arg0: any): void;
-        (arg0: any): void;
+    type PropelplantStemBlock_ = PropelplantStemBlock;
+    class PlayerStatsJS {
+        constructor(p: Internal.Player_, s: Internal.StatsCounter_)
+        getDeaths(): number;
+        getAnimalsBred(): number;
+        getPlayerKills(): number;
+        getTimeSinceRest(): number;
+        getWalkDistance(): number;
+        getDamageDealt(): number;
+        getItemsDropped(item: Internal.Item_): number;
+        add(stat: Internal.Stat_<any>, value: number): void;
+        set(stat: Internal.Stat_<any>, value: number): void;
+        getSprintDistance(): number;
+        getBlocksMined(block: Internal.Block_): number;
+        getPlayTime(): number;
+        getMobKills(): number;
+        getCrouchDistance(): number;
+        getTimeCrouchTime(): number;
+        getJumps(): number;
+        getItemsCrafted(item: Internal.Item_): number;
+        getTimeSinceDeath(): number;
+        getDamageAbsorbed(): number;
+        getItemsUsed(item: Internal.Item_): number;
+        getSwimDistance(): number;
+        getDamageBlocked_by_shield(): number;
+        getItemsPickedUp(item: Internal.Item_): number;
+        getDamageResisted(): number;
+        getItemsBroken(item: Internal.Item_): number;
+        get(stat: Internal.Stat_<any>): number;
+        getFishCaught(): number;
+        getDamageTaken(): number;
+        static statOf(o: any): Internal.Stat<any>;
+        getDamageDealt_resisted(): number;
+        getKilled(entity: Internal.EntityType_<any>): number;
+        getDamageDealt_absorbed(): number;
+        getKilledBy(entity: Internal.EntityType_<any>): number;
+        get deaths(): number
+        get animalsBred(): number
+        get playerKills(): number
+        get timeSinceRest(): number
+        get walkDistance(): number
+        get damageDealt(): number
+        get sprintDistance(): number
+        get playTime(): number
+        get mobKills(): number
+        get crouchDistance(): number
+        get timeCrouchTime(): number
+        get jumps(): number
+        get timeSinceDeath(): number
+        get damageAbsorbed(): number
+        get swimDistance(): number
+        get damageBlocked_by_shield(): number
+        get damageResisted(): number
+        get fishCaught(): number
+        get damageTaken(): number
+        get damageDealt_resisted(): number
+        get damageDealt_absorbed(): number
+        readonly player: Internal.Player;
     }
-    type Guard_ = Guard;
-    interface GameEventListener {
-        abstract getListenerSource(): Internal.PositionSource;
-        abstract getListenerRadius(): number;
-        abstract handleGameEvent(arg0: Internal.ServerLevel_, arg1: Internal.GameEvent_, arg2: Internal.GameEvent$Context_, arg3: Vec3d_): boolean;
-        getDeliveryMode(): Internal.GameEventListener$DeliveryMode;
-        get listenerSource(): Internal.PositionSource
-        get listenerRadius(): number
-        get deliveryMode(): Internal.GameEventListener$DeliveryMode
+    type PlayerStatsJS_ = string | PlayerStatsJS;
+    abstract class CollectionTag <T extends Internal.Tag> extends Internal.AbstractList<T> implements Internal.Tag {
+        constructor()
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E): Internal.List<E>;
+        static copyOf<E>(arg0: Internal.Collection_<E>): Internal.List<E>;
+        remove(arg0: number): any;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E): Internal.List<E>;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E): Internal.List<E>;
+        abstract addTag(arg0: number, arg1: Internal.Tag_): boolean;
+        spliterator(): Internal.Spliterator<T>;
+        abstract sizeInBytes(): number;
+        static of<E>(arg0: E): Internal.List<E>;
+        static of<E>(): Internal.List<E>;
+        static of<E>(...arg0: E[]): Internal.List<E>;
+        forEach(arg0: Internal.Consumer_<T>): void;
+        abstract setTag(arg0: number, arg1: Internal.Tag_): boolean;
+        acceptAsRoot(arg0: Internal.StreamTagVisitor_): void;
+        toArray<T>(arg0: Internal.IntFunction_<T[]>): T[];
+        abstract add(arg0: number, arg1: T): void;
+        abstract write(arg0: Internal.DataOutput_): void;
+        abstract getId(): number;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E): Internal.List<E>;
+        static of<E>(arg0: E, arg1: E, arg2: E): Internal.List<E>;
+        removeIf(arg0: Internal.Predicate_<T>): boolean;
+        stream(): Internal.Stream<T>;
+        abstract toArray<T>(arg0: T[]): T[];
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E): Internal.List<E>;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E, arg9: E): Internal.List<E>;
+        abstract accept(arg0: Internal.TagVisitor_): void;
+        abstract set(arg0: number, arg1: T): T;
+        abstract getType(): Internal.TagType<any>;
+        getAsString(): string;
+        static of<E>(arg0: E, arg1: E): Internal.List<E>;
+        replaceAll(arg0: Internal.UnaryOperator_<T>): void;
+        abstract copy(): Internal.Tag;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E): Internal.List<E>;
+        parallelStream(): Internal.Stream<T>;
+        abstract accept(arg0: Internal.StreamTagVisitor_): Internal.StreamTagVisitor$ValueResult;
+        sort(arg0: Internal.Comparator_<T>): void;
+        set(arg0: number, arg1: any): any;
+        abstract getElementType(): number;
+        get id(): number
+        get type(): Internal.TagType<any>
+        get asString(): string
+        get elementType(): number
     }
-    type GameEventListener_ = GameEventListener;
-    class WoodType extends Internal.Record {
-        constructor(arg0: string, arg1: Internal.BlockSetType_, arg2: SoundType_, arg3: SoundType_, arg4: Internal.SoundEvent_, arg5: Internal.SoundEvent_)
-        constructor(arg0: string, arg1: Internal.BlockSetType_)
-        name(): string;
-        fenceGateClose(): Internal.SoundEvent;
-        static values(): Internal.Stream<Internal.WoodType>;
-        static register(arg0: Internal.WoodType_): Internal.WoodType;
-        fenceGateOpen(): Internal.SoundEvent;
-        setType(): Internal.BlockSetType;
-        soundType(): SoundType;
-        hangingSignSoundType(): SoundType;
-        static readonly SPRUCE: Internal.WoodType;
-        static readonly BAMBOO: Internal.WoodType;
-        static readonly ACACIA: Internal.WoodType;
-        static readonly JUNGLE: Internal.WoodType;
-        static readonly DARK_OAK: Internal.WoodType;
-        static readonly CRIMSON: Internal.WoodType;
-        static readonly OAK: Internal.WoodType;
-        static readonly CHERRY: Internal.WoodType;
-        static readonly MANGROVE: Internal.WoodType;
-        static readonly BIRCH: Internal.WoodType;
-        static readonly WARPED: Internal.WoodType;
+    type CollectionTag_<T extends Internal.Tag> = CollectionTag<T>;
+    interface IOverridableSignal {
+        abstract refresh(arg0: Internal.SignalBlockEntity_, arg1: Internal.SignalBlockEntity$SignalState_, arg2: number, arg3: boolean): void;
+        abstract getOverriddenState(): Internal.Optional<Internal.SignalBlockEntity$SignalState>;
+        refresh(signalBE: Internal.SignalBlockEntity_, state: Internal.SignalBlockEntity$SignalState_, ticks: number): void;
+        get overriddenState(): Internal.Optional<Internal.SignalBlockEntity$SignalState>
     }
-    type WoodType_ = WoodType;
-    class SkilletBlock extends Internal.BaseEntityBlock {
-        constructor(arg0: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        getTicker<T extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<T>): Internal.BlockEntityTicker<T>;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        static getSkilletCookingTime(arg0: number, arg1: number): number;
-        set lightEmission(v: number)
-        set destroySpeed(v: number)
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-        static readonly MINIMUM_COOKING_TIME: 60;
-        static readonly SUPPORT: Internal.BooleanProperty;
-        static readonly FACING: Internal.DirectionProperty;
-    }
-    type SkilletBlock_ = SkilletBlock;
-    class CarriageParticles {
-        constructor(arg0: Internal.CarriageContraptionEntity_)
-        tick(arg0: Internal.Carriage$DimensionalCarriageEntity_): void;
-    }
-    type CarriageParticles_ = CarriageParticles;
-    class HideCustomJEIEventJS extends Internal.EventJS {
-        constructor(r: Internal.IJeiRuntime_)
-        get(s: Internal.IIngredientType_<any>): Internal.HideJEIEventJS<any>;
-    }
-    type HideCustomJEIEventJS_ = HideCustomJEIEventJS;
-    interface Double2ReferenceFunction <V> extends it.unimi.dsi.fastutil.Function<number, V>, Internal.DoubleFunction<V> {
-        andThenShort(arg0: Internal.Reference2ShortFunction_<V>): Internal.Double2ShortFunction;
-        composeShort(arg0: Internal.Short2DoubleFunction_): Internal.Short2ReferenceFunction<V>;
-        composeLong(arg0: Internal.Long2DoubleFunction_): Internal.Long2ReferenceFunction<V>;
+    type IOverridableSignal_ = IOverridableSignal;
+    interface Object2BooleanFunction <K> extends it.unimi.dsi.fastutil.Function<K, boolean>, Internal.Predicate<K> {
+        composeDouble(arg0: Internal.Double2ObjectFunction_<K>): Internal.Double2BooleanFunction;
+        test(arg0: K): boolean;
+        and(arg0: Internal.Predicate_<K>): Internal.Predicate<K>;
         /**
          * @deprecated
         */
-        getOrDefault(arg0: any, arg1: V): V;
-        andThenByte(arg0: Internal.Reference2ByteFunction_<V>): Internal.Double2ByteFunction;
-        remove(arg0: number): V;
-        /**
-         * @deprecated
-        */
+        getOrDefault(arg0: any, arg1: any): any;
+        composeObject<T>(arg0: Internal.Object2ObjectFunction_<T, K>): Internal.Object2BooleanFunction<T>;
+        andThenReference<T>(arg0: Internal.Boolean2ReferenceFunction_<T>): Internal.Object2ReferenceFunction<K, T>;
+        isEqual<T>(arg0: any): Internal.Predicate<T>;
+        andThenInt(arg0: Internal.Boolean2IntFunction_): Internal.Object2IntFunction<K>;
+        compose<V>(arg0: Internal.Function_<V, K>): Internal.Function<V, boolean>;
         containsKey(arg0: any): boolean;
-        andThenDouble(arg0: Internal.Reference2DoubleFunction_<V>): Internal.Double2DoubleFunction;
-        put(arg0: number, arg1: V): V;
-        andThenLong(arg0: Internal.Reference2LongFunction_<V>): Internal.Double2LongFunction;
-        /**
-         * @deprecated
-        */
-        get(arg0: any): V;
-        composeChar(arg0: Internal.Char2DoubleFunction_): Internal.Char2ReferenceFunction<V>;
+        andThenChar(arg0: Internal.Boolean2CharFunction_): Internal.Object2CharFunction<K>;
+        removeBoolean(arg0: any): boolean;
+        andThenObject<T>(arg0: Internal.Boolean2ObjectFunction_<T>): Internal.Object2ObjectFunction<K, T>;
+        composeReference<T>(arg0: Internal.Reference2ObjectFunction_<T, K>): Internal.Reference2BooleanFunction<T>;
         /**
          * @deprecated
         */
         put(arg0: any, arg1: any): any;
+        andThenFloat(arg0: Internal.Boolean2FloatFunction_): Internal.Object2FloatFunction<K>;
+        apply(arg0: K): boolean;
+        andThenByte(arg0: Internal.Boolean2ByteFunction_): Internal.Object2ByteFunction<K>;
+        defaultReturnValue(): boolean;
+        andThenLong(arg0: Internal.Boolean2LongFunction_): Internal.Object2LongFunction<K>;
+        not<T>(arg0: Internal.Predicate_<T>): Internal.Predicate<T>;
+        composeByte(arg0: Internal.Byte2ObjectFunction_<K>): Internal.Byte2BooleanFunction;
+        andThenShort(arg0: Internal.Boolean2ShortFunction_): Internal.Object2ShortFunction<K>;
+        or(arg0: Internal.Predicate_<K>): Internal.Predicate<K>;
         /**
          * @deprecated
         */
-        remove(arg0: any): V;
-        andThenObject<T>(arg0: Internal.Reference2ObjectFunction_<V, T>): Internal.Double2ObjectFunction<T>;
-        andThenInt(arg0: Internal.Reference2IntFunction_<V>): Internal.Double2IntFunction;
-        apply(arg0: number): V;
-        apply(arg0: number): V;
+        remove(arg0: any): boolean;
         /**
          * @deprecated
         */
-        put(arg0: number, arg1: V): V;
-        composeInt(arg0: Internal.Int2DoubleFunction_): Internal.Int2ReferenceFunction<V>;
-        composeByte(arg0: Internal.Byte2DoubleFunction_): Internal.Byte2ReferenceFunction<V>;
+        getOrDefault(arg0: any, arg1: boolean): boolean;
+        put(arg0: K, arg1: boolean): boolean;
+        getOrDefault(arg0: any, arg1: boolean): boolean;
         /**
          * @deprecated
         */
-        compose<T>(arg0: Internal.Function_<T, number>): Internal.Function<T, V>;
-        abstract get(arg0: number): V;
-        containsKey(arg0: number): boolean;
-        andThenReference<T>(arg0: Internal.Reference2ReferenceFunction_<V, T>): Internal.Double2ReferenceFunction<T>;
-        getOrDefault(arg0: number, arg1: V): V;
-        composeObject<T>(arg0: Internal.Object2DoubleFunction_<T>): Internal.Object2ReferenceFunction<T, V>;
+        put(arg0: K, arg1: boolean): boolean;
+        abstract getBoolean(arg0: any): boolean;
+        composeShort(arg0: Internal.Short2ObjectFunction_<K>): Internal.Short2BooleanFunction;
+        composeLong(arg0: Internal.Long2ObjectFunction_<K>): Internal.Long2BooleanFunction;
+        composeChar(arg0: Internal.Char2ObjectFunction_<K>): Internal.Char2BooleanFunction;
+        composeFloat(arg0: Internal.Float2ObjectFunction_<K>): Internal.Float2BooleanFunction;
         size(): number;
-        composeFloat(arg0: Internal.Float2DoubleFunction_): Internal.Float2ReferenceFunction<V>;
-        composeDouble(arg0: Internal.Double2DoubleFunction_): this;
+        /**
+         * @deprecated
+        */
+        andThen<T>(arg0: Internal.Function_<boolean, T>): Internal.Function<K, T>;
+        negate(): Internal.Predicate<K>;
         clear(): void;
-        andThen<V>(arg0: Internal.Function_<V, V>): Internal.Function<number, V>;
-        defaultReturnValue(): V;
-        composeReference<T>(arg0: Internal.Reference2DoubleFunction_<T>): Internal.Reference2ReferenceFunction<T, V>;
-        andThenChar(arg0: Internal.Reference2CharFunction_<V>): Internal.Double2CharFunction;
+        andThenDouble(arg0: Internal.Boolean2DoubleFunction_): Internal.Object2DoubleFunction<K>;
+        /**
+         * @deprecated
+        */
+        get(arg0: any): any;
         identity<T>(): Internal.Function<T, T>;
-        defaultReturnValue(arg0: V): void;
-        andThenFloat(arg0: Internal.Reference2FloatFunction_<V>): Internal.Double2FloatFunction;
-        (arg0: number): V;
+        defaultReturnValue(arg0: boolean): void;
+        composeInt(arg0: Internal.Int2ObjectFunction_<K>): Internal.Int2BooleanFunction;
+        (arg0: any): boolean;
     }
-    type Double2ReferenceFunction_<V> = Double2ReferenceFunction<V>;
-    class NixieTubeBlockEntity extends Internal.SmartBlockEntity {
+    type Object2BooleanFunction_<K> = Object2BooleanFunction<K>;
+    class LiquidBlazeBurnerBlockEntity extends Internal.SmartBlockEntity implements Internal.IObserveTileEntity, Internal.IHaveGoggleInformation {
         constructor(arg0: Internal.BlockEntityType_<any>, arg1: BlockPos_, arg2: Internal.BlockState_)
+        spawnParticleBurst(arg0: boolean): void;
+        getCapability<T>(arg0: Internal.Capability_<T>, arg1: Internal.Direction_): Internal.LazyOptional<T>;
+        getActiveFuel(): Internal.LiquidBlazeBurnerBlockEntity$FuelType;
+        updateBlockState(): void;
         deserializeNBT(arg0: Internal.Tag_): void;
         requestModelDataUpdate(): void;
-        reactsToRedstone(): boolean;
-        displayCustomText(arg0: string, arg1: number): void;
-        getFullText(): Internal.MutableComponent;
+        containedFluidTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: boolean, arg2: Internal.LazyOptional_<Internal.IFluidHandler>): boolean;
+        write(arg0: Internal.CompoundTag_, arg1: boolean): void;
+        getHeatLevelFromBlock(): Internal.BlazeBurnerBlock$HeatLevel;
         getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
-        clearCustomText(): void;
-        updateDisplayedStrings(): void;
+        isValidBlockAbove(): boolean;
+        onObserved(arg0: Internal.ServerPlayer_, arg1: Internal.ObservePacket_): void;
+        isCreativeFuel(arg0: Internal.ItemStack_): boolean;
         deserializeNBT(arg0: Internal.CompoundTag_): void;
+        isCreative(): boolean;
         getModelData(): Internal.ModelData;
+        addToGoggleTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: boolean): boolean;
         onLoad(): void;
         serializeNBT(): Internal.Tag;
-        updateRedstoneStrength(arg0: number): void;
-        getDisplayedStrings(): Internal.Couple<string>;
+        burningTick(): void;
+        find(arg0: Internal.FluidStack_, arg1: Internal.Level_): Internal.Optional<Internal.LiquidBurningRecipe>;
+        getRemainingBurnTime(): number;
         hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
-        getRedstoneStrength(): number;
-        get fullText(): Internal.MutableComponent
+        get activeFuel(): Internal.LiquidBlazeBurnerBlockEntity$FuelType
+        get heatLevelFromBlock(): Internal.BlazeBurnerBlock$HeatLevel
+        get validBlockAbove(): boolean
+        get creative(): boolean
         get modelData(): Internal.ModelData
-        get displayedStrings(): Internal.Couple<string>
-        get redstoneStrength(): number
-        signalState: Internal.SignalBlockEntity$SignalState;
+        get remainingBurnTime(): number
+        static readonly MAX_HEAT_CAPACITY: 10000;
+        first: boolean;
     }
-    type NixieTubeBlockEntity_ = NixieTubeBlockEntity;
-    /**
-     * @deprecated
-    */
-    interface Shearable {
-        /**
-         * @deprecated
-        */
-        abstract shear(arg0: Internal.SoundSource_): void;
-        /**
-         * @deprecated
-        */
-        abstract readyForShearing(): boolean;
-    }
-    type Shearable_ = Shearable;
-    class AppendStatic implements Internal.RuleBlockEntityModifier {
-        constructor(arg0: Internal.CompoundTag_)
-        getType(): Internal.RuleBlockEntityModifierType<any>;
-        apply(arg0: Internal.RandomSource_, arg1: Internal.CompoundTag_): Internal.CompoundTag;
-        get type(): Internal.RuleBlockEntityModifierType<any>
-        static readonly CODEC: Internal.Codec<Internal.AppendStatic>;
-    }
-    type AppendStatic_ = AppendStatic;
-    /**
-     * @deprecated
-    */
-    interface ItemPropertyFunction {
-        abstract call(arg0: Internal.ItemStack_, arg1: Internal.ClientLevel_, arg2: Internal.LivingEntity_, arg3: number): number;
-        (arg0: Internal.ItemStack, arg1: Internal.ClientLevel, arg2: Internal.LivingEntity, arg3: number): number;
-    }
-    type ItemPropertyFunction_ = ItemPropertyFunction;
-    class InfestedBlock extends Internal.Block {
-        constructor(arg0: Internal.Block_, arg1: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        static isCompatibleHostBlock(arg0: Internal.BlockState_): boolean;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        static infestedStateByHost(arg0: Internal.BlockState_): Internal.BlockState;
-        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        getHostBlock(): Internal.Block;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        hostStateByInfested(arg0: Internal.BlockState_): Internal.BlockState;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        set lightEmission(v: number)
-        set destroySpeed(v: number)
-        get hostBlock(): Internal.Block
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-    }
-    type InfestedBlock_ = InfestedBlock;
-    class BedBlock extends Internal.HorizontalDirectionalBlock implements Internal.EntityBlock {
-        constructor(arg0: Internal.DyeColor_, arg1: Internal.BlockBehaviour$Properties_)
-        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
-        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
-        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
-        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
-        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        static getBlockType(arg0: Internal.BlockState_): Internal.DoubleBlockCombiner$BlockType;
-        getTicker<T extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<T>): Internal.BlockEntityTicker<T>;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
-        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        isStickyBlock(arg0: Internal.BlockState_): boolean;
-        setLightEmission(v: number): void;
-        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
-        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
-        getColor(): Internal.DyeColor;
-        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
-        isSlimeBlock(arg0: Internal.BlockState_): boolean;
-        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
-        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
-        setDestroySpeed(v: number): void;
-        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
-        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
-        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
-        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
-        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        arch$holder(): Internal.Holder<Internal.Block>;
-        static findStandUpPosition(arg0: Internal.EntityType_<any>, arg1: Internal.CollisionGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: number): Internal.Optional<Vec3d>;
-        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
-        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
-        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
-        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
-        newBlockEntity(arg0: BlockPos_, arg1: Internal.BlockState_): Internal.BlockEntity;
-        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
-        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
-        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
-        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
-        static getBedOrientation(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.Direction;
-        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        getBlockStates(): Internal.List<Internal.BlockState>;
-        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
-        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
-        setRequiresTool(v: boolean): void;
-        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
-        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
-        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
-        arch$registryName(): ResourceLocation;
-        getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
-        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
-        static canSetSpawn(arg0: Internal.Level_): boolean;
-        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
-        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
-        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
-        static getConnectedDirection(arg0: Internal.BlockState_): Internal.Direction;
-        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
-        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        set lightEmission(v: number)
-        get color(): Internal.DyeColor
-        set destroySpeed(v: number)
-        get blockStates(): Internal.List<Internal.BlockState>
-        set requiresTool(v: boolean)
-        get mod(): string
-        static readonly PART: Internal.EnumProperty<Internal.BedPart>;
-        static readonly OCCUPIED: Internal.BooleanProperty;
-    }
-    type BedBlock_ = BedBlock;
-    class Restriction {
-        constructor(arg0: Internal.ArtifactVersion_, arg1: boolean, arg2: Internal.ArtifactVersion_, arg3: boolean)
-        isUpperBoundInclusive(): boolean;
-        isLowerBoundInclusive(): boolean;
-        containsVersion(arg0: Internal.ArtifactVersion_): boolean;
-        getLowerBound(): Internal.ArtifactVersion;
-        getUpperBound(): Internal.ArtifactVersion;
-        get upperBoundInclusive(): boolean
-        get lowerBoundInclusive(): boolean
-        get lowerBound(): Internal.ArtifactVersion
-        get upperBound(): Internal.ArtifactVersion
-        static readonly EVERYTHING: Internal.Restriction;
-    }
-    type Restriction_ = Restriction;
-    interface ModuleReader extends Internal.Closeable {
-        abstract find(arg0: string): Internal.Optional<Internal.URI>;
-        abstract close(): void;
-        abstract list(): Internal.Stream<string>;
-        open(arg0: string): Internal.Optional<Internal.InputStream>;
-        release(arg0: Internal.ByteBuffer_): void;
-        read(arg0: string): Internal.Optional<Internal.ByteBuffer>;
-    }
-    type ModuleReader_ = ModuleReader;
-    abstract class PotInteraction extends Internal.RecipeBaseData<Internal.Container> {
-        constructor(arg0: ResourceLocation_)
-        getIngredients(): Internal.NonNullList<Internal.Ingredient>;
-        isSpecial(): boolean;
-        getGroup(): string;
-        getToastSymbol(): Internal.ItemStack;
-        hasOutput(match: Internal.ReplacementMatch_): boolean;
-        getSchema(): Internal.RecipeSchema;
-        abstract apply(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: Internal.InteractionHand_, arg5: Internal.ItemStack_, arg6: Internal.BlockEntityBotanyPot_): void;
-        showNotification(): boolean;
-        replaceInput(match: Internal.ReplacementMatch_, with_: Internal.InputReplacement_): boolean;
-        getType(): ResourceLocation;
-        setGroup(group: string): void;
-        getOrCreateId(): ResourceLocation;
-        hasInput(match: Internal.ReplacementMatch_): boolean;
-        isIncomplete(): boolean;
-        replaceOutput(match: Internal.ReplacementMatch_, with_: Internal.OutputReplacement_): boolean;
-        abstract canApply(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: Internal.InteractionHand_, arg5: Internal.ItemStack_, arg6: Internal.BlockEntityBotanyPot_): boolean;
-        getMod(): string;
-        getRemainingItems(arg0: Internal.Container_): Internal.NonNullList<Internal.ItemStack>;
-        get ingredients(): Internal.NonNullList<Internal.Ingredient>
-        get special(): boolean
-        get group(): string
-        get toastSymbol(): Internal.ItemStack
-        get schema(): Internal.RecipeSchema
-        get type(): ResourceLocation
-        set group(group: string)
-        get orCreateId(): ResourceLocation
-        get incomplete(): boolean
-        get mod(): string
-    }
-    type PotInteraction_ = PotInteraction;
-    interface TickAccess <T> {
-        abstract count(): number;
-        abstract schedule(arg0: Internal.ScheduledTick_<T>): void;
-        abstract hasScheduledTick(arg0: BlockPos_, arg1: T): boolean;
-    }
-    type TickAccess_<T> = TickAccess<T>;
-    class GlowInkSacItem extends Internal.Item implements Internal.SignApplicator {
+    type LiquidBlazeBurnerBlockEntity_ = LiquidBlazeBurnerBlockEntity;
+    class BrushItem extends Internal.Item {
         constructor(arg0: Internal.Item$Properties_)
         getMaxDamage(arg0: Internal.ItemStack_): number;
         elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
@@ -4365,7 +3373,7 @@ declare namespace Internal {
         canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
         getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
         setDigSpeed(speed: number): void;
-        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
         isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
         isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
         getEnchantmentValue(arg0: Internal.ItemStack_): number;
@@ -4374,6 +3382,7 @@ declare namespace Internal {
         canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
         canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
         onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        spawnDustParticles(arg0: Internal.Level_, arg1: Internal.BlockHitResult_, arg2: Internal.BlockState_, arg3: Vec3d_, arg4: Internal.HumanoidArm_): void;
         isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
         getXpRepairRatio(arg0: Internal.ItemStack_): number;
         isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
@@ -4385,7 +3394,7 @@ declare namespace Internal {
         getCreatorModId(arg0: Internal.ItemStack_): string;
         canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
         getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
-        getHighlightTip(arg0: Internal.ItemStack_, arg1: Internal.Component_): Internal.Component;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
         onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
         onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
         canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
@@ -4395,8 +3404,6 @@ declare namespace Internal {
         canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
         hasCustomEntity(arg0: Internal.ItemStack_): boolean;
         onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
-        tryApplyToSign(arg0: Internal.Level_, arg1: Internal.SignBlockEntity_, arg2: boolean, arg3: Internal.Player_): boolean;
-        canApplyToSign(arg0: Internal.SignText_, arg1: Internal.Player_): boolean;
         getDamage(arg0: Internal.ItemStack_): number;
         getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
         readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
@@ -4423,9 +3430,9 @@ declare namespace Internal {
         doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
         getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
         getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
-        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
         getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
         onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
         static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
         addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
         getDigSpeed(): number;
@@ -4443,177 +3450,38 @@ declare namespace Internal {
         get digSpeed(): number
         set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
         set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+        static readonly ANIMATION_DURATION: 10;
     }
-    type GlowInkSacItem_ = GlowInkSacItem;
-    class NewRegistryEvent extends Internal.Event implements Internal.IModBusEvent {
-        constructor()
-        create<V>(arg0: Internal.RegistryBuilder_<V>): Internal.Supplier<Internal.IForgeRegistry<V>>;
-        create<V>(arg0: Internal.RegistryBuilder_<V>, arg1: Internal.Consumer_<Internal.IForgeRegistry<V>>): Internal.Supplier<Internal.IForgeRegistry<V>>;
+    type BrushItem_ = BrushItem;
+    interface TemporalUnit {
+        abstract between(arg0: Internal.Temporal_, arg1: Internal.Temporal_): number;
+        abstract isTimeBased(): boolean;
+        abstract addTo<R extends Internal.Temporal>(arg0: R, arg1: number): R;
+        abstract toString(): string;
+        abstract getDuration(): Duration;
+        abstract isDateBased(): boolean;
+        isSupportedBy(arg0: Internal.Temporal_): boolean;
+        abstract isDurationEstimated(): boolean;
+        get timeBased(): boolean
+        get duration(): Duration
+        get dateBased(): boolean
+        get durationEstimated(): boolean
     }
-    type NewRegistryEvent_ = NewRegistryEvent;
-    class TimerQueue <T> {
-        constructor(arg0: any_<T>, arg1: Internal.Stream_<Internal.Dynamic<any>>)
-        constructor(arg0: any_<T>)
-        getEventsIds(): Internal.Set<string>;
-        schedule(arg0: string, arg1: number, arg2: Internal.TimerCallback_<T>): void;
-        remove(arg0: string): number;
-        store(): Internal.ListTag;
-        tick(arg0: T, arg1: number): void;
-        get eventsIds(): Internal.Set<string>
+    type TemporalUnit_ = TemporalUnit;
+    class Button$Builder {
+        constructor(arg0: net.minecraft.network.chat.Component_, arg1: Internal.Button$OnPress_)
+        width(arg0: number): this;
+        tooltip(arg0: Internal.Tooltip_): this;
+        pos(arg0: number, arg1: number): this;
+        build(arg0: Internal.Function_<Internal.Button$Builder, Internal.Button>): Internal.Button;
+        bounds(arg0: number, arg1: number, arg2: number, arg3: number): this;
+        size(arg0: number, arg1: number): this;
+        createNarration(arg0: Internal.Button$CreateNarration_): this;
+        build(): Internal.Button;
     }
-    type TimerQueue_<T> = TimerQueue<T>;
-    class TrackBlockEntityTilt {
-        constructor(arg0: Internal.TrackBlockEntity_)
-        undoSmoothing(): void;
-        restoreToOriginalCurve(arg0: Internal.BezierConnection_): Internal.BezierConnection;
-        getYOffsetForAxisEnd(arg0: Vec3d_): number;
-        captureSmoothingHandles(): void;
-        tryApplySmoothing(): void;
-        static compareHandles(arg0: Vec3d_, arg1: Vec3d_): boolean;
-        smoothingAngle: Internal.Optional<number>;
-        static readonly ASCENDING_PROPERTY: Internal.ModelProperty<number>;
-    }
-    type TrackBlockEntityTilt_ = TrackBlockEntityTilt;
-    interface Quaterniondc {
-        abstract rotateTo(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformInverse(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract mul(arg0: Internal.Quaterniondc_, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformPositiveY(arg0: Vec3f_): Vec3f;
-        abstract transformPositiveX(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnit(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract get(arg0: Internal.Matrix4d_): Internal.Matrix4d;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract transform(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract rotateZYX(arg0: number, arg1: number, arg2: number, arg3: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformUnitPositiveZ(arg0: Vec3f_): Vec3f;
-        abstract transformUnitPositiveY(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract x(): number;
-        abstract transformUnit(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract mul(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformInverse(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformPositiveY(arg0: Vec4f_): Vec4f;
-        abstract dot(arg0: Internal.Quaterniondc_): number;
-        abstract transformPositiveX(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract rotateAxis(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract premul(arg0: Internal.Quaterniondc_, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract mul(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformUnit(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract lookAlong(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        abstract rotateY(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverseUnit(arg0: Vec3f_): Vec3f;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        abstract transform(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract positiveY(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract get(arg0: Quaternionf_): Quaternionf;
-        abstract transformUnitPositiveX(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnitPositiveY(arg0: Vec4f_): Vec4f;
-        abstract div(arg0: Internal.Quaterniondc_, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract rotateTo(arg0: Internal.Vector3dc_, arg1: Internal.Vector3dc_, arg2: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformPositiveY(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract angle(): number;
-        abstract transformPositiveZ(arg0: Vec3f_): Vec3f;
-        abstract transformUnit(arg0: Vec4f_): Vec4f;
-        abstract transformUnit(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverseUnit(arg0: Vec4f_): Vec4f;
-        abstract get(arg0: Matrix4f_): Matrix4f;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract conjugate(arg0: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transform(arg0: Vec4f_): Vec4f;
-        abstract transformUnit(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnitPositiveX(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnitPositiveY(arg0: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract y(): number;
-        abstract lengthSquared(): number;
-        abstract get(arg0: Internal.AxisAngle4f_): Internal.AxisAngle4f;
-        abstract transform(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformPositiveY(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        abstract normalizedPositiveX(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformPositiveZ(arg0: Vec4f_): Vec4f;
-        abstract transformUnit(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transform(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract getEulerAnglesZYX(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverse(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract rotateZ(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformInverse(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract get(arg0: org.joml.Matrix3d_): org.joml.Matrix3d;
-        abstract transformInverse(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract rotateXYZ(arg0: number, arg1: number, arg2: number, arg3: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transform(arg0: Vec3f_): Vec3f;
-        abstract equals(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
-        abstract positiveZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnitPositiveX(arg0: Vec4f_): Vec4f;
-        abstract rotateLocalZ(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract getEulerAnglesZXY(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Vec4f_): Vec4f;
-        abstract transformPositiveZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract rotateAxis(arg0: number, arg1: Internal.Vector3dc_, arg2: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract z(): number;
-        abstract transformInverseUnit(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract isFinite(): boolean;
-        abstract nlerp(arg0: Internal.Quaterniondc_, arg1: number, arg2: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract nlerpIterative(arg0: Internal.Quaterniondc_, arg1: number, arg2: number, arg3: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformUnitPositiveX(arg0: Vec3f_): Vec3f;
-        abstract equals(arg0: Internal.Quaterniondc_, arg1: number): boolean;
-        abstract normalize(arg0: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract get(arg0: Internal.AxisAngle4d_): Internal.AxisAngle4d;
-        abstract normalizedPositiveY(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract rotateYXZ(arg0: number, arg1: number, arg2: number, arg3: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformPositiveZ(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnit(arg0: Vec3f_): Vec3f;
-        abstract conjugateBy(arg0: Internal.Quaterniondc_, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformInverseUnit(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformInverseUnit(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract get(arg0: Matrix3f_): Matrix3f;
-        abstract rotateLocalY(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformUnitPositiveZ(arg0: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformInverse(arg0: Vec4f_): Vec4f;
-        abstract premul(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformPositiveX(arg0: Vec3f_): Vec3f;
-        abstract transform(arg0: Internal.Vector3fc_, arg1: Vec3f_): Vec3f;
-        abstract transformInverseUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract getEulerAnglesXYZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnit(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector4d_): Internal.Vector4d;
-        abstract add(arg0: Internal.Quaterniondc_, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract add(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transform(arg0: Internal.Vector3dc_, arg1: Internal.Vector3d_): Internal.Vector3d;
-        abstract difference(arg0: Internal.Quaterniondc_, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformUnitPositiveZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract slerp(arg0: Internal.Quaterniondc_, arg1: number, arg2: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract w(): number;
-        abstract transformInverse(arg0: Vec3f_): Vec3f;
-        abstract transformInverse(arg0: Internal.Vector4fc_, arg1: Vec4f_): Vec4f;
-        abstract normalizedPositiveZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformPositiveX(arg0: Vec4f_): Vec4f;
-        abstract rotateX(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract invert(arg0: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract integrate(arg0: number, arg1: number, arg2: number, arg3: number, arg4: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract lookAlong(arg0: Internal.Vector3dc_, arg1: Internal.Vector3dc_, arg2: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transform(arg0: number, arg1: number, arg2: number, arg3: Internal.Vector3d_): Internal.Vector3d;
-        abstract rotateLocalX(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract getEulerAnglesYXZ(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract positiveX(arg0: Internal.Vector3d_): Internal.Vector3d;
-        abstract transformUnitPositiveZ(arg0: Vec4f_): Vec4f;
-        abstract get(arg0: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract scale(arg0: number, arg1: Internal.Quaterniond_): Internal.Quaterniond;
-        abstract transformInverse(arg0: Internal.Vector4dc_, arg1: Internal.Vector4d_): Internal.Vector4d;
-        abstract transformUnitPositiveY(arg0: Internal.Vector4d_): Internal.Vector4d;
-        get finite(): boolean
-    }
-    type Quaterniondc_ = Quaterniondc;
-    class LootrChestBlock extends Internal.ChestBlock {
+    type Button$Builder_ = Button$Builder;
+    class SignalumBlock extends Internal.Block {
         constructor(arg0: Internal.BlockBehaviour$Properties_)
-        constructor(arg0: Internal.BlockBehaviour$Properties_, arg1: Internal.Supplier_<Internal.BlockEntityType<Internal.ChestBlockEntity>>)
         isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
         supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
@@ -4621,12 +3489,10 @@ declare namespace Internal {
         isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
         collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
         canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
-        getPickupSound(): Internal.Optional<Internal.SoundEvent>;
-        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
         onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
-        getTicker<T extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<T>): Internal.BlockEntityTicker<T>;
-        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
         getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
         isStickyBlock(arg0: Internal.BlockState_): boolean;
         setLightEmission(v: number): void;
@@ -4641,29 +3507,24 @@ declare namespace Internal {
         shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
         rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
         canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
-        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
         isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
-        placeLiquid(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.FluidState_): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
         shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
-        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
         getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
         arch$holder(): Internal.Holder<Internal.Block>;
         isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
         getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
-        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
         onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
         getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
         onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
         getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
-        getPickupSound(arg0: Internal.BlockState_): Internal.Optional<Internal.SoundEvent>;
-        canPlaceLiquid(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.Fluid_): boolean;
-        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
         isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
         hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
         onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
         getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
-        pickupBlock(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.BlockState_): Internal.ItemStack;
         getBlockStates(): Internal.List<Internal.BlockState>;
         isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
         getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
@@ -4671,28 +3532,223 @@ declare namespace Internal {
         setRequiresTool(v: boolean): void;
         canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
         getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
-        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
         arch$registryName(): ResourceLocation;
         getMod(): string;
-        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
         addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
         canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
         isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
-        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
         addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
         getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
         isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
-        get pickupSound(): Internal.Optional<Internal.SoundEvent>
         set lightEmission(v: number)
         set destroySpeed(v: number)
         get blockStates(): Internal.List<Internal.BlockState>
         set requiresTool(v: boolean)
         get mod(): string
     }
-    type LootrChestBlock_ = LootrChestBlock;
-    class ShockPendantItem extends Internal.PendantItem {
-        constructor()
+    type SignalumBlock_ = SignalumBlock;
+    interface GenericInternalInventory {
+        abstract isAllowed(arg0: Internal.AEKey_): boolean;
+        abstract canInsert(): boolean;
+        abstract insert(arg0: number, arg1: Internal.AEKey_, arg2: number, arg3: Internal.Actionable_): number;
+        abstract setStack(arg0: number, arg1: Internal.GenericStack_): void;
+        abstract getKey(arg0: number): Internal.AEKey;
+        abstract beginBatch(): void;
+        abstract endBatchSuppressed(): void;
+        abstract getCapacity(arg0: Internal.AEKeyType_): number;
+        abstract endBatch(): void;
+        abstract size(): number;
+        abstract onChange(): void;
+        abstract canExtract(): boolean;
+        abstract getMaxAmount(arg0: Internal.AEKey_): number;
+        abstract getAmount(arg0: number): number;
+        abstract getStack(arg0: number): Internal.GenericStack;
+        abstract extract(arg0: number, arg1: Internal.AEKey_, arg2: number, arg3: Internal.Actionable_): number;
+    }
+    type GenericInternalInventory_ = GenericInternalInventory;
+    interface MobBucketItemAccessor {
+        abstract invokeGetFishType(): Internal.EntityType<any>;
+        (): Internal.EntityType_<any>;
+    }
+    type MobBucketItemAccessor_ = MobBucketItemAccessor;
+    interface Int2DoubleFunction extends Internal.IntToDoubleFunction, it.unimi.dsi.fastutil.Function<number, number> {
+        /**
+         * @deprecated
+        */
+        andThen<T>(arg0: Internal.Function_<number, T>): Internal.Function<number, T>;
+        applyAsDouble(arg0: number): number;
+        composeLong(arg0: Internal.Long2IntFunction_): Internal.Long2DoubleFunction;
+        /**
+         * @deprecated
+        */
+        getOrDefault(arg0: any, arg1: any): any;
+        /**
+         * @deprecated
+        */
+        get(arg0: any): number;
+        containsKey(arg0: number): boolean;
+        apply(arg0: number): number;
+        andThenReference<T>(arg0: Internal.Double2ReferenceFunction_<T>): Internal.Int2ReferenceFunction<T>;
+        /**
+         * @deprecated
+        */
+        containsKey(arg0: any): boolean;
+        composeDouble(arg0: Internal.Double2IntFunction_): Internal.Double2DoubleFunction;
+        composeByte(arg0: Internal.Byte2IntFunction_): Internal.Byte2DoubleFunction;
+        composeShort(arg0: Internal.Short2IntFunction_): Internal.Short2DoubleFunction;
+        /**
+         * @deprecated
+        */
+        put(arg0: any, arg1: any): any;
+        abstract get(arg0: number): number;
+        defaultReturnValue(arg0: number): void;
+        andThenInt(arg0: Internal.Double2IntFunction_): Internal.Int2IntFunction;
+        getOrDefault(arg0: number, arg1: number): number;
+        remove(arg0: number): number;
+        andThenChar(arg0: Internal.Double2CharFunction_): Internal.Int2CharFunction;
+        /**
+         * @deprecated
+        */
+        remove(arg0: any): number;
+        /**
+         * @deprecated
+        */
+        getOrDefault(arg0: any, arg1: number): number;
+        composeReference<T>(arg0: Internal.Reference2IntFunction_<T>): Internal.Reference2DoubleFunction<T>;
+        andThenObject<T>(arg0: Internal.Double2ObjectFunction_<T>): Internal.Int2ObjectFunction<T>;
+        composeFloat(arg0: Internal.Float2IntFunction_): Internal.Float2DoubleFunction;
+        andThenByte(arg0: Internal.Double2ByteFunction_): Internal.Int2ByteFunction;
+        composeInt(arg0: Internal.Int2IntFunction_): this;
+        andThenFloat(arg0: Internal.Double2FloatFunction_): Internal.Int2FloatFunction;
+        composeChar(arg0: Internal.Char2IntFunction_): Internal.Char2DoubleFunction;
+        defaultReturnValue(): number;
+        size(): number;
+        put(arg0: number, arg1: number): number;
+        andThenDouble(arg0: Internal.Double2DoubleFunction_): this;
+        clear(): void;
+        andThenShort(arg0: Internal.Double2ShortFunction_): Internal.Int2ShortFunction;
+        composeObject<T>(arg0: Internal.Object2IntFunction_<T>): Internal.Object2DoubleFunction<T>;
+        /**
+         * @deprecated
+        */
+        put(arg0: number, arg1: number): number;
+        /**
+         * @deprecated
+        */
+        compose<T>(arg0: Internal.Function_<T, number>): Internal.Function<T, number>;
+        andThenLong(arg0: Internal.Double2LongFunction_): Internal.Int2LongFunction;
+        identity<T>(): Internal.Function<T, T>;
+        (arg0: number): number;
+    }
+    type Int2DoubleFunction_ = Int2DoubleFunction;
+    class IngredientStack extends Internal.Record {
+        constructor(ingredient: Internal.Ingredient_, count: number)
+        count(): number;
+        ingredient(): Internal.Ingredient;
+        hasSufficientCount(arg0: Internal.StackedContents_): boolean;
+        testItem(arg0: Internal.ItemStack_): boolean;
+        static fromNetwork(arg0: Internal.FriendlyByteBuf_): Internal.IngredientStack;
+        getItemsWithCount(): Internal.List<Internal.ItemStack>;
+        toNetwork(arg0: Internal.FriendlyByteBuf_): void;
+        toJson(): Internal.JsonObject;
+        static fromJson(arg0: Internal.JsonObject_): Internal.IngredientStack;
+        getItems(): Internal.ItemStack[];
+        get itemsWithCount(): Internal.List<Internal.ItemStack>
+        get items(): Internal.ItemStack[]
+        static readonly COUNT_KEY: "count";
+        static readonly ALT_INGREDIENT_KEY: "alt";
+    }
+    type IngredientStack_ = IngredientStack;
+    interface BidirectionalIterator <K> extends Internal.Iterator<K> {
+        abstract hasPrevious(): boolean;
+        remove(): void;
+        abstract next(): K;
+        abstract hasNext(): boolean;
+        forEachRemaining(arg0: Internal.Consumer_<K>): void;
+        abstract previous(): K;
+    }
+    type BidirectionalIterator_<K> = BidirectionalIterator<K>;
+    class Display$RenderState extends Internal.Record {
+        constructor(arg0: Internal.Display$GenericInterpolator_<Internal.Transformation>, arg1: Internal.Display$BillboardConstraints_, arg2: number, arg3: Internal.Display$FloatInterpolator_, arg4: Internal.Display$FloatInterpolator_, arg5: number)
+        shadowStrength(): Internal.Display$FloatInterpolator;
+        brightnessOverride(): number;
+        billboardConstraints(): Internal.Display$BillboardConstraints;
+        glowColorOverride(): number;
+        transformation(): Internal.Display$GenericInterpolator<Internal.Transformation>;
+        shadowRadius(): Internal.Display$FloatInterpolator;
+    }
+    type Display$RenderState_ = Display$RenderState;
+    interface Stream$Builder <T> extends Internal.Consumer<T> {
+        andThen(arg0: Internal.Consumer_<T>): Internal.Consumer<T>;
+        add(arg0: T): this;
+        abstract build(): Internal.Stream<T>;
+        abstract accept(arg0: T): void;
+    }
+    type Stream$Builder_<T> = Stream$Builder<T>;
+    class AttributeModifier {
+        constructor(arg0: Internal.UUID_, arg1: string, arg2: number, arg3: Internal.AttributeModifier$Operation_)
+        constructor(arg0: string, arg1: number, arg2: Internal.AttributeModifier$Operation_)
+        constructor(arg0: Internal.UUID_, arg1: Internal.Supplier_<string>, arg2: number, arg3: Internal.AttributeModifier$Operation_)
+        save(): Internal.CompoundTag;
+        getAmount(): number;
+        getName(): string;
+        getId(): Internal.UUID;
+        static load(arg0: Internal.CompoundTag_): Internal.AttributeModifier;
+        getOperation(): Internal.AttributeModifier$Operation;
+        get amount(): number
+        get name(): string
+        get id(): Internal.UUID
+        get operation(): Internal.AttributeModifier$Operation
+    }
+    type AttributeModifier_ = AttributeModifier;
+    abstract class CapabilityProvider <B extends Internal.ICapabilityProviderImpl<B>> implements Internal.ICapabilityProviderImpl<B> {
+        areCapsCompatible(arg0: Internal.CapabilityProvider_<B>): boolean;
+        invalidateCaps(): void;
+        getCapability<T>(arg0: Internal.Capability_<T>, arg1: Internal.Direction_): Internal.LazyOptional<T>;
+        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
+        areCapsCompatible(arg0: Internal.CapabilityDispatcher_): boolean;
+        reviveCaps(): void;
+    }
+    type CapabilityProvider_<B extends Internal.ICapabilityProviderImpl<B>> = CapabilityProvider<B>;
+    class HumanoidModel <T extends Internal.LivingEntity> extends Internal.AgeableListModel<T> implements Internal.ArmedModel, Internal.HeadedModel {
+        constructor(arg0: Internal.ModelPart_)
+        constructor(arg0: Internal.ModelPart_, arg1: Internal.Function_<ResourceLocation, Internal.RenderType>)
+        setupAnim(arg0: T, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
+        copyPropertiesTo(arg0: Internal.HumanoidModel_<T>): void;
+        handler$bjk000$poseLeftArm(entity: Internal.LivingEntity_, ci: Internal.CallbackInfo_): void;
+        setAllVisible(arg0: boolean): void;
+        handler$bjk000$setupAnim(entity: Internal.LivingEntity_, limbSwing: number, limbSwingAmount: number, ageInTicks: number, netHeadYaw: number, headPitch: number, ci: Internal.CallbackInfo_): void;
+        getHead(): Internal.ModelPart;
+        translateToHand(arg0: Internal.HumanoidArm_, arg1: Internal.PoseStack_): void;
+        prepareMobModel(arg0: T, arg1: number, arg2: number, arg3: number): void;
+        handler$bjk000$poseRightArm(entity: Internal.LivingEntity_, ci: Internal.CallbackInfo_): void;
+        static createMesh(arg0: Internal.CubeDeformation_, arg1: number): Internal.MeshDefinition;
+        set allVisible(arg0: boolean)
+        get head(): Internal.ModelPart
+        rightArmPose: Internal.HumanoidModel$ArmPose;
+        readonly body: Internal.ModelPart;
+        static readonly TOOT_HORN_XROT_BASE: 1.4835298;
+        readonly head: Internal.ModelPart;
+        readonly leftArm: Internal.ModelPart;
+        readonly rightArm: Internal.ModelPart;
+        readonly leftLeg: Internal.ModelPart;
+        crouching: boolean;
+        leftArmPose: Internal.HumanoidModel$ArmPose;
+        readonly hat: Internal.ModelPart;
+        swimAmount: number;
+        static readonly HAT_OVERLAY_SCALE: 0.5;
+        static readonly LEGGINGS_OVERLAY_SCALE: -0.1;
+        readonly rightLeg: Internal.ModelPart;
+        static readonly OVERLAY_SCALE: 0.25;
+        static readonly TOOT_HORN_YROT_BASE: 0.5235988;
+    }
+    type HumanoidModel_<T extends Internal.LivingEntity> = HumanoidModel<T>;
+    class DogFoodItem extends Internal.ConsumableItem {
+        constructor(arg0: Internal.Item$Properties_)
         getMaxDamage(arg0: Internal.ItemStack_): number;
         elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
         getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
@@ -4702,7 +3758,7 @@ declare namespace Internal {
         canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
         getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
         setDigSpeed(speed: number): void;
-        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): Internal.InteractionResult;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
         isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
         isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
         getEnchantmentValue(arg0: Internal.ItemStack_): number;
@@ -4722,7 +3778,7 @@ declare namespace Internal {
         getCreatorModId(arg0: Internal.ItemStack_): string;
         canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
         getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
-        getHighlightTip(arg0: Internal.ItemStack_, arg1: Internal.Component_): Internal.Component;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
         onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
         onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
         canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
@@ -4758,7 +3814,999 @@ declare namespace Internal {
         doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
         getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
         getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
         shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        get creativeTab(): string
+        set armorKnockbackResistance(knockbackResistance: number)
+        set attackDamage(attackDamage: number)
+        get mod(): string
+        set armorProtection(armorProtection: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+        static readonly EFFECTS: [Internal.MobEffectInstance, Internal.MobEffectInstance, Internal.MobEffectInstance];
+    }
+    type DogFoodItem_ = DogFoodItem;
+    class ElevatorContactBlockEntity extends Internal.SmartBlockEntity {
+        constructor(arg0: Internal.BlockEntityType_<any>, arg1: BlockPos_, arg2: Internal.BlockState_)
+        getNames(): Internal.Couple<string>;
+        deserializeNBT(arg0: Internal.CompoundTag_): void;
+        updateDisplayedFloor(arg0: string): void;
+        deserializeNBT(arg0: Internal.Tag_): void;
+        requestModelDataUpdate(): void;
+        getModelData(): Internal.ModelData;
+        onLoad(): void;
+        serializeNBT(): Internal.Tag;
+        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
+        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
+        updateName(arg0: string, arg1: string): void;
+        get names(): Internal.Couple<string>
+        get modelData(): Internal.ModelData
+        shortName: string;
+        activateBlock: boolean;
+        lastReportedCurrentFloor: string;
+        longName: string;
+        columnCoords: Internal.ElevatorColumn$ColumnCoords;
+        doorControls: Internal.DoorControlBehaviour;
+    }
+    type ElevatorContactBlockEntity_ = ElevatorContactBlockEntity;
+    class SignedMessageBody extends Internal.Record {
+        constructor(arg0: string, arg1: Internal.Instant_, arg2: number, arg3: Internal.LastSeenMessages_)
+        content(): string;
+        lastSeen(): Internal.LastSeenMessages;
+        timeStamp(): Internal.Instant;
+        static unsigned(arg0: string): Internal.SignedMessageBody;
+        salt(): number;
+        pack(arg0: Internal.MessageSignatureCache_): Internal.SignedMessageBody$Packed;
+        updateSignature(arg0: Internal.SignatureUpdater$Output_): void;
+        static readonly MAP_CODEC: Internal.MapCodec<Internal.SignedMessageBody>;
+    }
+    type SignedMessageBody_ = SignedMessageBody;
+    class Period implements Internal.ChronoPeriod, Internal.Serializable {
+        withDays(arg0: number): this;
+        multipliedBy(arg0: number): Internal.ChronoPeriod;
+        static ofDays(arg0: number): Internal.Period;
+        isZero(): boolean;
+        toTotalMonths(): number;
+        static of(arg0: number, arg1: number, arg2: number): Internal.Period;
+        getDays(): number;
+        static between(arg0: Internal.ChronoLocalDate_, arg1: Internal.ChronoLocalDate_): Internal.ChronoPeriod;
+        static from(arg0: Internal.TemporalAmount_): Internal.Period;
+        static ofWeeks(arg0: number): Internal.Period;
+        withMonths(arg0: number): this;
+        getUnits(): Internal.List<Internal.TemporalUnit>;
+        minusYears(arg0: number): this;
+        get(arg0: Internal.TemporalUnit_): number;
+        getChronology(): Internal.IsoChronology;
+        isNegative(): boolean;
+        plusDays(arg0: number): this;
+        addTo(arg0: Internal.Temporal_): Internal.Temporal;
+        minus(arg0: Internal.TemporalAmount_): this;
+        static ofMonths(arg0: number): Internal.Period;
+        getYears(): number;
+        static parse(arg0: Internal.CharSequence_): Internal.Period;
+        getMonths(): number;
+        normalized(): Internal.ChronoPeriod;
+        subtractFrom(arg0: Internal.Temporal_): Internal.Temporal;
+        minusMonths(arg0: number): this;
+        minusDays(arg0: number): this;
+        plusYears(arg0: number): this;
+        plus(arg0: Internal.TemporalAmount_): Internal.ChronoPeriod;
+        static between(arg0: Internal.LocalDate_, arg1: Internal.LocalDate_): Internal.Period;
+        negated(): this;
+        static ofYears(arg0: number): Internal.Period;
+        withYears(arg0: number): this;
+        plusMonths(arg0: number): this;
+        get zero(): boolean
+        get days(): number
+        get units(): Internal.List<Internal.TemporalUnit>
+        get chronology(): Internal.IsoChronology
+        get negative(): boolean
+        get years(): number
+        get months(): number
+        static readonly ZERO: Internal.Period;
+    }
+    type Period_ = Period;
+    interface PointedDripstoneBlockAccess {
+        callFindBlockVertical(arg0: Internal.LevelAccessor_, arg1: BlockPos_, arg2: Internal.Direction$AxisDirection_, arg3: Internal.BiPredicate_<BlockPos, Internal.BlockState>, arg4: Internal.Predicate_<Internal.BlockState>, arg5: number): Internal.Optional<BlockPos>;
+        callIsStalactiteStartPos(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        callFindTip(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: number, arg4: boolean): BlockPos;
+        callCanDripThrough(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_): boolean;
+        callFindRootBlock(arg0: Internal.Level_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: number): Internal.Optional<BlockPos>;
+    }
+    type PointedDripstoneBlockAccess_ = PointedDripstoneBlockAccess;
+    class ReflectionNecklaceItem extends Internal.RelicItem implements Internal.IRenderableCurio {
+        constructor()
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        setExperience(arg0: Internal.ItemStack_, arg1: number): void;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        canSync(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        setAbilitiesTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        getStatData(arg0: string, arg1: string): Internal.StatData;
+        getAbilityQuality(arg0: Internal.ItemStack_, arg1: string): number;
+        getEnchantmentValue(arg0: Internal.ItemStack_): number;
+        canUseAbility(arg0: Internal.ItemStack_, arg1: string): boolean;
+        getRelicQuality(arg0: Internal.ItemStack_): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canUnequip(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        setAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string, arg3: number): void;
+        getExperienceLeftForLevel(arg0: Internal.ItemStack_, arg1: number): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        setLevel(arg0: Internal.ItemStack_, arg1: number): void;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        getSlotModifiers(arg0: Internal.ItemStack_): Internal.RelicSlotModifier;
+        getLevelFromExperience(arg0: Internal.ItemStack_, arg1: number): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getLootingBonus(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_, arg3: number): number;
+        tickActiveAbilitySelection(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: string): void;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getAbilityPoints(arg0: Internal.ItemStack_, arg1: string): number;
+        getItem(): Internal.Item;
+        addAbilityPoints(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canEquip(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_): boolean;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        showAttributesTooltip(arg0: string, arg1: Internal.ItemStack_): boolean;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        setAbilityTicking(arg0: Internal.ItemStack_, arg1: string, arg2: boolean): void;
+        addExperience(arg0: Internal.ItemStack_, arg1: number): boolean;
+        onEquipFromUse(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): void;
+        canUnequip(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        testAbilityCastPredicates(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        writeSyncData(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        readSyncData(arg0: Internal.CompoundTag_, arg1: Internal.ItemStack_): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canSync(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): boolean;
+        setAbilityPoints(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        setPoints(arg0: Internal.ItemStack_, arg1: number): void;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getFortuneBonus(arg0: string, arg1: Internal.LivingEntity_, arg2: Internal.ItemStack_, arg3: number): number;
+        getExperienceBetweenLevels(arg0: Internal.ItemStack_, arg1: number, arg2: number): number;
+        mayUpgrade(arg0: Internal.ItemStack_, arg1: string): boolean;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        mayPlayerReroll(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        onEquip(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getRelicData(): Internal.RelicData;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isAbilityTicking(arg0: Internal.ItemStack_, arg1: string): boolean;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        curioTick(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getExchanges(arg0: Internal.ItemStack_): number;
+        setDigSpeed(speed: number): void;
+        constructLayerDefinition(): Internal.LayerDefinition;
+        isAbilityMaxLevel(arg0: Internal.ItemStack_, arg1: string): boolean;
+        setAttackSpeed(attackSpeed: number): void;
+        isEnderMask(arg0: Internal.SlotContext_, arg1: Internal.EnderMan_, arg2: Internal.ItemStack_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        getLevel(arg0: Internal.ItemStack_): number;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        getStatQuality(arg0: Internal.ItemStack_, arg1: string, arg2: string): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        canRightClickEquip(arg0: Internal.ItemStack_): boolean;
+        getEquipSound(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): Internal.ICurio$SoundInfo;
+        canPlayerUseActiveAbility(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        bodyParts(): Internal.List<string>;
+        setRelicData(arg0: Internal.RelicData_): void;
+        getAbilityCastPredicates(arg0: string): Internal.CastPredicate;
+        isMaxLevel(arg0: Internal.ItemStack_): boolean;
+        addExchanges(arg0: Internal.ItemStack_, arg1: number): void;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        curioBreak(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): void;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        addAbilityCooldown(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        addPoints(arg0: Internal.ItemStack_, arg1: number): void;
+        getStatByQuality(arg0: string, arg1: string, arg2: number): number;
+        mayPlayerUpgrade(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        getRerollRequiredExperience(arg0: string): number;
+        arch$registryName(): ResourceLocation;
+        getAbilitiesTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        getDropRule(arg0: Internal.SlotContext_, arg1: DamageSource_, arg2: number, arg3: boolean, arg4: Internal.ItemStack_): Internal.ICurio$DropRule;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        randomizeStat(arg0: Internal.ItemStack_, arg1: string, arg2: string): void;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        getAbilityCooldown(arg0: Internal.ItemStack_, arg1: string): number;
+        getMaxQuality(): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        onUnequip(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        setAbilityTag(arg0: Internal.ItemStack_, arg1: string, arg2: Internal.CompoundTag_): void;
+        getExperience(arg0: Internal.ItemStack_): number;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getDropRule(arg0: Internal.LivingEntity_, arg1: Internal.ItemStack_): Internal.ICurio$DropRule;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        playRightClickEquipSound(arg0: Internal.LivingEntity_, arg1: Internal.ItemStack_): void;
+        setAbilityTempTag(arg0: Internal.ItemStack_, arg1: string, arg2: Internal.CompoundTag_): void;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        hasCurioCapability(arg0: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
+        getModel(arg0: Internal.ItemStack_): Internal.CurioModel;
+        getLevelingTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getCreatorModId(arg0: Internal.ItemStack_): string;
+        isExchangeAvailable(arg0: Internal.Player_, arg1: Internal.ItemStack_): boolean;
+        getAttributeModifiers(arg0: Internal.ItemStack_): Internal.RelicAttributeModifier;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        getAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string, arg3: number): number;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        getAbilityCooldownCap(arg0: Internal.ItemStack_, arg1: string): number;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        testAbilityCastPredicate(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string, arg3: string): boolean;
+        mayPlayerReset(arg0: Internal.Player_, arg1: Internal.ItemStack_, arg2: string): boolean;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
+        mayReroll(arg0: Internal.ItemStack_, arg1: string): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getTagsTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: Internal.ItemStack_): Internal.List<net.minecraft.network.chat.Component>;
+        getAbilityCastPredicate(arg0: string, arg1: string): Internal.PredicateEntry;
+        getAbilityData(arg0: string): Internal.AbilityData;
+        setAbilityCooldownCap(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        getAbilityTempTag(arg0: Internal.ItemStack_, arg1: string): Internal.CompoundTag;
+        getExchangeCost(arg0: Internal.ItemStack_): number;
+        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getLootData(): Internal.LootData;
+        getPoints(arg0: Internal.ItemStack_): number;
+        appendConfig(arg0: Internal.ConfigContext_): void;
+        isItemResearched(arg0: Internal.Player_): boolean;
+        setAttackDamage(attackDamage: number): void;
+        castActiveAbility(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: string, arg3: Internal.CastType_, arg4: Internal.CastStage_): void;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        curioBreak(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): void;
+        getResetRequiredExperience(arg0: Internal.ItemStack_, arg1: string): number;
+        setArmorToughness(armorToughness: number): void;
+        setItemResearched(arg0: Internal.Player_, arg1: boolean): void;
+        headParts(): Internal.List<string>;
+        setAbilityCooldown(arg0: Internal.ItemStack_, arg1: string, arg2: number): void;
+        getUpgradeRequiredExperience(arg0: Internal.ItemStack_, arg1: string): number;
+        dropAllocableExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: Internal.ItemStack_, arg3: number): void;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
+        getAbilityInitialValues(arg0: Internal.ItemStack_, arg1: string): Internal.Map<string, number>;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getAbilityInitialValue(arg0: Internal.ItemStack_, arg1: string, arg2: string): number;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        curioAnimate(arg0: string, arg1: number, arg2: Internal.LivingEntity_, arg3: Internal.ItemStack_): void;
+        getConfig(): Internal.OctoConfig;
+        readSyncData(arg0: Internal.SlotContext_, arg1: Internal.CompoundTag_, arg2: Internal.ItemStack_): void;
+        writeSyncData(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): Internal.CompoundTag;
+        getLootingLevel(arg0: Internal.SlotContext_, arg1: DamageSource_, arg2: Internal.LivingEntity_, arg3: number, arg4: Internal.ItemStack_): number;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        dropExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: number): void;
+        dropAllocableExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: Internal.ItemStack_, arg3: number, arg4: number): void;
+        getTexture(arg0: Internal.ItemStack_): ResourceLocation;
+        getFortuneLevel(arg0: Internal.SlotContext_, arg1: Internal.LootContext_, arg2: Internal.ItemStack_): number;
+        getAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string): number;
+        dropExperience(arg0: Internal.Level_, arg1: Vec3d_, arg2: Internal.ItemStack_, arg3: number): void;
+        render<T extends Internal.LivingEntity, M extends Internal.EntityModel<T>>(arg0: Internal.ItemStack_, arg1: Internal.SlotContext_, arg2: Internal.PoseStack_, arg3: Internal.RenderLayerParent_<T, M>, arg4: Internal.MultiBufferSource_, arg5: number, arg6: number, arg7: number, arg8: number, arg9: number, arg10: number, arg11: number): void;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        addExperience(arg0: Internal.Entity_, arg1: Internal.ItemStack_, arg2: number): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        onUnequip(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_, arg2: Internal.ItemStack_): void;
+        onEquip(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_, arg2: Internal.ItemStack_): void;
+        addAbilityValue(arg0: Internal.ItemStack_, arg1: string, arg2: string, arg3: number): void;
+        addLevel(arg0: Internal.ItemStack_, arg1: number): void;
+        setLevelingTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        getDamage(arg0: Internal.ItemStack_): number;
+        getSlotsTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: Internal.ItemStack_): Internal.List<net.minecraft.network.chat.Component>;
+        randomizeStats(arg0: Internal.ItemStack_, arg1: string): void;
+        getLevelingData(): Internal.LevelingData;
+        setExchanges(arg0: Internal.ItemStack_, arg1: number): void;
+        getMod(): string;
+        makesPiglinsNeutral(arg0: Internal.SlotContext_, arg1: Internal.ItemStack_): boolean;
+        getTotalExperienceForLevel(arg0: Internal.ItemStack_, arg1: number): number;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        mayReset(arg0: Internal.ItemStack_, arg1: string): boolean;
+        /**
+         * @deprecated
+         * This method is marked to be removed in future!
+        */
+        getAttributeModifiers(arg0: string, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        getAbilityTag(arg0: Internal.ItemStack_, arg1: string): Internal.CompoundTag;
+        isAbilityOnCooldown(arg0: Internal.ItemStack_, arg1: string): boolean;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        get item(): Internal.Item
+        get relicData(): Internal.RelicData
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        set relicData(arg0: Internal.RelicData_)
+        set armorKnockbackResistance(knockbackResistance: number)
+        get maxQuality(): number
+        get creativeTab(): string
+        get lootData(): Internal.LootData
+        set attackDamage(attackDamage: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+        get config(): Internal.OctoConfig
+        get levelingData(): Internal.LevelingData
+        get mod(): string
+        set armorProtection(armorProtection: number)
+        static readonly TAG_TIME: "time";
+        static readonly TAG_CHARGE: "charge";
+    }
+    type ReflectionNecklaceItem_ = ReflectionNecklaceItem;
+    abstract class BlockType {
+        getTypeName(): string;
+        getSound(): SoundType;
+        getItemOfThis(key: string): Internal.Item;
+        isVanilla(): boolean;
+        getChildren(): Internal.Set<Internal.Map$Entry<string, any>>;
+        getAppendableId(): string;
+        getChildKey(child: any): string;
+        abstract getTranslationKey(): string;
+        static changeItemType(current: Internal.Item_, originalMat: Internal.BlockType_, destinationMat: Internal.BlockType_): Internal.Item;
+        static changeBlockType(current: Internal.Block_, originalMat: Internal.BlockType_, destinationMat: Internal.BlockType_): Internal.Block;
+        getBlockOfThis(key: string): Internal.Block;
+        static changeType(current: any, originalMat: Internal.BlockType_, destinationMat: Internal.BlockType_): any;
+        getVariantId(baseName: string): string;
+        getChild(key: string): any;
+        abstract mainChild(): Internal.ItemLike;
+        getId(): ResourceLocation;
+        getVariantId(baseName: string, prefix: boolean): string;
+        getReadableName(): string;
+        getNamespace(): string;
+        addChild(genericName: string, obj: any): void;
+        getVariantId(postfix: string, prefix: string): string;
+        get typeName(): string
+        get sound(): SoundType
+        get vanilla(): boolean
+        get children(): Internal.Set<Internal.Map$Entry<string, any>>
+        get appendableId(): string
+        get translationKey(): string
+        get id(): ResourceLocation
+        get readableName(): string
+        get namespace(): string
+        readonly id: ResourceLocation;
+    }
+    type BlockType_ = BlockType;
+    class LongFallBoots extends Internal.ArmorItem {
+        constructor(arg0: Internal.ArmorMaterials_, arg1: number)
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
+        setDigSpeed(speed: number): void;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        getEnchantmentValue(arg0: Internal.ItemStack_): number;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        setAttackSpeed(attackSpeed: number): void;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getCreatorModId(arg0: Internal.ItemStack_): string;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        static addToTab(arg0: Internal.CreativeModeTab$Output_): void;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        static get(arg0: Internal.ItemStack_): Internal.Equipable;
+        getDamage(arg0: Internal.ItemStack_): number;
+        kjs$getMutableAttributeMap(): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        arch$registryName(): ResourceLocation;
+        setAttackDamage(attackDamage: number): void;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getMod(): string;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        setArmorToughness(armorToughness: number): void;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        swapWithEquipmentSlot(arg0: Internal.Item_, arg1: Internal.Level_, arg2: Internal.Player_, arg3: Internal.InteractionHand_): Internal.InteractionResultHolder<Internal.ItemStack>;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        get creativeTab(): string
+        set armorKnockbackResistance(knockbackResistance: number)
+        set attackDamage(attackDamage: number)
+        get mod(): string
+        set armorProtection(armorProtection: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+    }
+    type LongFallBoots_ = LongFallBoots;
+    interface ColorStyles$ITooltipStyle {
+        abstract applyColorTo(arg0: Internal.RenderTooltipEvent$Color_): void;
+        (arg0: Internal.RenderTooltipEvent$Color): void;
+    }
+    type ColorStyles$ITooltipStyle_ = ColorStyles$ITooltipStyle;
+    class EntityArrayList extends Internal.ArrayList<Internal.Entity> implements Internal.DataSenderKJS, Internal.MessageSenderKJS {
+        constructor(l: Internal.Level_, size: number)
+        constructor(l: Internal.Level_, entities: Internal.Iterable_<Internal.Entity>)
+        getDisplayName(): net.minecraft.network.chat.Component;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E): Internal.List<E>;
+        stream(): Internal.Stream<Internal.Entity>;
+        static copyOf<E>(arg0: Internal.Collection_<E>): Internal.List<E>;
+        filterSelector(selector: Internal.EntitySelector_): this;
+        kill(): void;
+        playSound(id: Internal.SoundEvent_, volume: number, pitch: number): void;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E): Internal.List<E>;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E): Internal.List<E>;
+        filter(filter: Internal.Predicate_<Internal.Entity>): this;
+        static of<E>(arg0: E): Internal.List<E>;
+        static of<E>(): Internal.List<E>;
+        static of<E>(...arg0: E[]): Internal.List<E>;
+        toArray<T>(arg0: Internal.IntFunction_<T[]>): T[];
+        addAllIterable(entities: Internal.Iterable_<Internal.Entity>): void;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E): Internal.List<E>;
+        getName(): net.minecraft.network.chat.Component;
+        static of<E>(arg0: E, arg1: E, arg2: E): Internal.List<E>;
+        runCommandSilent(command: string): number;
+        sendData(channel: string): void;
+        tell(message: net.minecraft.network.chat.Component_): void;
+        sendData(channel: string, data: Internal.CompoundTag_): void;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E): Internal.List<E>;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E, arg5: E, arg6: E, arg7: E, arg8: E, arg9: E): Internal.List<E>;
+        setStatusMessage(message: net.minecraft.network.chat.Component_): void;
+        getFirst(): Internal.Entity;
+        static of<E>(arg0: E, arg1: E): Internal.List<E>;
+        playSound(id: Internal.SoundEvent_): void;
+        static of<E>(arg0: E, arg1: E, arg2: E, arg3: E): Internal.List<E>;
+        runCommand(command: string): number;
+        parallelStream(): Internal.Stream<Internal.Entity>;
+        get displayName(): net.minecraft.network.chat.Component
+        get name(): net.minecraft.network.chat.Component
+        set statusMessage(message: net.minecraft.network.chat.Component_)
+        get first(): Internal.Entity
+        readonly level: Internal.Level;
+    }
+    type EntityArrayList_ = EntityArrayList;
+    class PlayerInteractEvent$RightClickEmpty extends Internal.PlayerInteractEvent {
+        constructor()
+        constructor(arg0: Internal.Player_, arg1: Internal.InteractionHand_)
+        getEntity(): Internal.LivingEntity;
+        get entity(): Internal.LivingEntity
+    }
+    type PlayerInteractEvent$RightClickEmpty_ = PlayerInteractEvent$RightClickEmpty;
+    class SchematicannonBlockEntity$State extends Internal.Enum<Internal.SchematicannonBlockEntity$State> {
+        static values(): Internal.SchematicannonBlockEntity$State[];
+        static valueOf(arg0: string): Internal.SchematicannonBlockEntity$State;
+        static readonly RUNNING: Internal.SchematicannonBlockEntity$State;
+        static readonly STOPPED: Internal.SchematicannonBlockEntity$State;
+        static readonly PAUSED: Internal.SchematicannonBlockEntity$State;
+    }
+    type SchematicannonBlockEntity$State_ = SchematicannonBlockEntity$State | "paused" | "stopped" | "running";
+    class Vec2 {
+        constructor(arg0: number, arg1: number)
+        add(arg0: number): this;
+        equals(arg0: Internal.Vec2_): boolean;
+        lengthSquared(): number;
+        length(): number;
+        normalized(): this;
+        distanceToSqr(arg0: Internal.Vec2_): number;
+        scale(arg0: number): this;
+        dot(arg0: Internal.Vec2_): number;
+        add(arg0: Internal.Vec2_): this;
+        negated(): this;
+        readonly y: number;
+        static readonly NEG_UNIT_X: Internal.Vec2;
+        static readonly MAX: Internal.Vec2;
+        readonly x: number;
+        static readonly MIN: Internal.Vec2;
+        static readonly ZERO: Internal.Vec2;
+        static readonly ONE: Internal.Vec2;
+        static readonly NEG_UNIT_Y: Internal.Vec2;
+        static readonly UNIT_Y: Internal.Vec2;
+        static readonly UNIT_X: Internal.Vec2;
+    }
+    type Vec2_ = Vec2;
+    interface IWrapperRecipe <T extends Internal.Recipe<any>> {
+        abstract getCompose(): T;
+        get compose(): T
+        (): T;
+    }
+    type IWrapperRecipe_<T extends Internal.Recipe<any>> = IWrapperRecipe<T>;
+    interface IValue {
+        abstract get(): number;
+        (): number;
+    }
+    type IValue_ = IValue;
+    class StorageTier extends Internal.Record {
+        constructor(index: number, namePrefix: string, bytes: number, idleDrain: number, componentSupplier: Internal.Supplier_<Internal.Item>)
+        idleDrain(): number;
+        namePrefix(): string;
+        bytes(): number;
+        index(): number;
+        componentSupplier(): Internal.Supplier<Internal.Item>;
+        static readonly SIZE_4K: Internal.StorageTier;
+        static readonly SIZE_256K: Internal.StorageTier;
+        static readonly SIZE_16K: Internal.StorageTier;
+        static readonly SIZE_64K: Internal.StorageTier;
+        static readonly SIZE_1K: Internal.StorageTier;
+    }
+    type StorageTier_ = StorageTier;
+    class RelicAttributeModifier {
+        getAttributes(): Internal.List<Internal.RelicAttributeModifier$Modifier>;
+        setAttributes(arg0: Internal.List_<Internal.RelicAttributeModifier$Modifier>): void;
+        static builder(): Internal.RelicAttributeModifier$RelicAttributeModifierBuilder;
+        get attributes(): Internal.List<Internal.RelicAttributeModifier$Modifier>
+        set attributes(arg0: Internal.List_<Internal.RelicAttributeModifier$Modifier>)
+    }
+    type RelicAttributeModifier_ = RelicAttributeModifier;
+    interface HolderGetter$Provider {
+        abstract lookup<T>(arg0: Internal.ResourceKey_<Internal.Registry<T>>): Internal.Optional<Internal.HolderGetter<T>>;
+        lookupOrThrow<T>(arg0: Internal.ResourceKey_<Internal.Registry<T>>): Internal.HolderGetter<T>;
+        (arg0: Internal.ResourceKey<Internal.Registry<T>>): Internal.Optional_<Internal.HolderGetter<T>>;
+    }
+    type HolderGetter$Provider_ = HolderGetter$Provider;
+    class GogglesItem extends Internal.Item {
+        constructor(arg0: Internal.Item$Properties_)
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        getBurnTime(arg0: Internal.ItemStack_, arg1: Internal.RecipeType_<any>): number;
+        setDigSpeed(speed: number): void;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        getEnchantmentValue(arg0: Internal.ItemStack_): number;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        setAttackSpeed(attackSpeed: number): void;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        static addIsWearingPredicate(arg0: Internal.Predicate_<Internal.Player>): void;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        initCapabilities(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): Internal.ICapabilityProvider;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getCreatorModId(arg0: Internal.ItemStack_): string;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        static isWearingGoggles(arg0: Internal.Player_): boolean;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        getDamage(arg0: Internal.ItemStack_): number;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        shouldCauseBlockBreakReset(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        arch$registryName(): ResourceLocation;
+        setAttackDamage(attackDamage: number): void;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getMod(): string;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        setArmorToughness(armorToughness: number): void;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
+        getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
+        onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
+        shouldCauseReequipAnimation(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: boolean): boolean;
+        static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
+        addAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_, name: string, d: number, operation: Internal.AttributeModifier$Operation_): void;
+        getDigSpeed(): number;
+        setTier(c: Internal.Consumer_<Internal.MutableToolTier>): void;
+        setFoodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>): void;
+        onBlockStartBreak(arg0: Internal.ItemStack_, arg1: BlockPos_, arg2: Internal.Player_): boolean;
+        set digSpeed(speed: number)
+        set attackSpeed(attackSpeed: number)
+        get creativeTab(): string
+        set armorKnockbackResistance(knockbackResistance: number)
+        set attackDamage(attackDamage: number)
+        get mod(): string
+        set armorProtection(armorProtection: number)
+        set armorToughness(armorToughness: number)
+        get digSpeed(): number
+        set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
+        set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
+    }
+    type GogglesItem_ = GogglesItem;
+    class CrushingWheelBlock extends Internal.RotatedPillarKineticBlock implements Internal.IBE<Internal.CrushingWheelBlockEntity> {
+        constructor(arg0: Internal.BlockBehaviour$Properties_)
+        isFlammable(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getRespawnPosition(arg0: Internal.BlockState_, arg1: Internal.EntityType_<any>, arg2: Internal.LevelReader_, arg3: BlockPos_, arg4: number, arg5: Internal.LivingEntity_): Internal.Optional<Vec3d>;
+        supportsExternalFaceHiding(arg0: Internal.BlockState_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        isFertile(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        collisionExtendsVertically(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        canBeHydrated(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.FluidState_, arg4: BlockPos_): boolean;
+        getBlockEntity(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.CrushingWheelBlockEntity;
+        onBlockStateChange(arg0: Internal.LevelReader_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_): void;
+        getWeakChanges(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): boolean;
+        getBlockEntityOptional(arg0: Internal.BlockGetter_, arg1: BlockPos_): Internal.Optional<Internal.CrushingWheelBlockEntity>;
+        getFriction(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): number;
+        canConnectRedstone(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isFireSource(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        isStickyBlock(arg0: Internal.BlockState_): boolean;
+        setLightEmission(v: number): void;
+        getBeaconColorMultiplier(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): number[];
+        onBlockExploded(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Explosion_): void;
+        getPistonPushReaction(arg0: Internal.BlockState_): Internal.PushReaction;
+        onWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): InteractionResult;
+        isSlimeBlock(arg0: Internal.BlockState_): boolean;
+        getAppearance(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.BlockState_, arg5: BlockPos_): Internal.BlockState;
+        getExpDrop(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.RandomSource_, arg3: BlockPos_, arg4: number, arg5: number): number;
+        setDestroySpeed(v: number): void;
+        canEntityDestroy(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        shouldDisplayFluidOverlay(arg0: Internal.BlockState_, arg1: Internal.BlockAndTintGetter_, arg2: BlockPos_, arg3: Internal.FluidState_): boolean;
+        playRemoveSound(arg0: Internal.Level_, arg1: BlockPos_): void;
+        rotate(arg0: Internal.BlockState_, arg1: Internal.LevelAccessor_, arg2: BlockPos_, arg3: Internal.Rotation_): Internal.BlockState;
+        canHarvestBlock(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        isValidSpawn(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.SpawnPlacements$Type_, arg4: Internal.EntityType_<any>): boolean;
+        getToolModifiedState(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_, arg2: Internal.ToolAction_, arg3: boolean): Internal.BlockState;
+        getBlockEntityType(): Internal.BlockEntityType<Internal.CrushingWheelBlockEntity>;
+        shouldCheckWeakPower(arg0: Internal.BlockState_, arg1: Internal.SignalGetter_, arg2: BlockPos_, arg3: Internal.Direction_): boolean;
+        getListener<T extends Internal.BlockEntity>(arg0: Internal.ServerLevel_, arg1: T): Internal.GameEventListener;
+        getFlammability(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        arch$holder(): Internal.Holder<Internal.Block>;
+        getMinimumRequiredSpeedLevel(): Internal.IRotate$SpeedLevel;
+        getTicker<S extends Internal.BlockEntity>(arg0: Internal.Level_, arg1: Internal.BlockState_, arg2: Internal.BlockEntityType_<S>): Internal.BlockEntityTicker<S>;
+        playRotateSound(arg0: Internal.Level_, arg1: BlockPos_): void;
+        isLadder(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        getCloneItemStack(arg0: Internal.BlockState_, arg1: Internal.HitResult_, arg2: Internal.BlockGetter_, arg3: BlockPos_, arg4: Internal.Player_): Internal.ItemStack;
+        onDestroyedByPlayer(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Player_, arg4: boolean, arg5: Internal.FluidState_): boolean;
+        makesOpenTrapdoorAboveClimbable(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.BlockState_): boolean;
+        getBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_): Internal.BlockPathTypes;
+        onNeighborChange(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): void;
+        newBlockEntity(arg0: BlockPos_, arg1: Internal.BlockState_): Internal.BlockEntity;
+        getMapColor(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.MapColor_): Internal.MapColor;
+        isPortalFrame(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        onCaughtFire(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_, arg4: Internal.LivingEntity_): void;
+        static onRemove(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.BlockState_): void;
+        isScaffolding(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.LivingEntity_): boolean;
+        hidesNeighborFace(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.BlockState_, arg3: Internal.BlockState_, arg4: Internal.Direction_): boolean;
+        onTreeGrow(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: Internal.BiConsumer_<BlockPos, Internal.BlockState>, arg3: Internal.RandomSource_, arg4: BlockPos_, arg5: Internal.TreeConfiguration_): boolean;
+        updateControllers(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Direction_): void;
+        getStateAtViewpoint(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Vec3d_): Internal.BlockState;
+        hideStressImpact(): boolean;
+        getBlockStates(): Internal.List<Internal.BlockState>;
+        onBlockEntityUse(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Function_<Internal.CrushingWheelBlockEntity, InteractionResult>): InteractionResult;
+        isBed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getExplosionResistance(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): number;
+        getBedDirection(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): Internal.Direction;
+        setRequiresTool(v: boolean): void;
+        canStickTo(arg0: Internal.BlockState_, arg1: Internal.BlockState_): boolean;
+        getFireSpreadSpeed(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Direction_): number;
+        onSneakWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): InteractionResult;
+        setBedOccupied(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.LivingEntity_, arg4: boolean): void;
+        getLightEmission(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): number;
+        getBlockEntityClass(): typeof Internal.CrushingWheelBlockEntity;
+        arch$registryName(): ResourceLocation;
+        getMod(): string;
+        addLandingEffects(arg0: Internal.BlockState_, arg1: Internal.ServerLevel_, arg2: BlockPos_, arg3: Internal.BlockState_, arg4: Internal.LivingEntity_, arg5: number): boolean;
+        getAdjacentBlockPathType(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Mob_, arg4: Internal.BlockPathTypes_): Internal.BlockPathTypes;
+        updateAfterWrenched(arg0: Internal.BlockState_, arg1: Internal.UseOnContext_): Internal.BlockState;
+        canDropFromExplosion(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_, arg3: Internal.Explosion_): boolean;
+        isConduitFrame(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: BlockPos_): boolean;
+        getRotatedBlockState(arg0: Internal.BlockState_, arg1: Internal.Direction_): Internal.BlockState;
+        addRunningEffects(arg0: Internal.BlockState_, arg1: Internal.Level_, arg2: BlockPos_, arg3: Internal.Entity_): boolean;
+        getEnchantPowerBonus(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_): number;
+        showCapacityWithAnnotation(): boolean;
+        getSoundType(arg0: Internal.BlockState_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Entity_): SoundType;
+        isBurning(arg0: Internal.BlockState_, arg1: Internal.BlockGetter_, arg2: BlockPos_): boolean;
+        withBlockEntityDo(arg0: Internal.BlockGetter_, arg1: BlockPos_, arg2: Internal.Consumer_<Internal.CrushingWheelBlockEntity>): void;
+        set lightEmission(v: number)
+        set destroySpeed(v: number)
+        get blockEntityType(): Internal.BlockEntityType<Internal.CrushingWheelBlockEntity>
+        get minimumRequiredSpeedLevel(): Internal.IRotate$SpeedLevel
+        get blockStates(): Internal.List<Internal.BlockState>
+        set requiresTool(v: boolean)
+        get blockEntityClass(): typeof Internal.CrushingWheelBlockEntity
+        get mod(): string
+    }
+    type CrushingWheelBlock_ = CrushingWheelBlock;
+    abstract class GridEvent {
+        constructor()
+    }
+    type GridEvent_ = GridEvent;
+    interface IItemFilter {
+        abstract filter(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        resetFilterData(filter: Internal.ItemStack_): void;
+        filterItem(filter: Internal.ItemStack_, item: Internal.Item_): boolean;
+        getDisplayItemStacks(filter: Internal.ItemStack_, list: Internal.List_<Internal.ItemStack>): void;
+        addInfo(filter: Internal.ItemStack_, info: Internal.FilterInfo_, expanded: boolean): void;
+        clearFilterCache(filter: Internal.ItemStack_): void;
+        (arg0: Internal.ItemStack, arg1: Internal.ItemStack): boolean;
+    }
+    type IItemFilter_ = IItemFilter;
+    interface Equipable extends Internal.Vanishable {
+        abstract getEquipmentSlot(): Internal.EquipmentSlot;
+        get(arg0: Internal.ItemStack_): this;
+        swapWithEquipmentSlot(arg0: Internal.Item_, arg1: Internal.Level_, arg2: Internal.Player_, arg3: Internal.InteractionHand_): Internal.InteractionResultHolder<Internal.ItemStack>;
+        getEquipSound(): Internal.SoundEvent;
+        get equipmentSlot(): Internal.EquipmentSlot
+        get equipSound(): Internal.SoundEvent
+        (): Internal.EquipmentSlot_;
+    }
+    type Equipable_ = Equipable;
+    class JsonRecipeJS extends Internal.RecipeJS {
+        constructor()
+        getMod(): string;
+        get mod(): string
+    }
+    type JsonRecipeJS_ = JsonRecipeJS;
+    class CopycatStairsBlock$FaceShape {
+        isFull(): boolean;
+        fillTop(direction: Internal.Direction$AxisDirection_): this;
+        countBlocks(): number;
+        rotate(angle: number): this;
+        canConnect(): boolean;
+        rotate(angle: number): this;
+        fillAll(): this;
+        fillTop(): this;
+        fillRow(top: boolean, direction: Internal.Direction$AxisDirection_): this;
+        set(bottomNegative: boolean, bottomPositive: boolean, topNegative: boolean, topPositive: boolean): this;
+        fillBottom(direction: Internal.Direction$AxisDirection_): this;
+        fillRow(top: boolean): this;
+        fillBottom(): this;
+        get full(): boolean
+        topPositive: boolean;
+        bottomNegative: boolean;
+        bottomPositive: boolean;
+        topNegative: boolean;
+    }
+    type CopycatStairsBlock$FaceShape_ = CopycatStairsBlock$FaceShape;
+    interface AsyncWaitStrategyFactory {
+    }
+    type AsyncWaitStrategyFactory_ = AsyncWaitStrategyFactory;
+    class DieselGeneratorBlockEntity extends Internal.GeneratingKineticBlockEntity {
+        constructor(arg0: Internal.BlockEntityType_<any>, arg1: BlockPos_, arg2: Internal.BlockState_)
+        onDirectionChanged(): void;
+        getCapability<T>(arg0: Internal.Capability_<T>, arg1: Internal.Direction_): Internal.LazyOptional<T>;
+        deserializeNBT(arg0: Internal.CompoundTag_): void;
+        deserializeNBT(arg0: Internal.Tag_): void;
+        getModelData(): Internal.ModelData;
+        onLoad(): void;
+        serializeNBT(): Internal.Tag;
+        containedFluidTooltip(arg0: Internal.List_<net.minecraft.network.chat.Component>, arg1: boolean, arg2: Internal.LazyOptional_<Internal.IFluidHandler>): boolean;
+        getCapability<T>(arg0: Internal.Capability_<T>): Internal.LazyOptional<T>;
+        hasCustomOutlineRendering(arg0: Internal.Player_): boolean;
+        get modelData(): Internal.ModelData
+        validFuel: boolean;
+        tank: Internal.SmartFluidTankBehaviour;
+        movementDirection: Internal.ScrollOptionBehaviour<Internal.WindmillBearingBlockEntity$RotationDirection>;
+        computerBehaviour: Internal.AbstractComputerBehaviour;
+    }
+    type DieselGeneratorBlockEntity_ = DieselGeneratorBlockEntity;
+    class FlorbItem extends Internal.FluidContainerItem {
+        constructor(arg0: Internal.Item$Properties_, arg1: number, arg2: Internal.Predicate_<Internal.FluidStack>)
+        getMaxDamage(arg0: Internal.ItemStack_): number;
+        elytraFlightTick(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): boolean;
+        getOrCreateTankTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        getShareTag(arg0: Internal.ItemStack_): Internal.CompoundTag;
+        isDamageable(arg0: Internal.ItemStack_): boolean;
+        isEnderMask(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.EnderMan_): boolean;
+        isEnabled(arg0: Internal.FeatureFlagSet_): boolean;
+        canGrindstoneRepair(arg0: Internal.ItemStack_): boolean;
+        setDigSpeed(speed: number): void;
+        onItemUseFirst(arg0: Internal.ItemStack_, arg1: Internal.UseOnContext_): InteractionResult;
+        isPiglinCurrency(arg0: Internal.ItemStack_): boolean;
+        isCorrectToolForDrops(arg0: Internal.ItemStack_, arg1: Internal.BlockState_): boolean;
+        canDisableShield(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_, arg2: Internal.LivingEntity_, arg3: Internal.LivingEntity_): boolean;
+        setAttackSpeed(attackSpeed: number): void;
+        canApplyAtEnchantingTable(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): boolean;
+        canWalkOnPowderedSnow(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        onStopUsing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_, arg2: number): void;
+        isNotReplaceableByPickAction(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: number): boolean;
+        isActive(arg0: Internal.ItemStack_): boolean;
+        getXpRepairRatio(arg0: Internal.ItemStack_): number;
+        getScaledFluidStored(arg0: Internal.ItemStack_, arg1: number): number;
+        isBookEnchantable(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getCreativeTab(): string;
+        onDroppedByPlayer(arg0: Internal.ItemStack_, arg1: Internal.Player_): boolean;
+        isDamaged(arg0: Internal.ItemStack_): boolean;
+        hasActiveTag(arg0: Internal.ItemStack_): boolean;
+        getDefaultTooltipHideFlags(arg0: Internal.ItemStack_): number;
+        getFluid(arg0: Internal.ItemStack_): Internal.FluidStack;
+        canContinueUsing(arg0: Internal.ItemStack_, arg1: Internal.ItemStack_): boolean;
+        getFoodProperties(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): Internal.FoodProperties;
+        getMaxStored(arg0: Internal.ItemStack_, arg1: number): number;
+        getHighlightTip(arg0: Internal.ItemStack_, arg1: net.minecraft.network.chat.Component_): net.minecraft.network.chat.Component;
+        onDestroyed(arg0: Internal.ItemEntity_, arg1: DamageSource_): void;
+        setActive(arg0: Internal.ItemStack_, arg1: boolean): void;
+        onLeftClickEntity(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): boolean;
+        canEquip(arg0: Internal.ItemStack_, arg1: Internal.EquipmentSlot_, arg2: Internal.Entity_): boolean;
+        makesPiglinsNeutral(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        removeAttribute(attribute: Internal.Attribute_, uuid: Internal.UUID_): void;
+        setArmorKnockbackResistance(knockbackResistance: number): void;
+        canPerformAction(arg0: Internal.ItemStack_, arg1: Internal.ToolAction_): boolean;
+        hasCustomEntity(arg0: Internal.ItemStack_): boolean;
+        onEntityItemUpdate(arg0: Internal.ItemStack_, arg1: Internal.ItemEntity_): boolean;
+        getDamage(arg0: Internal.ItemStack_): number;
+        isCreative(arg0: Internal.ItemStack_, arg1: Internal.ContainerType_): boolean;
+        addModeChangeTooltip(arg0: Internal.IMultiModeItem_, arg1: Internal.ItemStack_, arg2: Internal.Level_, arg3: Internal.List_<net.minecraft.network.chat.Component>, arg4: Internal.TooltipFlag_): void;
+        getCraftingRemainingItem(arg0: Internal.ItemStack_): Internal.ItemStack;
+        readShareTag(arg0: Internal.ItemStack_, arg1: Internal.CompoundTag_): void;
+        onArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Player_): void;
+        getEquipmentSlot(arg0: Internal.ItemStack_): Internal.EquipmentSlot;
+        setActive(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): void;
+        damageItem<T extends Internal.LivingEntity>(arg0: Internal.ItemStack_, arg1: number, arg2: T, arg3: Internal.Consumer_<T>): number;
+        addIncrementModeChangeTooltip(arg0: Internal.IMultiModeItem_, arg1: Internal.ItemStack_, arg2: Internal.Level_, arg3: Internal.List_<net.minecraft.network.chat.Component>, arg4: Internal.TooltipFlag_): void;
+        arch$registryName(): ResourceLocation;
+        setAttackDamage(attackDamage: number): void;
+        getAttributeModifiers(arg0: Internal.EquipmentSlot_, arg1: Internal.ItemStack_): Internal.Multimap<Internal.Attribute, Internal.AttributeModifier>;
+        arch$holder(): Internal.Holder<Internal.Item>;
+        getMod(): string;
+        canElytraFly(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        createEntity(arg0: Internal.Level_, arg1: Internal.Entity_, arg2: Internal.ItemStack_): Internal.Entity;
+        getArmorTexture(arg0: Internal.ItemStack_, arg1: Internal.Entity_, arg2: Internal.EquipmentSlot_, arg3: string): string;
+        getAttributes(attribute: Internal.Attribute_): Internal.List<Internal.AttributeModifier>;
+        setArmorProtection(armorProtection: number): void;
+        onEntitySwing(arg0: Internal.ItemStack_, arg1: Internal.LivingEntity_): boolean;
+        getEntityLifespan(arg0: Internal.ItemStack_, arg1: Internal.Level_): number;
+        setArmorToughness(armorToughness: number): void;
+        getSpace(arg0: Internal.ItemStack_): number;
+        setDamage(arg0: Internal.ItemStack_, arg1: number): void;
+        getFluidAmount(arg0: Internal.ItemStack_): number;
+        hasCraftingRemainingItem(arg0: Internal.ItemStack_): boolean;
+        getMaxStackSize(arg0: Internal.ItemStack_): number;
+        addEnergyTooltip(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.List_<net.minecraft.network.chat.Component>, arg3: Internal.TooltipFlag_, arg4: number, arg5: number, arg6: boolean): void;
+        doesSneakBypassUse(arg0: Internal.ItemStack_, arg1: Internal.LevelReader_, arg2: BlockPos_, arg3: Internal.Player_): boolean;
+        getSweepHitBox(arg0: Internal.ItemStack_, arg1: Internal.Player_, arg2: Internal.Entity_): Internal.AABB;
+        getEnchantmentLevel(arg0: Internal.ItemStack_, arg1: Internal.Enchantment_): number;
         getAllEnchantments(arg0: Internal.ItemStack_): Internal.Map<Internal.Enchantment, number>;
         onHorseArmorTick(arg0: Internal.ItemStack_, arg1: Internal.Level_, arg2: Internal.Mob_): void;
         static getPlayerPOVHitResult(arg0: Internal.Level_, arg1: Internal.Player_, arg2: Internal.ClipContext$Fluid_): Internal.BlockHitResult;
@@ -4779,38 +4827,33 @@ declare namespace Internal {
         set tier(c: Internal.Consumer_<Internal.MutableToolTier>)
         set foodProperties(consumer: Internal.Consumer_<Internal.FoodBuilder>)
     }
-    type ShockPendantItem_ = ShockPendantItem;
-    interface EntityDataSerializer <T> {
-        simple<T>(arg0: Internal.FriendlyByteBuf$Writer_<T>, arg1: Internal.FriendlyByteBuf$Reader_<T>): this;
-        simpleId<T>(arg0: Internal.IdMap_<T>): this;
-        createAccessor(arg0: number): Internal.EntityDataAccessor<T>;
-        optional<T>(arg0: Internal.FriendlyByteBuf$Writer_<T>, arg1: Internal.FriendlyByteBuf$Reader_<T>): Internal.EntityDataSerializer<Internal.Optional<T>>;
-        simpleEnum<T extends Internal.Enum<T>>(arg0: T): this;
-        abstract copy(arg0: T): T;
-        abstract write(arg0: Internal.FriendlyByteBuf_, arg1: T): void;
-        abstract read(arg0: Internal.FriendlyByteBuf_): T;
+    type FlorbItem_ = FlorbItem;
+    class TelemetryEventType {
+        id(): string;
+        isOptIn(): boolean;
+        title(): Internal.MutableComponent;
+        codec(): Internal.Codec<Internal.TelemetryEventInstance>;
+        export(arg0: Internal.TelemetrySession_, arg1: Internal.TelemetryPropertyMap_): Internal.TelemetryEvent;
+        static values(): Internal.List<Internal.TelemetryEventType>;
+        static builder(arg0: string, arg1: string): Internal.TelemetryEventType$Builder;
+        properties(): Internal.List<Internal.TelemetryProperty<any>>;
+        contains<T>(arg0: Internal.TelemetryProperty_<T>): boolean;
+        description(): Internal.MutableComponent;
+        get optIn(): boolean
+        static readonly PERFORMANCE_METRICS: Internal.TelemetryEventType;
+        static readonly GAME_LOAD_TIMES: Internal.TelemetryEventType;
+        static readonly WORLD_UNLOADED: Internal.TelemetryEventType;
+        static readonly WORLD_LOADED: Internal.TelemetryEventType;
+        static readonly WORLD_LOAD_TIMES: Internal.TelemetryEventType;
+        static readonly ADVANCEMENT_MADE: Internal.TelemetryEventType;
+        static readonly CODEC: Internal.Codec<Internal.TelemetryEventType>;
     }
-    type EntityDataSerializer_<T> = EntityDataSerializer<T>;
+    type TelemetryEventType_ = TelemetryEventType;
 }
-declare namespace it.unimi.dsi.fastutil.ints {
-    interface IntBinaryOperator extends Internal.IntBinaryOperator, Internal.BinaryOperator<number> {
-        abstract apply(arg0: number, arg1: number): number;
-        /**
-         * @deprecated
-        */
-        apply(arg0: any, arg1: any): any;
-        andThen<V>(arg0: Internal.Function_<number, V>): Internal.BiFunction<number, number, V>;
-        maxBy<T>(arg0: Internal.Comparator_<T>): Internal.BinaryOperator<T>;
-        minBy<T>(arg0: Internal.Comparator_<T>): Internal.BinaryOperator<T>;
-        /**
-         * @deprecated
-        */
-        applyAsInt(arg0: number, arg1: number): number;
-        /**
-         * @deprecated
-        */
-        apply(arg0: number, arg1: number): number;
-        (arg0: number, arg1: number): number;
+declare namespace org.apache.logging.log4j.util {
+    interface BiConsumer <K, V> {
+        abstract accept(k: K, v: V): void;
+        (k: K, v: V): void;
     }
-    type IntBinaryOperator_ = IntBinaryOperator;
+    type BiConsumer_<K, V> = BiConsumer<K, V>;
 }

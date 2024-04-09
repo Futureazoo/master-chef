@@ -3,10 +3,132 @@
 	default_quest_shape: ""
 	filename: "f4r"
 	group: "194F7D7BB1ECC8F5"
-	icon: "farmersdelight:minced_beef"
+	icon: "kubejs:cube_of_beef"
 	id: "5D58783A535F0422"
-	order_index: 4
+	order_index: 3
 	quest_links: [ ]
-	quests: [ ]
+	quests: [
+		{
+			dependencies: ["52B2BD0FEE9FA674"]
+			id: "4C44904D2E46A28C"
+			tasks: [{
+				id: "2512D2D2114A785B"
+				item: "kubejs:cube_of_beef"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -4.0d
+		}
+		{
+			dependencies: ["74F3AAF180CC0D39"]
+			id: "43D9D82BDFFFB57D"
+			tasks: [{
+				id: "01D9256986B1DE8E"
+				item: "kubejs:cube_of_chicken"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["5298CBF39DB08BFA"]
+			id: "1F3794B881E8C2B6"
+			tasks: [{
+				id: "2222BC2ACBCD9CB5"
+				item: "kubejs:cube_of_mutton"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["08F434FF669EBDCC"]
+			id: "375EF82B7F47D280"
+			tasks: [{
+				id: "7947CC6233230FC9"
+				item: "kubejs:cube_of_pork"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["1E73345E521282BE"]
+			id: "4875B2D8D33D485F"
+			tasks: [{
+				id: "7F83872F780F5AD9"
+				item: "thermal:lightning_charge"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["4875B2D8D33D485F"]
+			id: "52B2BD0FEE9FA674"
+			tasks: [{
+				id: "0CDA27777152955B"
+				item: "kubejs:liquid_beef_bucket"
+				type: "item"
+			}]
+			x: -2.0d
+			y: -4.0d
+		}
+		{
+			dependencies: ["4875B2D8D33D485F"]
+			id: "74F3AAF180CC0D39"
+			tasks: [{
+				id: "305C95763681CE27"
+				item: "kubejs:liquid_chicken_bucket"
+				type: "item"
+			}]
+			x: -2.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["4875B2D8D33D485F"]
+			id: "5298CBF39DB08BFA"
+			tasks: [{
+				id: "299DF2AA2C685CA3"
+				item: "kubejs:liquid_mutton_bucket"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["4875B2D8D33D485F"]
+			id: "08F434FF669EBDCC"
+			tasks: [{
+				id: "2858F84A6D73D384"
+				item: "kubejs:liquid_pork_bucket"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["3A504340E0ECEFF4"]
+			id: "1E73345E521282BE"
+			tasks: [{
+				id: "2E88C4EE775AAD1B"
+				item: "thermal:earth_charge"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -4.0d
+		}
+		{
+			id: "3A504340E0ECEFF4"
+			tasks: [{
+				id: "17F19ECCC1576B82"
+				item: "supplementaries:ash"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -6.0d
+		}
+	]
+	subtitle: ["It's Alive!"]
 	title: "&f4&r Vats of Meat"
 }

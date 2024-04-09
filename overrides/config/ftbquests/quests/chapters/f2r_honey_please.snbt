@@ -60,31 +60,35 @@
 				type: "checkmark"
 			}]
 			title: "Chapter 2: Master Baking"
-			x: -0.5d
-			y: -4.0d
+			x: -7.125d
+			y: 1.5d
 		}
 		{
 			id: "15F4621A89CB26BC"
+			subtitle: "Poor Bessie..."
 			tasks: [{
 				id: "2D1A6273CB0B39D3"
 				item: "minecraft:milk_bucket"
 				type: "item"
 			}]
-			x: -0.5d
-			y: -1.0d
+			x: 1.0d
+			y: -2.5d
 		}
 		{
-			dependencies: ["249B2A368BE6C919"]
+			dependencies: [
+				"4285C882CBE32B4C"
+				"77A9061E6724EC7F"
+			]
 			id: "60CC1912755945B5"
 			shape: "hexagon"
-			size: 2.0d
+			size: 1.5d
 			tasks: [{
 				id: "57C9EFF53E16452C"
 				item: "createaddition:chocolate_cake"
 				type: "item"
 			}]
-			x: -0.4988095238095127d
-			y: 6.5238095238095255d
+			x: 6.0d
+			y: 1.5d
 		}
 		{
 			dependencies: ["5DA4034219D7C19E"]
@@ -94,44 +98,38 @@
 				item: "createaddition:cake_base_baked"
 				type: "item"
 			}]
-			x: -0.5d
-			y: 4.5d
+			x: -1.0d
+			y: 1.5d
 		}
 		{
-			dependencies: ["249B2A368BE6C919"]
+			dependencies: [
+				"4285C882CBE32B4C"
+				"4DC9D14470A87632"
+			]
 			id: "3DB7D6F49556FA8D"
 			shape: "hexagon"
-			size: 2.0d
+			size: 1.5d
 			tasks: [{
 				id: "7358876E87B1D13C"
 				item: "minecraft:cake"
 				type: "item"
 			}]
-			x: 2.0d
-			y: 5.5d
+			x: 7.0d
+			y: 3.5d
 		}
 		{
-			dependencies: ["249B2A368BE6C919"]
-			id: "2DBB9AEF3B2D9C0E"
-			shape: "pentagon"
-			size: 2.0d
-			tasks: [{
-				id: "6D61F2A2E35D5895"
-				item: "createaddition:honey_cake"
-				type: "item"
-			}]
-			x: -3.0d
-			y: 5.5d
-		}
-		{
+			dependencies: [
+				"6A742724E51EEA3C"
+				"56DBAD9265FE3BBA"
+			]
 			id: "5DA4034219D7C19E"
 			tasks: [{
 				id: "16F09493A586F517"
 				item: "createaddition:cake_base"
 				type: "item"
 			}]
-			x: -0.5d
-			y: 2.5d
+			x: -3.0d
+			y: 1.5d
 		}
 		{
 			id: "307BFE269769BF38"
@@ -140,8 +138,8 @@
 				item: "minecraft:cocoa_beans"
 				type: "item"
 			}]
-			x: -3.0d
-			y: -1.0d
+			x: -1.0d
+			y: -2.5d
 		}
 		{
 			id: "521824701DA2FA72"
@@ -150,18 +148,23 @@
 				item: "minecraft:sugar_cane"
 				type: "item"
 			}]
-			x: -6.0d
-			y: -1.0d
+			x: 3.0d
+			y: -2.5d
 		}
 		{
+			dependencies: [
+				"197DBB13038BA5E1"
+				"307BFE269769BF38"
+				"15F4621A89CB26BC"
+			]
 			id: "593731527A235FAE"
 			tasks: [{
 				id: "191BBF3A80BF381D"
-				item: "create:bar_of_chocolate"
+				item: "create:chocolate_bucket"
 				type: "item"
 			}]
-			x: -4.0d
-			y: 2.0d
+			x: 1.0d
+			y: -0.5d
 		}
 		{
 			id: "4285C882CBE32B4C"
@@ -170,8 +173,8 @@
 				item: "minecraft:sweet_berries"
 				type: "item"
 			}]
-			x: 5.0d
-			y: -1.0d
+			x: 7.0d
+			y: -2.5d
 		}
 		{
 			id: "3DA15686ACE29E3A"
@@ -180,28 +183,20 @@
 				item: "minecraft:egg"
 				type: "item"
 			}]
-			x: 2.0d
-			y: -1.0d
+			x: -3.0d
+			y: -2.5d
 		}
 		{
 			id: "6A742724E51EEA3C"
+			shape: "hexagon"
+			size: 2.0d
 			tasks: [{
 				id: "63A20DE6F8109D5C"
 				item: "farmersdelight:wheat_dough"
 				type: "item"
 			}]
-			x: -0.5d
-			y: -2.5d
-		}
-		{
-			id: "24A6E167894A8972"
-			tasks: [{
-				id: "0689D1A64B52474C"
-				item: "minecraft:honey_bottle"
-				type: "item"
-			}]
-			x: -9.0d
-			y: -1.0d
+			x: -4.982142857142854d
+			y: 1.5d
 		}
 		{
 			dependencies: ["3DA15686ACE29E3A"]
@@ -211,9 +206,164 @@
 				item: "kubejs:liquid_egg_bucket"
 				type: "item"
 			}]
-			x: 2.0d
-			y: 0.5d
+			x: -3.0d
+			y: -0.5d
+		}
+		{
+			dependencies: [
+				"521824701DA2FA72"
+				"04AE877BC28626A1"
+			]
+			dependency_requirement: "one_completed"
+			id: "197DBB13038BA5E1"
+			tasks: [{
+				id: "480E1C2A6C238F09"
+				item: "minecraft:sugar"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -0.5d
+		}
+		{
+			dependencies: [
+				"249B2A368BE6C919"
+				"15F4621A89CB26BC"
+			]
+			id: "4DC9D14470A87632"
+			tasks: [{
+				id: "72EECB832BB88F70"
+				item: "kubejs:frosted_cake"
+				type: "item"
+			}]
+			x: 1.0d
+			y: 3.5d
+		}
+		{
+			dependencies: [
+				"249B2A368BE6C919"
+				"593731527A235FAE"
+			]
+			id: "77A9061E6724EC7F"
+			tasks: [{
+				id: "40DBFED9EDE63D90"
+				item: "kubejs:chocolate_frosted_cake"
+				type: "item"
+			}]
+			x: 1.0d
+			y: 1.5d
+		}
+		{
+			dependencies: ["3DA15686ACE29E3A"]
+			id: "0568670F2E0EF969"
+			shape: "octagon"
+			subtitle: "Valuable Byproduct"
+			tasks: [{
+				id: "7A966850EBA7A397"
+				item: "minecraft:bone_meal"
+				type: "item"
+			}]
+			x: -4.5d
+			y: -2.5d
+		}
+		{
+			dependencies: [
+				"249B2A368BE6C919"
+				"04AE877BC28626A1"
+			]
+			id: "14C67AD732D25364"
+			shape: "hexagon"
+			size: 1.5d
+			tasks: [{
+				id: "39DD3FDE94B015D7"
+				item: "createaddition:honey_cake"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -0.5d
+		}
+		{
+			id: "04AE877BC28626A1"
+			tasks: [{
+				id: "6C9E597999E60595"
+				item: "create:honey_bucket"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -2.5d
+		}
+		{
+			id: "0FED54ABE1721D9B"
+			shape: "circle"
+			tasks: [{
+				id: "10D42335C054E825"
+				item: "create:deployer"
+				type: "item"
+			}]
+			x: 1.0d
+			y: -4.5d
+		}
+		{
+			id: "4C9180CEAEA1D576"
+			shape: "circle"
+			tasks: [{
+				id: "74E6D975A3AB05D7"
+				item: "minecraft:piston"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -4.5d
+		}
+		{
+			id: "1676E5C55BC6AEAF"
+			shape: "circle"
+			tasks: [{
+				id: "0FC6A1986D362AD4"
+				item: "thermal:device_hive_extractor"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -4.5d
+		}
+		{
+			description: [
+				"Did you know that &6Foxes&r love &bSweet Berries&r just as much as we do? If you leave a &6Fox&r in a field of &bSweet Berry Bushes&r with an inconspicuous collection system, you can have a two in one zoo exhibit and farm!"
+				""
+				"Or you can use &6Harvesters.&r I GUESS."
+			]
+			id: "4A73681201B6E1CF"
+			shape: "circle"
+			subtitle: "Fantastic!"
+			tasks: [{
+				id: "79918DBC7DFC6A0E"
+				item: "minecraft:fox_spawn_egg"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -4.5d
+		}
+		{
+			id: "481D78547BB0964D"
+			shape: "circle"
+			tasks: [{
+				id: "186F2C6FABF57C39"
+				item: "create:mechanical_harvester"
+				type: "item"
+			}]
+			x: -1.0d
+			y: -4.5d
+		}
+		{
+			id: "561BB79CF16A041E"
+			shape: "circle"
+			tasks: [{
+				id: "27718771C2CB4B0D"
+				item: "create:item_drain"
+				type: "item"
+			}]
+			x: -3.0d
+			y: -4.5d
 		}
 	]
+	subtitle: ["Delicate Fluid Handling"]
 	title: "&f2&r Master Baking"
 }

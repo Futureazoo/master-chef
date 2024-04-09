@@ -228,6 +228,12 @@ declare namespace Registry {
     }
     class WorldgenMultiNoiseBiomeSourceParameterList extends Internal.RegistryEventJS<any> {
     }
+    class Keytypes extends Internal.RegistryEventJS<any> {
+    }
+    class BioForgeTab extends Internal.RegistryEventJS<any> {
+    }
+    class Serum extends Internal.RegistryEventJS<any> {
+    }
     class BiomeModifierSerializers extends Internal.RegistryEventJS<any> {
     }
     class DisplayContexts extends Internal.RegistryEventJS<any> {
@@ -242,16 +248,20 @@ declare namespace Registry {
     }
     class StructureModifierSerializers extends Internal.RegistryEventJS<any> {
     }
+    class Contextual extends Internal.RegistryEventJS<any> {
+    }
+    class PostAction extends Internal.RegistryEventJS<any> {
+    }
     class ParticleType extends Internal.RegistryEventJS<any> {
-    }
-    class MapMarkers extends Internal.RegistryEventJS<any> {
-    }
-    class SoftFluids extends Internal.RegistryEventJS<any> {
     }
     class StructureModifier extends Internal.RegistryEventJS<any> {
     }
+    class BargainTypes extends Internal.RegistryEventJS<any> {
+    }
+    class SoftFluids extends Internal.RegistryEventJS<any> {
+    }
     class BiomeModifier extends Internal.RegistryEventJS<any> {
     }
-    class BargainTypes extends Internal.RegistryEventJS<any> {
+    class MapMarkers extends Internal.RegistryEventJS<any> {
     }
 }
